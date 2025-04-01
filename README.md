@@ -24,7 +24,7 @@ L'aplicació consta de dues versions:
 - **Aplicació mòbil:** Desenvolupada amb *Android Studio*
 - **Web service:** Implementat amb *C#*
 - **Programa d'escriptori:** Desenvolupat amb *C#*
-- **Base de dades:** *MySQL* o *MSSQL*
+- **Base de dades:** *MySQL* o *MSSQL* o *SQLite*
 
 ## Programes Similars i Millores
 - **Winfotinto:** Un programa antic i poc actualitzat. LaundryGest oferirà una gestió de dades més eficient i inclourà funcionalitats innovadores que no es troben en les solucions actuals.
