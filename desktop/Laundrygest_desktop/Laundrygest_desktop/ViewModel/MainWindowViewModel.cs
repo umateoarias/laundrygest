@@ -35,19 +35,19 @@ namespace Laundrygest_desktop
         {
             switch (destination)
             {
-                case "0":
+                case "clothes":
                     SelectedView = new ClothesViewModel();
                     break;
-                case "1":
+                case "quilts":
                     SelectedView = new QuiltsViewModel();
                     break;
-                case "2":
+                case "stats":
                     SelectedView = new StatsViewModel();
                     break;
-                case "3":
+                case "app":
                     SelectedView = new AppViewModel();
                     break;
-                case "4":
+                case "config":
                     SelectedView = new ConfigViewModel();
                     break;
             }

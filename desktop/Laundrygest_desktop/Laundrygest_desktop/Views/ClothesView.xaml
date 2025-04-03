@@ -10,8 +10,17 @@
     <UserControl.DataContext>
         <Laundrygest_desktop:ClothesViewModel/>
     </UserControl.DataContext>
+    
     <Grid>
-        <TextBlock Text="Estas a la finestra clothes"/>
-        <Button x:Name="btnCollectionIn" Height="60" Width="120" Content="Recollides"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Estas a la finestra clothes"/>
+        <Button Grid.Column="0" Grid.Row="0" x:Name="btnCollectionIn" Height="60" Width="120" Content="Recollides"/>
     </Grid>
 </UserControl>

@@ -18,41 +18,41 @@
 
         <Border Grid.Column="0" Background="#008968">
             <StackPanel>
-                <RadioButton x:Name="btnInicio" GroupName="Menu" 
+                <RadioButton x:Name="btnClothes" GroupName="Menu" 
                            Style="{StaticResource MenuButtonStyle}"
                            Content="Roba"
                              Command="{Binding NavigateCommand}"
-                             CommandParameter="0"
+                             CommandParameter="clothes"
                            IsChecked="True" 
 />
-                <RadioButton x:Name="btnClientes" GroupName="Menu" 
+                <RadioButton x:Name="btnQuilts" GroupName="Menu" 
                            Style="{StaticResource MenuButtonStyle}"
                            Command="{Binding NavigateCommand}"
-                             CommandParameter="1"
+                             CommandParameter="quilts"
                            Content="Edredons"/>
 
-                <RadioButton x:Name="btnFacturas" GroupName="Menu" 
+                <RadioButton x:Name="btnStats" GroupName="Menu" 
                            Style="{StaticResource MenuButtonStyle}"
                            Command="{Binding NavigateCommand}"
-                             CommandParameter="2"
+                             CommandParameter="stats"
                            Content="Estadistiques"/>
 
-                <RadioButton x:Name="btnReportes" GroupName="Menu" 
+                <RadioButton x:Name="btnApp" GroupName="Menu" 
                            Style="{StaticResource MenuButtonStyle}"
                              Command="{Binding NavigateCommand}"
-                             CommandParameter="3"
+                             CommandParameter="app"
                            Content="App"/>
 
                 <RadioButton x:Name="btnConfig" GroupName="Menu" 
                            Style="{StaticResource MenuButtonStyle}"
                              Command="{Binding NavigateCommand}"
-                             CommandParameter="4"
+                             CommandParameter="config"
                            Content="Configuració"/>
             </StackPanel>
         </Border>
 
         <Border Grid.Column="1" Background="#ECF0F1">
-            <ContentControl>
+            <ContentControl Content="{Binding SelectedView}">
                 <ContentControl.Resources>
                     <DataTemplate DataType="{x:Type local:ClothesViewModel}">
                         <local1:ClothesView/>
