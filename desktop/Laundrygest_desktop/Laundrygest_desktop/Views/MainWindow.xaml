@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Laundrygest_desktop"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:local1="clr-namespace:Laundrygest_desktop.Views" x:Class="Laundrygest_desktop.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1600">
+        Title="MainWindow" Height="900" Width="1600"
+    WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <local:MainWindowViewModel/>
     </Window.DataContext>
@@ -16,7 +17,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Background="#008968">
+        <Border Grid.Column="0" Background="#E2E7F0">
             <StackPanel>
                 <RadioButton x:Name="btnClothes" GroupName="Menu" 
                            Style="{StaticResource MenuButtonStyle}"

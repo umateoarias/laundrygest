@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Laundrygest_desktop
+namespace Laundrygest_desktop.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CollectionDialog.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class CollectionDialog : Window
     {
-        public MainWindow()
+        public CollectionDialog()
         {
             InitializeComponent();
             this.WindowState = System.Windows.WindowState.Maximized;

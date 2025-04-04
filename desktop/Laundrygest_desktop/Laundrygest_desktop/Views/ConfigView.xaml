@@ -10,7 +10,7 @@
     <UserControl.DataContext>
         <Laundrygest_desktop:ConfigViewModel/>
     </UserControl.DataContext>
-    <Grid>
+    <Grid Background="#FFFFFF">
         <TextBlock Text="Estas a la finestra config"/>
     </Grid>
 </UserControl>

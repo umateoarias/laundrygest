@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,7 +27,7 @@ namespace Laundrygest_desktop
 
         public MainWindowViewModel()
         {
-            NavigateCommand = new RelayCommand<string>(Navigate);
+            NavigateCommand = new DelegateCommand<string>(Navigate);
             SelectedView = new ClothesViewModel();
         }
 

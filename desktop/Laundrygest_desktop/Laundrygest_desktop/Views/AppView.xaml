@@ -10,7 +10,21 @@
     <UserControl.DataContext>
         <Laundrygest_desktop:AppViewModel/>
     </UserControl.DataContext>
-    <Grid>
-        <TextBlock Text="Estas a la finestra app"/>
+    <Grid Background="#FFFFFF">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Grid.Column="1" Grid.Row="1" x:Name="btnAppRegister" Style="{StaticResource WindowButtons}" Height="90" Width="160" Content="Alta usuaris"/>
+        <Button Grid.Column="3" Grid.Row="1" x:Name="btnAppNotifications" Style="{StaticResource WindowButtons}" Height="90" Width="160" Content="Configurar notificacions"/>
     </Grid>
 </UserControl>
