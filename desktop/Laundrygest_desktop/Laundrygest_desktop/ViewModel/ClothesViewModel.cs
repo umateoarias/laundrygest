@@ -13,15 +13,23 @@ namespace Laundrygest_desktop
     {
         public ClothesViewModel() {
             CreateCollectionCommand = new DelegateCommand(OpenCollectionDialog);
+            FinishCollectionCommand = new DelegateCommand(OpenCollectionDialog);
         }
 
         public ICommand CreateCollectionCommand { get; }
+        public ICommand FinishCollectionCommand { get; }
 
         public void OpenCollectionDialog()
         {
             var dialog = new CollectionDialog();
-            dialog.ShowDialog();
+            dialog.Show();
             dialog.WindowState = System.Windows.WindowState.Maximized;
+        }
+
+        public void FinishCollectionDialog()
+        {
+            var dialog = new SearchClientDialog(2);
+            dialog.Show();            
         }
     }
 }

@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Laundrygest_desktop"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:local1="clr-namespace:Laundrygest_desktop.Views" x:Class="Laundrygest_desktop.MainWindow"
         mc:Ignorable="d"
+        
         Title="MainWindow" Height="900" Width="1600"
     WindowStartupLocation="CenterScreen">
     <Window.DataContext>
@@ -19,34 +21,34 @@
 
         <Border Grid.Column="0" Background="#E2E7F0">
             <StackPanel>
-                <RadioButton x:Name="btnClothes" GroupName="Menu" 
-                           Style="{StaticResource MenuButtonStyle}"
+                <RadioButton x:Name="btnClothes" GroupName="Menu"                            
                            Content="Roba"
+                             Style="{StaticResource MenuButtonStyle}"
                              Command="{Binding NavigateCommand}"
                              CommandParameter="clothes"
                            IsChecked="True" 
 />
                 <RadioButton x:Name="btnQuilts" GroupName="Menu" 
-                           Style="{StaticResource MenuButtonStyle}"
+                             Style="{StaticResource MenuButtonStyle}"
                            Command="{Binding NavigateCommand}"
                              CommandParameter="quilts"
                            Content="Edredons"/>
 
                 <RadioButton x:Name="btnStats" GroupName="Menu" 
-                           Style="{StaticResource MenuButtonStyle}"
+                             Style="{StaticResource MenuButtonStyle}"
                            Command="{Binding NavigateCommand}"
                              CommandParameter="stats"
                            Content="Estadistiques"/>
 
                 <RadioButton x:Name="btnApp" GroupName="Menu" 
-                           Style="{StaticResource MenuButtonStyle}"
                              Command="{Binding NavigateCommand}"
+                             Style="{StaticResource MenuButtonStyle}"
                              CommandParameter="app"
                            Content="App"/>
 
                 <RadioButton x:Name="btnConfig" GroupName="Menu" 
-                           Style="{StaticResource MenuButtonStyle}"
                              Command="{Binding NavigateCommand}"
+                             Style="{StaticResource MenuButtonStyle}"
                              CommandParameter="config"
                            Content="Configuració"/>
             </StackPanel>
