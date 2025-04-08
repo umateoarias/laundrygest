@@ -21,6 +21,12 @@ public partial class Client
 
     public string? PasswordApp { get; set; }
 
+    public string? Address { get; set; }
+
+    public string? PostalCode { get; set; }
+
+    public string? Locality { get; set; }
+
     public virtual ICollection<Collection> Collections { get; set; } = new List<Collection>();
 
     public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();

@@ -22,8 +22,9 @@ namespace Laundrygest_desktop.ViewModel
         public void OpenSearchClientDialog()
         {
             var dialog = new SearchClientDialog(1);
-            dialog.Show();
             dialog.WindowState = System.Windows.WindowState.Maximized;
+            dialog.ShowDialog();
+                        
         }    
 
     }

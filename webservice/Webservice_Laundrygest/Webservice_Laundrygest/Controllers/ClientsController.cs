@@ -9,8 +9,8 @@ using Webservice_Laundrygest.Models;
 
 namespace Webservice_Laundrygest.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    //[Route("api/[controller]")]
+    //[ApiController]
     public class ClientsController : ControllerBase
     {
         private readonly LaundrygestContext _context;
@@ -21,6 +21,7 @@ namespace Webservice_Laundrygest.Controllers
         }
 
         // GET: api/Clients
+        [Route("api/Clients")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Client>>> GetClients()
         {
@@ -28,7 +29,8 @@ namespace Webservice_Laundrygest.Controllers
         }
 
         // GET: api/Clients/5
-        [HttpGet("{id}")]
+        [Route("api/Client/{id}")]
+        [HttpGet]
         public async Task<ActionResult<Client>> GetClient(int id)
         {
             var client = await _context.Clients.FindAsync(id);
@@ -41,9 +43,25 @@ namespace Webservice_Laundrygest.Controllers
             return client;
         }
 
+        // GET: api/Clients/5
+        [Route("api/Clients/{filter}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Client>>> GetClientsFilter(string filter)
+        {
+            var clients = await _context.Clients.Where(x=>x.FirstName.Contains(filter) || x.LastName.Contains(filter) || x.Telephone.ToString().Contains(filter)).ToListAsync();
+
+            if (clients == null)
+            {
+                return NotFound();
+            }
+
+            return clients;
+        }
+
         // PUT: api/Clients/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [Route("api/Client/{id}")]
+        [HttpPut]
         public async Task<IActionResult> PutClient(int id, Client client)
         {
             if (id != client.Code)
@@ -74,8 +92,9 @@ namespace Webservice_Laundrygest.Controllers
 
         // POST: api/Clients
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Route("api/Client")]
         [HttpPost]
-        public async Task<ActionResult<Client>> PostClient(Client client)
+        public async Task<ActionResult<Client>> PostClient([FromBody] Client client)
         {
             _context.Clients.Add(client);
             await _context.SaveChangesAsync();
@@ -84,7 +103,8 @@ namespace Webservice_Laundrygest.Controllers
         }
 
         // DELETE: api/Clients/5
-        [HttpDelete("{id}")]
+        [Route("api/Client/{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteClient(int id)
         {
             var client = await _context.Clients.FindAsync(id);

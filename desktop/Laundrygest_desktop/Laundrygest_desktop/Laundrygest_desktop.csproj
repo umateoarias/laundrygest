@@ -9,6 +9,7 @@
     <RootNamespace>Laundrygest_desktop</RootNamespace>
     <AssemblyName>Laundrygest_desktop</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <LangVersion>8.0</LangVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -111,32 +112,39 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Model\Repository.cs" />
+    <Compile Include="Data\Repositories\ClientRepository.cs" />
+    <Compile Include="Model\Client.cs" />
+    <Compile Include="Model\Collection.cs" />
+    <Compile Include="Model\CollectionItem.cs" />
+    <Compile Include="Model\CollectionType.cs" />
+    <Compile Include="Model\Invoice.cs" />
+    <Compile Include="Model\Pricelist.cs" />
+    <Compile Include="Data\Core\BaseRepository.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
     <Compile Include="ViewModel\ClothesViewModel.cs" />
-    <Compile Include="ViewModel\CollectionDialogViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\CollectionDialogViewModel.cs" />
     <Compile Include="ViewModel\ConfigViewModel.cs" />
-    <Compile Include="ViewModel\CreateClientDialogViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\CreateClientDialogViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\QuiltsViewModel.cs" />
-    <Compile Include="ViewModel\SearchDialogViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\SearchDialogViewModel.cs" />
     <Compile Include="ViewModel\StatsViewModel.cs" />
     <Compile Include="Views\AppView.xaml.cs">
       <DependentUpon>AppView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CollectionDialog.xaml.cs">
+    <Compile Include="Views\Dialogs\CollectionDialog.xaml.cs">
       <DependentUpon>CollectionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ConfigView.xaml.cs">
       <DependentUpon>ConfigView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CreateClientDialog.xaml.cs">
+    <Compile Include="Views\Dialogs\CreateClientDialog.xaml.cs">
       <DependentUpon>CreateClientDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\QuiltsView.xaml.cs">
       <DependentUpon>QuiltsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SearchDialog.xaml.cs">
+    <Compile Include="Views\Dialogs\SearchDialog.xaml.cs">
       <DependentUpon>SearchDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StatsView.xaml.cs">
@@ -150,7 +158,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CollectionDialog.xaml">
+    <Page Include="Views\Dialogs\CollectionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -158,7 +166,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CreateClientDialog.xaml">
+    <Page Include="Views\Dialogs\CreateClientDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -181,7 +189,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SearchDialog.xaml">
+    <Page Include="Views\Dialogs\SearchDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

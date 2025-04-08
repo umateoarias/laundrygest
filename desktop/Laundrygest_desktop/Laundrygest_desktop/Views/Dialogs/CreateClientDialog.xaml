@@ -1,0 +1,71 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Laundrygest_desktop.Views"
+        xmlns:ViewModel="clr-namespace:Laundrygest_desktop.ViewModel" x:Class="Laundrygest_desktop.Views.CreateClientDialog"
+        mc:Ignorable="d"
+    x:Name="CreateClientWindow"
+        Title="CreateClientDialog" Height="506" Width="900"
+        WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <ViewModel:CreateClientDialogViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" x:Name="formDialogHeader" FontSize="28" FontWeight="Bold" FontFamily="/Fonts/Inter_18pt-Bold.ttf#Inter 18pt" Text="Crear client" Margin="15"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Column="1" Text="Nom" Style="{StaticResource MiniHeaders}" />
+            <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBoxFirstName" Style="{StaticResource TextBoxForm}" Text="{Binding FirstNameTextBox}" IsReadOnly="False"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="Cognom" Style="{StaticResource MiniHeaders}" />
+            <TextBox Grid.Row="0" Grid.Column="2" x:Name="textBoxLastName" Style="{StaticResource TextBoxForm}" Text="{Binding LastNameTextBox}" IsReadOnly="False"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="Telefon" Style="{StaticResource MiniHeaders}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="textBoxTelephone" Style="{StaticResource TextBoxForm}" Text="{Binding TelephoneTextBox}" IsReadOnly="False"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" Text="Adreça" Style="{StaticResource MiniHeaders}" />
+            <TextBox Grid.Row="1" Grid.Column="2" x:Name="textBoxAddress" Style="{StaticResource TextBoxForm}" Text="{Binding AddressTextBox}" IsReadOnly="False"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Text="Codi postal" Style="{StaticResource MiniHeaders}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" x:Name="textBoxPostalCode" Style="{StaticResource TextBoxForm}" Text="{Binding PostalCodeTextBox}" IsReadOnly="False"/>
+            <TextBlock Grid.Row="2" Grid.Column="2" Text="Email" Style="{StaticResource MiniHeaders}" />
+            <TextBox Grid.Row="2" Grid.Column="2" x:Name="textBoxEmail" Style="{StaticResource TextBoxForm}" Text="{Binding EmailTextBox}" IsReadOnly="False"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Text="Localitat" Style="{StaticResource MiniHeaders}" />
+            <TextBox Grid.Row="3" Grid.Column="1" x:Name="textBoxLocality" Style="{StaticResource TextBoxForm}" Text="{Binding LocalityTextBox}" IsReadOnly="False"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <CheckBox Grid.Column="1" x:Name="checkBoxEmpresa" Content="Es empresa?" FontFamily="/Fonts/Inter_18pt-Bold.ttf#Inter 18pt" FontSize="16" FontWeight="SemiBold" Margin="15" Width="120"/>
+            <TextBox Grid.Column="2" x:Name="textBoxEmpresa" IsEnabled="{Binding IsChecked, ElementName=checkBoxEmpresa}"  Style="{StaticResource TextBoxForm}" HorizontalAlignment="Left" Text="{Binding NifTextBox}" IsReadOnly="False"/>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" x:Name="btnCreateClient" Style="{StaticResource WindowButtons}" Content="Crear" Width="120" Height="45" Command="{Binding CreateClientCommand}" CommandParameter="{Binding ElementName=CreateClientWindow}" />
+            <Button Grid.Column="2" x:Name="btnCancelCreateClient" Style="{StaticResource WindowButtons}" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=CreateClientWindow}" Content="Cancel·lar" Width="120" Height="45"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -67,6 +67,9 @@ public partial class LaundrygestContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("username_app");
+            entity.Property(e => e.Address).HasMaxLength(255).IsUnicode(false).HasColumnName("address");
+            entity.Property(e => e.PostalCode).HasMaxLength(255).IsUnicode(false).HasColumnName("postal_code");
+            entity.Property(e => e.Locality).HasMaxLength(255).IsUnicode(false).HasColumnName("locality");
         });
 
         modelBuilder.Entity<Collection>(entity =>
