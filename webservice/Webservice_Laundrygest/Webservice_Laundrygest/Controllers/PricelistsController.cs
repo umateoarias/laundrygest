@@ -9,8 +9,8 @@ using Webservice_Laundrygest.Models;
 
 namespace Webservice_Laundrygest.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    //[Route("api/[controller]")]
+    //[ApiController]
     public class PricelistsController : ControllerBase
     {
         private readonly LaundrygestContext _context;
@@ -21,6 +21,7 @@ namespace Webservice_Laundrygest.Controllers
         }
 
         // GET: api/Pricelists
+        [Route("api/pricelists")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Pricelist>>> GetPricelists()
         {
@@ -28,10 +29,11 @@ namespace Webservice_Laundrygest.Controllers
         }
 
         // GET: api/Pricelists/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Pricelist>> GetPricelist(int id)
+        [Route("api/pricelists/{collectionType}")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Pricelist>>> GetPricelist(int collectionType)
         {
-            var pricelist = await _context.Pricelists.FindAsync(id);
+            var pricelist = await _context.Pricelists.Where(x=>x.CollectionTypeCode==collectionType).ToListAsync();
 
             if (pricelist == null)
             {
@@ -43,7 +45,8 @@ namespace Webservice_Laundrygest.Controllers
 
         // PUT: api/Pricelists/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [Route("api/pricelists/{id}")]
+        [HttpPut]
         public async Task<IActionResult> PutPricelist(int id, Pricelist pricelist)
         {
             if (id != pricelist.Code)
@@ -74,8 +77,9 @@ namespace Webservice_Laundrygest.Controllers
 
         // POST: api/Pricelists
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Route("api/pricelists")]
         [HttpPost]
-        public async Task<ActionResult<Pricelist>> PostPricelist(Pricelist pricelist)
+        public async Task<ActionResult<Pricelist>> PostPricelist([FromBody]Pricelist pricelist)
         {
             _context.Pricelists.Add(pricelist);
             await _context.SaveChangesAsync();
@@ -84,7 +88,8 @@ namespace Webservice_Laundrygest.Controllers
         }
 
         // DELETE: api/Pricelists/5
-        [HttpDelete("{id}")]
+        [Route("api/pricelists/{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeletePricelist(int id)
         {
             var pricelist = await _context.Pricelists.FindAsync(id);

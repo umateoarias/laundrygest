@@ -7,7 +7,7 @@
       xmlns:ViewModel="clr-namespace:Laundrygest_desktop.ViewModel" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" x:Class="Laundrygest_desktop.Views.SearchClientDialog"
       mc:Ignorable="d" 
       d:DesignHeight="770" d:DesignWidth="1500"
-      Title="SearchClientDialog">
+      Title="Buscar client">
 
     <Window.DataContext>
         <ViewModel:SearchDialogViewModel/>
@@ -26,25 +26,37 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="1" Width="900" Height="120" VerticalContentAlignment="Center" FontSize="28" Text="{Binding filterText, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Grid.Column="2" Style="{StaticResource WindowButtons}" Height="120" Width="180" Content="Buscar"/>
+            <TextBox Grid.Column="1" Width="900" Height="120" VerticalContentAlignment="Center" FontSize="28" Text="{Binding filterText}" />
+            <Button Grid.Column="2" Style="{StaticResource WindowButtons}" Command="{Binding SearchClientCommand}" Height="120" Width="180" Content="Buscar"/>
             <Button Grid.Column="3" Style="{StaticResource WindowButtons}" Command="{Binding CreateClientCommand}" Height="120" Width="180" Content="Crear"/>
         </Grid>
-        <DataGrid Grid.Row="1" Margin="25" ItemsSource="{Binding clientList}" AutoGenerateColumns="False">
+        <DataGrid Grid.Row="1" Margin="25" ItemsSource="{Binding clientList}" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="18" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" IsReadOnly="True" SelectionMode="Single" MinRowHeight="50">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background" Value="#2D3648"/>
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="TextBlock.TextAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.CellStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nom" Binding="{Binding FirstName}"/>
-                <DataGridTextColumn Header="Cognom" Binding="{Binding LastName}"/>
-                <DataGridTextColumn Header="Telefon" Binding="{Binding Telephone}"/>
-                <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
-                <DataGridTextColumn Header="NIF" Binding="{Binding Nif}"/>
-                <DataGridTextColumn Header="Adreça" Binding="{Binding Address}"/>
-                <DataGridTextColumn Header="Codi Postal" Binding="{Binding PostalCode}"/>
-                <DataGridTextColumn Header="Localitat" Binding="{Binding Locality}"/>
-                <DataGridTemplateColumn>
+                <DataGridTextColumn Header="Nom" Binding="{Binding FirstName}" Width="*"/>
+                <DataGridTextColumn Header="Cognom" Binding="{Binding LastName}" Width="*"/>
+                <DataGridTextColumn Header="Telefon" Binding="{Binding Telephone}" Width="*"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
+                <DataGridTextColumn Header="NIF" Binding="{Binding Nif}" Width="Auto"/>
+                <DataGridTextColumn Header="Adreça" Binding="{Binding Address}" Width="*"/>
+                <DataGridTextColumn Header="Codi Postal" Binding="{Binding PostalCode}" Width="Auto"/>
+                <DataGridTextColumn Header="Localitat" Binding="{Binding Locality}" Width="*"/>
+                <DataGridTemplateColumn Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Seleccionar"
-                        Command="{Binding SelectClientButtonCommand}"
+                            <Button Content="Seleccionar" Style="{StaticResource WindowButtons}" 
+                        Command="{Binding DataContext.SelectClientButtonCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                         CommandParameter="{Binding}">
                             </Button>
                         </DataTemplate>

@@ -11,6 +11,21 @@
         <Laundrygest_desktop:ConfigViewModel/>
     </UserControl.DataContext>
     <Grid Background="#FFFFFF">
-        <TextBlock Text="Estas a la finestra config"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="80"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="Configuració" FontSize="28" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" FontWeight="Bold"/>
     </Grid>
 </UserControl>

@@ -13,6 +13,8 @@ public partial class Pricelist
 
     public int CollectionTypeCode { get; set; }
 
+    public int NumPieces { get; set; }
+
     public virtual ICollection<CollectionItem> CollectionItems { get; set; } = new List<CollectionItem>();
 
     public virtual CollectionType CollectionTypeCodeNavigation { get; set; } = null!;

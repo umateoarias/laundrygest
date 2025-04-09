@@ -1,6 +1,7 @@
 ﻿using Laundrygest_desktop.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,34 +10,32 @@ namespace Laundrygest_desktop.Data
 {
     public class ClientRepository : BaseRepository
     {
-        public async Task<List<Client>> GetClients()
+        public async Task<ObservableCollection<Client>> GetClients()
         {
-            List<Client> result = null;
+            ObservableCollection<Client> result = null;
             try
             {
-                result = await MakeRequest<List<Client>>("Clients", "GET", null);
-                result = result.OrderBy(x => x.FirstName).ThenBy(x => x.LastName).ThenBy(x => x.Telephone).ToList();
+                result = await MakeRequest<ObservableCollection<Client>>("clients", "GET", null);
             }
             catch { }
             if (result == null)
             {
-                result = new List<Client>();
+                result = new ObservableCollection<Client>();
             }
             return result;
         }
 
-        public async Task<List<Client>> GetClients(string filter)
+        public async Task<ObservableCollection<Client>> GetClients(string filter)
         {
-            List<Client> result = null;
+            ObservableCollection<Client> result = null;
             try
             {
-                result = await MakeRequest<List<Client>>("Clients/"+filter, "GET", null);
-                result = result.OrderBy(x => x.FirstName).ThenBy(x => x.LastName).ThenBy(x => x.Telephone).ToList();
+                result = await MakeRequest<ObservableCollection<Client>>("clients/"+filter, "GET", null);
             }
             catch { }
             if (result == null)
             {
-                result = new List<Client>();
+                result = new ObservableCollection<Client>();
             }
             return result;
         }
@@ -46,7 +45,7 @@ namespace Laundrygest_desktop.Data
             Client c = null;
             try
             {
-                c = await MakeRequest<Client>("Client/", "POST", client);
+                c = await MakeRequest<Client>("client/", "POST", client);
             }
             catch { }
             return c;

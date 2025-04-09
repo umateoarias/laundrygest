@@ -9,11 +9,11 @@ public partial class Client
 
     public string FirstName { get; set; } = null!;
 
-    public string? LastName { get; set; }
+    public string LastName { get; set; } = null!;
 
     public string? Email { get; set; }
 
-    public int Telephone { get; set; }
+    public string Telephone { get; set; } = null!;
 
     public string? Nif { get; set; }
 

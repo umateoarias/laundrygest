@@ -21,7 +21,7 @@ namespace Webservice_Laundrygest.Controllers
         }
 
         // GET: api/Clients
-        [Route("api/Clients")]
+        [Route("api/clients")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Client>>> GetClients()
         {
@@ -29,7 +29,7 @@ namespace Webservice_Laundrygest.Controllers
         }
 
         // GET: api/Clients/5
-        [Route("api/Client/{id}")]
+        [Route("api/client/{id}")]
         [HttpGet]
         public async Task<ActionResult<Client>> GetClient(int id)
         {
@@ -44,7 +44,7 @@ namespace Webservice_Laundrygest.Controllers
         }
 
         // GET: api/Clients/5
-        [Route("api/Clients/{filter}")]
+        [Route("api/clients/{filter}")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Client>>> GetClientsFilter(string filter)
         {
@@ -60,7 +60,7 @@ namespace Webservice_Laundrygest.Controllers
 
         // PUT: api/Clients/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Route("api/Client/{id}")]
+        [Route("api/client/{id}")]
         [HttpPut]
         public async Task<IActionResult> PutClient(int id, Client client)
         {
@@ -92,7 +92,7 @@ namespace Webservice_Laundrygest.Controllers
 
         // POST: api/Clients
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Route("api/Client")]
+        [Route("api/client")]
         [HttpPost]
         public async Task<ActionResult<Client>> PostClient([FromBody] Client client)
         {
@@ -103,7 +103,7 @@ namespace Webservice_Laundrygest.Controllers
         }
 
         // DELETE: api/Clients/5
-        [Route("api/Client/{id}")]
+        [Route("api/client/{id}")]
         [HttpDelete]
         public async Task<IActionResult> DeleteClient(int id)
         {

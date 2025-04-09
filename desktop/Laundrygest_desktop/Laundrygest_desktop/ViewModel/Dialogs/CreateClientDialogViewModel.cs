@@ -153,9 +153,8 @@ namespace Laundrygest_desktop.ViewModel
             Client c = new Client();
             c.FirstName = FirstNameTextBox;
             c.LastName = LastNameTextBox;
-            c.Email = EmailTextBox;
-            int.TryParse(TelephoneTextBox, out int telef);
-            c.Telephone = telef;
+            c.Email = EmailTextBox;            
+            c.Telephone = TelephoneTextBox;
             c.Address = AddressTextBox;
             c.PostalCode = PostalCodeTextBox;
             c.Locality = LocalityTextBox;

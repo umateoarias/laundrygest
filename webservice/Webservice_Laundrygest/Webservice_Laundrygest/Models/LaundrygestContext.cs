@@ -206,6 +206,7 @@ public partial class LaundrygestContext : DbContext
             entity.Property(e => e.UnitPrice)
                 .HasColumnType("decimal(18, 2)")
                 .HasColumnName("unit_price");
+            entity.Property(e => e.NumPieces).HasColumnName("num_pieces");
 
             entity.HasOne(d => d.CollectionTypeCodeNavigation).WithMany(p => p.Pricelists)
                 .HasForeignKey(d => d.CollectionTypeCode)

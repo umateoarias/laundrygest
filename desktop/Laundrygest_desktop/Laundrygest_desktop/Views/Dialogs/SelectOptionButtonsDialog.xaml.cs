@@ -1,5 +1,4 @@
-﻿using Laundrygest_desktop.Model;
-using Laundrygest_desktop.ViewModel;
+﻿using Laundrygest_desktop.ViewModel.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,29 +11,29 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Laundrygest_desktop.Views
+namespace Laundrygest_desktop.Views.Dialogs
 {
     /// <summary>
-    /// Interaction logic for SearchClientDialog.xaml
+    /// Interaction logic for SelectOptionButtonsDialog.xaml
     /// </summary>
-    public partial class SearchClientDialog : Window
+    /// 
+    public partial class SelectOptionButtonsDialog : Window
     {
-        public Client SelectedOption { get; private set; }
-        public SearchClientDialog()
+        public string SelectedOption { get; private set; }
+        public SelectOptionButtonsDialog(List<string> options)
         {
             InitializeComponent();
-            var vm = new SearchDialogViewModel();
-            vm.OnOptionSelected = (client) =>
+
+            var vm = new SelectOptionDialogViewModel(options);
+            vm.OnOptionSelected = (selected) =>
             {
-                SelectedOption = client;
+                SelectedOption = selected;
                 DialogResult = true;
             };
 
             DataContext = vm;
-            this.WindowState = System.Windows.WindowState.Maximized;
         }
     }
 }

@@ -19,7 +19,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" x:Name="formDialogHeader" FontSize="28" FontWeight="Bold" FontFamily="/Fonts/Inter_18pt-Bold.ttf#Inter 18pt" Text="Crear client" Margin="15"/>
+        <TextBlock Grid.Row="0" x:Name="formDialogHeader" FontSize="28" FontWeight="Bold" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" Text="Crear client" Margin="15"/>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"/>
@@ -54,7 +54,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <CheckBox Grid.Column="1" x:Name="checkBoxEmpresa" Content="Es empresa?" FontFamily="/Fonts/Inter_18pt-Bold.ttf#Inter 18pt" FontSize="16" FontWeight="SemiBold" Margin="15" Width="120"/>
+            <CheckBox Grid.Column="1" x:Name="checkBoxEmpresa" Content="Es empresa?" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" FontSize="16" FontWeight="SemiBold" Margin="15" Width="120"/>
             <TextBox Grid.Column="2" x:Name="textBoxEmpresa" IsEnabled="{Binding IsChecked, ElementName=checkBoxEmpresa}"  Style="{StaticResource TextBoxForm}" HorizontalAlignment="Left" Text="{Binding NifTextBox}" IsReadOnly="False"/>
         </Grid>
         <Grid Grid.Row="3">

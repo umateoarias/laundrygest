@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Laundrygest_desktop.Views"
         xmlns:ViewModel="clr-namespace:Laundrygest_desktop.ViewModel" x:Class="Laundrygest_desktop.Views.CollectionDialog"
         mc:Ignorable="d"
-        Title="CollectionDialog" Height="770" Width="1500">
+        Title="Recollida" Height="770" Width="1500">
     <Window.DataContext>
         <ViewModel:CollectionDialogViewModel/>
     </Window.DataContext>
@@ -34,8 +34,8 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" x:Name="clerkText" Style="{StaticResource MiniHeaders}" FontWeight="Bold" Text="Dependent" Margin="5"/>
-                <Button Grid.Column="1" x:Name="btnClerk" Style="{StaticResource WindowButtons}" Height="30" Width="120" Content="Seleccionar" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <TextBox Grid.Column="2" x:Name="textBoxClerk" Width="300" Height="45"/>
+                <Button Grid.Column="1" x:Name="btnClerk" Style="{StaticResource WindowButtons}" Height="30" Width="120" Content="Seleccionar" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding SelectClerkCommand}"/>
+                <TextBox Grid.Column="2" x:Name="textBoxClerk" Width="300" Height="45" Text="{Binding ClerkTextBox}" IsReadOnly="True" FontSize="24" VerticalContentAlignment="Center"/>
             </Grid>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -58,13 +58,13 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Nom" Style="{StaticResource MiniHeaders}"/>
-                    <TextBox Grid.Row="0" Grid.Column="0" x:Name="textBoxFirstName" Style="{StaticResource TextBoxForm}"/>
+                    <TextBox Grid.Row="0" Grid.Column="0" x:Name="textBoxFirstName" Style="{StaticResource TextBoxForm}" Text="{Binding ClientFirstNameTextBox}"/>
                     <TextBlock Grid.Row="0" Grid.Column="1" Text="Cognom" Style="{StaticResource MiniHeaders}"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBoxLastName" Style="{StaticResource TextBoxForm}"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBoxLastName" Style="{StaticResource TextBoxForm}" Text="{Binding ClientLastNameTextBox}"/>
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Telefon" Style="{StaticResource MiniHeaders}"/>
-                    <TextBox Grid.Row="1" Grid.Column="0" x:Name="textBoxTelephone" Style="{StaticResource TextBoxForm}"/>
+                    <TextBox Grid.Row="1" Grid.Column="0" x:Name="textBoxTelephone" Style="{StaticResource TextBoxForm}" Text="{Binding ClientTelephoneTextBox}" />
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="NIF" Style="{StaticResource MiniHeaders}"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="textBoxNIF" Style="{StaticResource TextBoxForm}"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="textBoxNIF" Style="{StaticResource TextBoxForm}" Text="{Binding ClientNifTextBox}"/>
                 </Grid>
             </Grid>
             <Grid Grid.Row="2">
@@ -95,11 +95,11 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Base" Style="{StaticResource MiniHeaders}"/>
-                    <TextBox Grid.Row="0" Grid.Column="0" x:Name="textBoxBase" Style="{StaticResource TextBoxForm}"/>
+                    <TextBox Grid.Row="0" Grid.Column="0" x:Name="textBoxBase" Style="{StaticResource TextBoxForm}" Text="{Binding BasePriceTextBox}" IsReadOnly="True"/>
                     <TextBlock Grid.Row="0" Grid.Column="1" Text="IVA" Style="{StaticResource MiniHeaders}"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBoxTax" Style="{StaticResource TextBoxForm}"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBoxTax" Style="{StaticResource TextBoxForm}" Text="{Binding TaxAmountTextBox}" IsReadOnly="True"/>
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="Total" Style="{StaticResource MiniHeaders}"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="textBoxTotal" Style="{StaticResource TextBoxForm}"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="textBoxTotal" Style="{StaticResource TextBoxForm}" Text="{Binding TotalPriceTextBox}" IsReadOnly="True"/>
                 </Grid>
             </Grid>
             <Grid Grid.Row="4">
