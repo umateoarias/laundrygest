@@ -24,5 +24,42 @@ namespace Laundrygest_desktop.Data
             }
             return result;
         }
+
+        public async Task<bool> PutPricelist(int pricelist_code, Pricelist pricelist)
+        {
+            Pricelist pl = null;
+            try
+            {
+                pl = await MakeRequest<Pricelist>("pricelists/" + pricelist_code, "PUT", pricelist);
+                return true;
+            }
+            catch {
+                return false;
+            }
+        }
+
+        public async Task<Pricelist> PostPricelist(Pricelist pricelist)
+        {
+            Pricelist pl = null;
+            try
+            {
+                pl = await MakeRequest<Pricelist>("pricelists", "POST", pricelist);
+            }
+            catch { }
+            return pl;
+        }
+
+        public async Task<bool> DeletePricelist(int pricelist_code)
+        {
+            try
+            {
+                var x = await MakeRequest<Pricelist>("pricelists/"+pricelist_code, "DELETE",null);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

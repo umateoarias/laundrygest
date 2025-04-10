@@ -30,6 +30,7 @@ namespace Laundrygest_desktop.ViewModel
             CreateClientCommand = new DelegateCommand(OpenCreateClientDialog);
             SearchClientCommand = new DelegateCommand(SearchClient);
             SelectClientButtonCommand = new DelegateCommand<object>(ChooseClient);
+            EnterPressedCommand = new DelegateCommand(TextBox_KeyUp);
         }
 
         public string filterText
@@ -53,7 +54,7 @@ namespace Laundrygest_desktop.ViewModel
                 _clientList = value;
                 OnPropertyChanged();
             }
-        }             
+        }
         public ICommand CreateClientCommand { get; }
 
         public ICommand SelectClientButtonCommand { get; }
@@ -64,7 +65,7 @@ namespace Laundrygest_desktop.ViewModel
             dialog.ShowDialog();
             filterText = "";
             SearchClient();
-        }       
+        }
 
         private void ChooseClient(object parameter)
         {
@@ -74,7 +75,7 @@ namespace Laundrygest_desktop.ViewModel
                 SelectClient(fila);
             }
         }
-
+        public ICommand EnterPressedCommand { get; }
         public ICommand SearchClientCommand { get; }
 
         private void SearchClient()
@@ -84,7 +85,12 @@ namespace Laundrygest_desktop.ViewModel
         private void SelectClient(Client client)
         {
             OnOptionSelected?.Invoke(client);
-        }        
+        }
+
+        private void TextBox_KeyUp()
+        {
+            SearchClient();
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

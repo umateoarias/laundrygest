@@ -1,4 +1,5 @@
-﻿using Laundrygest_desktop.Model;
+﻿using Laundrygest_desktop.Data.Repositories;
+using Laundrygest_desktop.Model;
 using Laundrygest_desktop.Views;
 using Laundrygest_desktop.Views.Dialogs;
 using Prism.Commands;
@@ -16,6 +17,10 @@ namespace Laundrygest_desktop.ViewModel
 {
     public class CollectionDialogViewModel : INotifyPropertyChanged
     {
+        private readonly CollectionRepository _repository;
+        private Collection collection;
+        private CollectionItem _selectedCollectionItem;
+        private int collectionType;
         private Client _collectionClient;
         private string _clerkTextBox;
         private string _clientFirstNameTextBox;
@@ -26,10 +31,30 @@ namespace Laundrygest_desktop.ViewModel
         private string _taxAmountTextBox;
         private string _totalPriceTextBox;
         private ObservableCollection<CollectionItem> _collectionItems;
-        public CollectionDialogViewModel()
+        public CollectionDialogViewModel(bool isQuilts)
         {
+            collectionType = isQuilts ? 2 : 1;
+            _repository = new CollectionRepository();
+            collectionItems = new ObservableCollection<CollectionItem>();
+            Collection c = new Collection() { CreatedAt = DateTime.Now, CollectionTypeCode = collectionType, CollectionItems = collectionItems };
+            collection = _repository.PostCollection(c).Result;
             SearchClientCommand = new DelegateCommand(OpenSearchClientDialog);
             SelectClerkCommand = new DelegateCommand(OpenClerkWindow);
+            OpenAddPieceCommand = new DelegateCommand(OpenAddPiece);
+            DeleteSelectedCommand = new DelegateCommand(DeleteSelectedPiece);
+        }
+
+        public CollectionItem SelectedCollectionItem
+        {
+            get
+            {
+                return _selectedCollectionItem;
+            }
+            set
+            {
+                _selectedCollectionItem = value;
+                OnPropertyChanged();
+            }
         }
 
         public string ClerkTextBox
@@ -123,21 +148,48 @@ namespace Laundrygest_desktop.ViewModel
 
         public ICommand SelectClerkCommand { get; }
         public ICommand SearchClientCommand { get; }
-
+        public ICommand OpenAddPieceCommand { get; }
+        public ICommand DeleteSelectedCommand { get; }
         public void OpenSearchClientDialog()
         {
             var dialog = new SearchClientDialog();
             dialog.WindowState = System.Windows.WindowState.Maximized;
             bool? result = dialog.ShowDialog();
 
-            if (result == true) {
+            if (result == true)
+            {
                 _collectionClient = dialog.SelectedOption;
                 ClientFirstNameTextBox = _collectionClient.FirstName;
                 ClientLastNameTextBox = _collectionClient.LastName;
                 ClientTelephoneTextBox = _collectionClient.Telephone;
                 ClientNifTextBox = _collectionClient.Nif;
             }
-            
+
+        }
+
+        public void OpenAddPiece()
+        {
+            var dialog = new SelectPieceDialog(collectionType);
+            bool? result = dialog.ShowDialog();
+
+            if (result == true)
+            {
+                CollectionItem ci = new CollectionItem();
+                ci.NumPieces = 1;
+                ci.PricelistCodeNavigation = dialog.SelectedOption;
+                ci.PricelistCode = dialog.SelectedOption.Code;
+                ci.CollectionNumberNavigation = collection;
+                ci.CollectionNumber = collection.Number;
+                collectionItems.Add(ci);
+            }
+        }
+
+        public void DeleteSelectedPiece()
+        {
+            if (SelectedCollectionItem != null)
+            {
+                collectionItems.Remove(SelectedCollectionItem);
+            }
         }
 
         public void OpenClerkWindow()
@@ -145,7 +197,7 @@ namespace Laundrygest_desktop.ViewModel
             var dialog = new SelectOptionButtonsDialog(new List<string>() { "Joan", "Maria" });
             bool? result = dialog.ShowDialog();
 
-            if(result == true)
+            if (result == true)
             {
                 ClerkTextBox = dialog.SelectedOption;
             }

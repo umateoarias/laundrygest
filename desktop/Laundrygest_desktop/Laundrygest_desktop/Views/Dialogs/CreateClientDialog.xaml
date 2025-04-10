@@ -8,7 +8,7 @@
         mc:Ignorable="d"
     x:Name="CreateClientWindow"
         Title="CreateClientDialog" Height="506" Width="900"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.DataContext>
         <ViewModel:CreateClientDialogViewModel/>
     </Window.DataContext>

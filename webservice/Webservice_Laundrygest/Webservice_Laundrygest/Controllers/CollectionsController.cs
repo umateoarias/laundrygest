@@ -9,8 +9,8 @@ using Webservice_Laundrygest.Models;
 
 namespace Webservice_Laundrygest.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    //[Route("api/[controller]")]
+    //[ApiController]
     public class CollectionsController : ControllerBase
     {
         private readonly LaundrygestContext _context;
@@ -21,6 +21,7 @@ namespace Webservice_Laundrygest.Controllers
         }
 
         // GET: api/Collections
+        [Route("api/collections")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Collection>>> GetCollections()
         {
@@ -28,10 +29,11 @@ namespace Webservice_Laundrygest.Controllers
         }
 
         // GET: api/Collections/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Collection>> GetCollection(int id)
+        [Route("api/collection/{number}")]
+        [HttpGet]
+        public async Task<ActionResult<Collection>> GetCollection(int number)
         {
-            var collection = await _context.Collections.FindAsync(id);
+            var collection = await _context.Collections.FindAsync(number);
 
             if (collection == null)
             {
@@ -43,10 +45,11 @@ namespace Webservice_Laundrygest.Controllers
 
         // PUT: api/Collections/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutCollection(int id, Collection collection)
+        [Route("api/collections/{number}")]
+        [HttpPut]
+        public async Task<IActionResult> PutCollection(int number,[FromBody] Collection collection)
         {
-            if (id != collection.Number)
+            if (number != collection.Number)
             {
                 return BadRequest();
             }
@@ -59,7 +62,7 @@ namespace Webservice_Laundrygest.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CollectionExists(id))
+                if (!CollectionExists(number))
                 {
                     return NotFound();
                 }
@@ -74,20 +77,22 @@ namespace Webservice_Laundrygest.Controllers
 
         // POST: api/Collections
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Route("api/collections")]
         [HttpPost]
-        public async Task<ActionResult<Collection>> PostCollection(Collection collection)
+        public async Task<ActionResult<Collection>> PostCollection([FromBody]Collection collection)
         {
             _context.Collections.Add(collection);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCollection", new { id = collection.Number }, collection);
+            return CreatedAtAction("GetCollection", new { number = collection.Number }, collection);
         }
 
         // DELETE: api/Collections/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCollection(int id)
+        [Route("api/collections/{number}")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCollection(int number)
         {
-            var collection = await _context.Collections.FindAsync(id);
+            var collection = await _context.Collections.FindAsync(number);
             if (collection == null)
             {
                 return NotFound();
@@ -99,9 +104,9 @@ namespace Webservice_Laundrygest.Controllers
             return NoContent();
         }
 
-        private bool CollectionExists(int id)
+        private bool CollectionExists(int number)
         {
-            return _context.Collections.Any(e => e.Number == id);
+            return _context.Collections.Any(e => e.Number == number);
         }
     }
 }

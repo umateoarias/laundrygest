@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Laundrygest_desktop.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,10 +20,11 @@ namespace Laundrygest_desktop.Views
     /// </summary>
     public partial class CollectionDialog : Window
     {
-        public CollectionDialog()
+        public CollectionDialog(bool isQuilts)
         {
             InitializeComponent();
-            this.WindowState = System.Windows.WindowState.Maximized;
+            DataContext = new CollectionDialogViewModel(isQuilts);
+            WindowState = WindowState.Maximized;
         }
     }
 }

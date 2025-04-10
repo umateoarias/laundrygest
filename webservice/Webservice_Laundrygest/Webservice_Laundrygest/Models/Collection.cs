@@ -7,21 +7,21 @@ public partial class Collection
 {
     public int Number { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; }
 
-    public DateTime DueDate { get; set; }
+    public DateTime? DueDate { get; set; }
 
-    public decimal TaxBase { get; set; }
+    public decimal? TaxBase { get; set; }
 
-    public decimal TaxAmount { get; set; }
+    public decimal? TaxAmount { get; set; }
 
-    public decimal Total { get; set; }
+    public decimal? Total { get; set; }
 
-    public int ClientCode { get; set; }
+    public int? ClientCode { get; set; }
 
     public int CollectionTypeCode { get; set; }
 
-    public int InvoiceId { get; set; }
+    public int? InvoiceId { get; set; }
 
     public virtual Client ClientCodeNavigation { get; set; } = null!;
 

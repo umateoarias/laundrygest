@@ -45,11 +45,11 @@ namespace Webservice_Laundrygest.Controllers
 
         // PUT: api/Pricelists/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [Route("api/pricelists/{id}")]
+        [Route("api/pricelists/{code}")]
         [HttpPut]
-        public async Task<IActionResult> PutPricelist(int id, Pricelist pricelist)
+        public async Task<IActionResult> PutPricelist(int code,[FromBody] Pricelist pricelist)
         {
-            if (id != pricelist.Code)
+            if (code != pricelist.Code)
             {
                 return BadRequest();
             }
@@ -62,7 +62,7 @@ namespace Webservice_Laundrygest.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PricelistExists(id))
+                if (!PricelistExists(code))
                 {
                     return NotFound();
                 }
@@ -84,9 +84,8 @@ namespace Webservice_Laundrygest.Controllers
             _context.Pricelists.Add(pricelist);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPricelist", new { id = pricelist.Code }, pricelist);
+            return CreatedAtAction("GetPricelists", new { id = pricelist.Code }, pricelist);
         }
-
         // DELETE: api/Pricelists/5
         [Route("api/pricelists/{id}")]
         [HttpDelete]

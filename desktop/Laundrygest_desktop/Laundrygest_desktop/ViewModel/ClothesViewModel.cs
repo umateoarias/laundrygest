@@ -1,5 +1,6 @@
 ﻿using Laundrygest_desktop.Model;
 using Laundrygest_desktop.Views;
+using Laundrygest_desktop.Views.Dialogs;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace Laundrygest_desktop
 
         public void OpenCollectionDialog()
         {
-            var dialog = new CollectionDialog();
+            var dialog = new CollectionDialog(false);
             dialog.Show();
             dialog.WindowState = System.Windows.WindowState.Maximized;
         }
@@ -43,7 +44,8 @@ namespace Laundrygest_desktop
 
         public void ModifyPriceListDialog()
         {
-
+            var dialog = new ModifyPriceListDialog(false);
+            dialog.ShowDialog();
         }
     }
 }

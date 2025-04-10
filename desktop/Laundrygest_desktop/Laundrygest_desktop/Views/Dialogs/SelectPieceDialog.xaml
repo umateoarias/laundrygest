@@ -1,0 +1,32 @@
+﻿<Window x:Class="Laundrygest_desktop.Views.Dialogs.SelectPieceDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Laundrygest_desktop.Views.Dialogs"
+        mc:Ignorable="d"
+        Title="SelectPieceDialog" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.05*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.05*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="1" Grid.Column="1" Margin="15" ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}" CellStyle="{StaticResource CellStyle}" RowHeight="45" ItemsSource="{Binding pricelists}" SelectedItem="{Binding SelectedPricelist}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nom" Binding="{Binding Name}" Width="2*"/>
+                <DataGridTextColumn Header="Preu unitari" Binding="{Binding UnitPrice}" Width="1*"/>
+                <DataGridTextColumn Header="Numero peçes" Binding="{Binding NumPieces}" Width="1*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Grid.Column="1" Grid.Row="2" Style="{StaticResource WindowButtons}" Content="Selecciona" Height="40" Width="180" Margin="15" Command="{Binding SelectPieceCommand}"/>
+    </Grid>
+</Window>
