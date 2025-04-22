@@ -23,6 +23,10 @@ public partial class Collection
 
     public int? InvoiceId { get; set; }
 
+    public decimal? DueTotal { get; set; }
+
+    public string? PaymentMode {  get; set; }
+
     public virtual Client ClientCodeNavigation { get; set; } = null!;
 
     public virtual ICollection<CollectionItem> CollectionItems { get; set; } = new List<CollectionItem>();

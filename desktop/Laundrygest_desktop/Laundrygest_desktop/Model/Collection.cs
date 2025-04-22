@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+#nullable enable
 namespace Laundrygest_desktop.Model
 {
 
@@ -23,6 +23,10 @@ namespace Laundrygest_desktop.Model
         public int CollectionTypeCode { get; set; }
 
         public int? InvoiceId { get; set; }
+
+        public decimal? DueTotal { get; set; }
+
+        public string? PaymentMode { get; set; }
 
         public virtual Client ClientCodeNavigation { get; set; } = null!;
 

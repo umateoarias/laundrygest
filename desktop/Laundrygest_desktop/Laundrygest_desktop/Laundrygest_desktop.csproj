@@ -128,6 +128,7 @@
     <Compile Include="ViewModel\ConfigViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\CreateClientDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\ModifyPriceListViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\PaymentDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\SelectOptionDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\SelectPieceViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
@@ -148,6 +149,9 @@
     </Compile>
     <Compile Include="Views\Dialogs\ModifyPriceListDialog.xaml.cs">
       <DependentUpon>ModifyPriceListDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\PaymentDialog.xaml.cs">
+      <DependentUpon>PaymentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\SelectOptionButtonsDialog.xaml.cs">
       <DependentUpon>SelectOptionButtonsDialog.xaml</DependentUpon>
@@ -185,6 +189,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Dialogs\ModifyPriceListDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\PaymentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

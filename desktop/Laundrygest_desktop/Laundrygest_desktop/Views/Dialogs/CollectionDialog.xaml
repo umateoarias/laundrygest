@@ -92,22 +92,15 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="Base" Style="{StaticResource MiniHeaders}"/>
-                    <TextBox Grid.Row="0" Grid.Column="0" x:Name="textBoxBase" Style="{StaticResource TextBoxForm}" Text="{Binding BasePriceTextBox}" IsReadOnly="True"/>
+                    <TextBox Grid.Row="0" Grid.Column="0" x:Name="textBoxBase" Style="{StaticResource TextBoxForm}" Text="{Binding BasePriceTextBox,UpdateSourceTrigger=PropertyChanged,StringFormat=F2}" IsReadOnly="True"/>
                     <TextBlock Grid.Row="0" Grid.Column="1" Text="IVA" Style="{StaticResource MiniHeaders}"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBoxTax" Style="{StaticResource TextBoxForm}" Text="{Binding TaxAmountTextBox}" IsReadOnly="True"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBoxTax" Style="{StaticResource TextBoxForm}" Text="{Binding TaxAmountTextBox,UpdateSourceTrigger=PropertyChanged, StringFormat=F2}" IsReadOnly="True"/>
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="Total" Style="{StaticResource MiniHeaders}"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="textBoxTotal" Style="{StaticResource TextBoxForm}" Text="{Binding TotalPriceTextBox}" IsReadOnly="True"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="textBoxTotal" Style="{StaticResource TextBoxForm}" Text="{Binding TotalPriceTextBox,UpdateSourceTrigger=PropertyChanged,StringFormat=F2}" IsReadOnly="True"/>
                 </Grid>
             </Grid>
-            <Grid Grid.Row="4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button x:Name="btnCashPay" Grid.Column="0" Content="Efectiu" Style="{StaticResource WindowButtons}"/>
-                <Button x:Name="btnCardPay" Grid.Column="1" Content="Targeta" Style="{StaticResource WindowButtons}"/>
-            </Grid>
-            <Button x:Name="btnAccept" Grid.Row="5" Content="Finalitzar" Style="{StaticResource WindowButtons}"/>
+            <Button x:Name="btnPayment" Grid.Row="4" Content="Pagament" Style="{StaticResource WindowButtons}" Command="{Binding PaymentDialogCommand}"/>
+            <Button x:Name="btnAccept" Grid.Row="5" Content="Finalitzar" Style="{StaticResource WindowButtons}" Command="{Binding FinishCommand}"/>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -116,9 +109,9 @@
             </Grid.RowDefinitions>
             <DataGrid Margin="12" ItemsSource="{Binding collectionItems}" SelectedItem="{Binding SelectedCollectionItem}" ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}" CellStyle="{StaticResource CellStyle}" RowHeight="50" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserReorderColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nom" Binding="{Binding PricelistCodeNavigation.Name}" Width="2*" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Peçes" Binding="{Binding PricelistCodeNavigation.NumPieces}" Width="1*"/>
-                    <DataGridTextColumn Header="Preu unitari" Binding="{Binding PricelistCodeNavigation.UnitPrice}" Width="1*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Nom" Binding="{Binding PricelistCodeNavigation.Name}" Width="2*" IsReadOnly="True" FontSize="16"/>
+                    <DataGridTextColumn Header="Peçes" Binding="{Binding NumPieces, UpdateSourceTrigger=PropertyChanged}" Width="1*" FontSize="24" EditingElementStyle="{StaticResource EditCellStyle}"/>
+                    <DataGridTextColumn Header="Preu unitari" Binding="{Binding PricelistCodeNavigation.UnitPrice,UpdateSourceTrigger=PropertyChanged}" Width="1*" FontSize="24" EditingElementStyle="{StaticResource EditCellStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Grid Grid.Row="1">
@@ -127,9 +120,43 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="Data recollida" Margin="15" FontSize="16" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" FontWeight="SemiBold"/>
-                <DatePicker FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" Width="300" Height="30" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="15"/>
+                <DatePicker x:Name="datePicker" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" Width="300" Height="30" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="15" SelectedDate="{Binding CreatedAtDatePicker}" >
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="Control.Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DatePickerTextBox">
+                                        <TextBox x:Name="PART_TextBox"
+                                 Text="{Binding Path=SelectedDate, 
+                                                RelativeSource={RelativeSource AncestorType=DatePicker}, 
+                                                StringFormat='dd/MM/yyyy',
+                                                Mode=TwoWay, 
+                                                UpdateSourceTrigger=PropertyChanged}" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
                 <TextBlock Grid.Column="1" Text="Data entrega" Margin="15" FontSize="16" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" FontWeight="SemiBold"/>
-                <DatePicker Grid.Column="1" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" Width="300" Height="30" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="15"/>
+                <DatePicker x:Name="datePicker1" Grid.Column="1" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" Width="300" Height="30" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="15" SelectedDate="{Binding DueDatePicker}">
+                    <DatePicker.Resources>
+                        <Style TargetType="DatePickerTextBox">
+                            <Setter Property="Control.Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DatePickerTextBox">
+                                        <TextBox x:Name="PART_TextBox"
+                                 Text="{Binding Path=SelectedDate, 
+                                                RelativeSource={RelativeSource AncestorType=DatePicker}, 
+                                                StringFormat='dd/MM/yyyy',
+                                                Mode=TwoWay, 
+                                                UpdateSourceTrigger=PropertyChanged}" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DatePicker.Resources>
+                </DatePicker>
             </Grid>
         </Grid>
     </Grid>

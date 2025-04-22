@@ -6,11 +6,13 @@ using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Laundrygest_desktop.ViewModel
@@ -27,21 +29,53 @@ namespace Laundrygest_desktop.ViewModel
         private string _clientLastNameTextBox;
         private string _clientTelephoneTextBox;
         private string _clientNifTextBox;
-        private string _basePriceTextBox;
-        private string _taxAmountTextBox;
-        private string _totalPriceTextBox;
+        private decimal _basePriceTextBox;
+        private decimal _taxAmountTextBox;
+        private decimal _totalPriceTextBox;
+        private DateTime _createdAtDatePicker = DateTime.Now;
+        private DateTime _dueDatePicker;
         private ObservableCollection<CollectionItem> _collectionItems;
+        public Action CloseAction { get; set; }
         public CollectionDialogViewModel(bool isQuilts)
         {
             collectionType = isQuilts ? 2 : 1;
             _repository = new CollectionRepository();
             collectionItems = new ObservableCollection<CollectionItem>();
-            Collection c = new Collection() { CreatedAt = DateTime.Now, CollectionTypeCode = collectionType, CollectionItems = collectionItems };
+            DueDatePicker = CreatedAtDatePicker.AddDays(7);
+            Collection c = new Collection() { CreatedAt = CreatedAtDatePicker, CollectionTypeCode = collectionType, CollectionItems = collectionItems };
             collection = _repository.PostCollection(c).Result;
+            collectionItems.CollectionChanged += CollectionItem_PropertyChanged;
             SearchClientCommand = new DelegateCommand(OpenSearchClientDialog);
             SelectClerkCommand = new DelegateCommand(OpenClerkWindow);
             OpenAddPieceCommand = new DelegateCommand(OpenAddPiece);
             DeleteSelectedCommand = new DelegateCommand(DeleteSelectedPiece);
+            PaymentDialogCommand = new DelegateCommand(OpenPaymentDialog);
+            FinishCommand = new DelegateCommand(FinishCollection);
+        }
+
+        private void CollectionItem_PropertyChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            getTotalPrice();
+        }
+
+        public DateTime CreatedAtDatePicker
+        {
+            get { return _createdAtDatePicker; }
+            set
+            {
+                _createdAtDatePicker = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DateTime DueDatePicker
+        {
+            get { return _dueDatePicker; }
+            set
+            {
+                _dueDatePicker = value;
+                OnPropertyChanged();
+            }
         }
 
         public CollectionItem SelectedCollectionItem
@@ -54,6 +88,7 @@ namespace Laundrygest_desktop.ViewModel
             {
                 _selectedCollectionItem = value;
                 OnPropertyChanged();
+                OnPropertyChanged();                
             }
         }
 
@@ -103,7 +138,7 @@ namespace Laundrygest_desktop.ViewModel
                 OnPropertyChanged();
             }
         }
-        public string BasePriceTextBox
+        public decimal BasePriceTextBox
         {
             get { return _basePriceTextBox; }
             set
@@ -112,7 +147,7 @@ namespace Laundrygest_desktop.ViewModel
                 OnPropertyChanged();
             }
         }
-        public string TaxAmountTextBox
+        public decimal TaxAmountTextBox
         {
             get { return _taxAmountTextBox; }
             set
@@ -121,7 +156,7 @@ namespace Laundrygest_desktop.ViewModel
                 OnPropertyChanged();
             }
         }
-        public string TotalPriceTextBox
+        public decimal TotalPriceTextBox
         {
             get { return _totalPriceTextBox; }
             set
@@ -136,9 +171,22 @@ namespace Laundrygest_desktop.ViewModel
             set
             {
                 _collectionItems = value;
-                OnPropertyChanged();
+                OnPropertyChanged();               
             }
         }
+        public void getTotalPrice()
+        {
+            decimal total = 0;
+            foreach (var item in _collectionItems) {
+                if (item.PricelistCodeNavigation != null && item.NumPieces > 0)
+                {
+                    total += item.PricelistCodeNavigation.UnitPrice * item.NumPieces;
+                }
+            }
+            TotalPriceTextBox = total;
+            BasePriceTextBox = total * 0.79m;
+            TaxAmountTextBox = total * 0.21m;           
+            }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -150,6 +198,8 @@ namespace Laundrygest_desktop.ViewModel
         public ICommand SearchClientCommand { get; }
         public ICommand OpenAddPieceCommand { get; }
         public ICommand DeleteSelectedCommand { get; }
+        public ICommand PaymentDialogCommand { get; }
+        public ICommand FinishCommand { get; }
         public void OpenSearchClientDialog()
         {
             var dialog = new SearchClientDialog();
@@ -177,11 +227,50 @@ namespace Laundrygest_desktop.ViewModel
                 CollectionItem ci = new CollectionItem();
                 ci.NumPieces = 1;
                 ci.PricelistCodeNavigation = dialog.SelectedOption;
+                ci.PricelistCodeNavigation.PropertyChanged += PricelistCodeNavigation_PropertyChanged;
                 ci.PricelistCode = dialog.SelectedOption.Code;
                 ci.CollectionNumberNavigation = collection;
                 ci.CollectionNumber = collection.Number;
+                ci.PropertyChanged += PricelistCodeNavigation_PropertyChanged;
                 collectionItems.Add(ci);
             }
+        }
+
+        public void OpenPaymentDialog()
+        {
+            var dialog = new PaymentDialog(TotalPriceTextBox);
+            bool? result = dialog.ShowDialog();
+
+            if (result == true)
+            {
+                collection.DueTotal = dialog.RemainingAmount;
+                collection.PaymentMode = dialog.PaymentMode;
+            }
+        }
+
+        public void FinishCollection()
+        {
+            collection.CollectionItems = collectionItems;
+            collection.Total = TotalPriceTextBox;
+            collection.DueDate = DueDatePicker;
+            collection.CreatedAt = CreatedAtDatePicker;
+            collection.TaxAmount = TaxAmountTextBox;
+            collection.TaxBase = BasePriceTextBox;
+            collection.ClientCodeNavigation = _collectionClient;
+            collection.ClientCode = _collectionClient.Code;
+            if (_repository.PutCollection(collection.Number, collection).Result)
+            {
+                var result = MessageBox.Show("Vols guardar aquesta recollida?","Finalitzar",MessageBoxButton.YesNo,MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    CloseAction?.Invoke();
+                }
+            }
+        }
+
+        private void PricelistCodeNavigation_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            getTotalPrice();
         }
 
         public void DeleteSelectedPiece()

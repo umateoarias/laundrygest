@@ -23,7 +23,9 @@ namespace Laundrygest_desktop.Views
         public CollectionDialog(bool isQuilts)
         {
             InitializeComponent();
-            DataContext = new CollectionDialogViewModel(isQuilts);
+            var vm = new CollectionDialogViewModel(isQuilts);
+            vm.CloseAction = new Action(Close);
+            DataContext = vm;
             WindowState = WindowState.Maximized;
         }
     }

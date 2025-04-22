@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+#nullable enable
 namespace Laundrygest_desktop.Model
 {
     public partial class Client
@@ -13,11 +13,11 @@ namespace Laundrygest_desktop.Model
 
         public string FirstName { get; set; } = null!;
 
-        public string LastName { get; set; }
+        public string LastName { get; set; } = null!;
 
         public string? Email { get; set; }
 
-        public string Telephone { get; set; }
+        public string Telephone { get; set; } = null!;
 
         public string? Nif { get; set; }
 

@@ -39,7 +39,7 @@ namespace Laundrygest_desktop.ViewModel
         }
         public ModifyPriceListViewModel(bool isQuilts)
         {
-            collectionType = isQuilts ? 1 : 2;
+            collectionType = isQuilts ? 2 : 1;
             visibility = Visibility.Hidden;
             isUpdate = null;
             priceListRepository = new PriceListRepository();

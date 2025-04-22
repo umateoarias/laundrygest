@@ -19,5 +19,17 @@ namespace Laundrygest_desktop.Data.Repositories
             catch { }
             return c;
         }
+
+        public async Task<bool> PutCollection(int collectionNumber,Collection collection)
+        {
+            try
+            {
+                await MakeRequest<Collection>("collections/" + collectionNumber, "PUT", collection);
+                return true;
+            }
+            catch { 
+                return false;
+            }
+        }
     }
 }

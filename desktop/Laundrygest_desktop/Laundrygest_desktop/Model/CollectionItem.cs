@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
-
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+#nullable enable
 namespace Laundrygest_desktop.Model
 {
 
@@ -9,8 +12,9 @@ namespace Laundrygest_desktop.Model
         public int Id { get; set; }
 
         public DateTime? CollectedAt { get; set; }
+        private int _numPieces;
 
-        public int NumPieces { get; set; }
+        public int NumPieces { get { return _numPieces; } set { _numPieces = value;OnPropertyChanged(); } }
 
         public string? Observation { get; set; }
 
@@ -20,8 +24,15 @@ namespace Laundrygest_desktop.Model
 
         public int PricelistCode { get; set; }
 
+        [JsonIgnore]
         public virtual Collection CollectionNumberNavigation { get; set; } = null!;
 
         public virtual Pricelist PricelistCodeNavigation { get; set; } = null!;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

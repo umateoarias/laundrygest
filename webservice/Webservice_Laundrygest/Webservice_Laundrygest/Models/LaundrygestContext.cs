@@ -98,6 +98,8 @@ public partial class LaundrygestContext : DbContext
             entity.Property(e => e.Total)
                 .HasColumnType("decimal(18, 4)")
                 .HasColumnName("total");
+            entity.Property(e => e.DueTotal).HasColumnType("decimal(18,4)").HasColumnName("due_total");
+            entity.Property(e => e.PaymentMode).HasColumnType("varchar(50)").HasColumnName("payment_mode");
 
             entity.HasOne(d => d.ClientCodeNavigation).WithMany(p => p.Collections)
                 .HasForeignKey(d => d.ClientCode)

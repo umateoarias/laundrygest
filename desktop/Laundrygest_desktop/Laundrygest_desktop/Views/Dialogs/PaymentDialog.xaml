@@ -1,0 +1,36 @@
+﻿<Window x:Class="Laundrygest_desktop.Views.Dialogs.PaymentDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Laundrygest_desktop.Views.Dialogs"
+        mc:Ignorable="d"
+        Title="Pagament" Height="450" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="10*"/>            
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="Quantitat:" Style="{StaticResource MiniHeaders}" VerticalAlignment="Center" Margin="25"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxForm}" Width="200" Height="45" FontSize="20" HorizontalContentAlignment="Right" Text="{Binding PaymentAmount,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False"/>
+        <Button Grid.Column="1" Grid.Row="1" Content="Total" Style="{StaticResource WindowButtons}" HorizontalAlignment="Right" VerticalAlignment="Center" Height="45" Width="120" Command="{Binding GetTotalCommand}"/>
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+        <Button x:Name="btnCash" Grid.Column="1" Content="Efectiu" Style="{StaticResource WindowButtons}" Margin="30" Command="{Binding CashPayCommand}"/>
+        <Button x:Name="btnCard" Grid.Column="0" Content="Targeta" Style="{StaticResource WindowButtons}" Margin="30" Command="{Binding CardPayCommand}"/>
+        </Grid>
+        <TextBlock Text="Quantitat a retornar: " Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Style="{StaticResource MiniHeaders}"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxForm}" HorizontalAlignment="Right" IsReadOnly="True" HorizontalContentAlignment="Center" Text="{Binding ReturnAmount, UpdateSourceTrigger=PropertyChanged, StringFormat=F2}"/>
+    </Grid>
+</Window>
