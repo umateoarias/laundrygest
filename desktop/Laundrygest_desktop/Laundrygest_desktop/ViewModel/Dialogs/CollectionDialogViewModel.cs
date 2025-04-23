@@ -1,4 +1,5 @@
-﻿using Laundrygest_desktop.Data.Repositories;
+﻿using Laundrygest_desktop.Data;
+using Laundrygest_desktop.Data.Repositories;
 using Laundrygest_desktop.Model;
 using Laundrygest_desktop.Views;
 using Laundrygest_desktop.Views.Dialogs;
@@ -88,7 +89,7 @@ namespace Laundrygest_desktop.ViewModel
             {
                 _selectedCollectionItem = value;
                 OnPropertyChanged();
-                OnPropertyChanged();                
+                OnPropertyChanged();
             }
         }
 
@@ -171,22 +172,25 @@ namespace Laundrygest_desktop.ViewModel
             set
             {
                 _collectionItems = value;
-                OnPropertyChanged();               
+                OnPropertyChanged();
             }
         }
         public void getTotalPrice()
         {
             decimal total = 0;
-            foreach (var item in _collectionItems) {
-                if (item.PricelistCodeNavigation != null && item.NumPieces > 0)
+            foreach (var item in _collectionItems)
+            {
+                var pl = item.PricelistCodeNavigation;
+                var num = item.NumPieces;
+                if (pl != null && num > 0)
                 {
-                    total += item.PricelistCodeNavigation.UnitPrice * item.NumPieces;
+                    total += pl.UnitPrice * num;
                 }
             }
             TotalPriceTextBox = total;
             BasePriceTextBox = total * 0.79m;
-            TaxAmountTextBox = total * 0.21m;           
-            }
+            TaxAmountTextBox = total * 0.21m;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -258,13 +262,10 @@ namespace Laundrygest_desktop.ViewModel
             collection.TaxBase = BasePriceTextBox;
             collection.ClientCodeNavigation = _collectionClient;
             collection.ClientCode = _collectionClient.Code;
-            if (_repository.PutCollection(collection.Number, collection).Result)
+            var result = MessageBox.Show("Vols guardar aquesta recollida?", "Finalitzar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes && _repository.PutCollection(collection.Number, collection).Result)
             {
-                var result = MessageBox.Show("Vols guardar aquesta recollida?","Finalitzar",MessageBoxButton.YesNo,MessageBoxImage.Question);
-                if (result == MessageBoxResult.Yes)
-                {
-                    CloseAction?.Invoke();
-                }
+                CloseAction?.Invoke();
             }
         }
 

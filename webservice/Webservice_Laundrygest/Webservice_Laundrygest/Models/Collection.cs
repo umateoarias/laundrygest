@@ -25,13 +25,13 @@ public partial class Collection
 
     public decimal? DueTotal { get; set; }
 
-    public string? PaymentMode {  get; set; }
+    public string? PaymentMode { get; set; }
 
-    public virtual Client ClientCodeNavigation { get; set; } = null!;
+    public virtual Client? ClientCodeNavigation { get; set; }
 
     public virtual ICollection<CollectionItem> CollectionItems { get; set; } = new List<CollectionItem>();
 
     public virtual CollectionType CollectionTypeCodeNavigation { get; set; } = null!;
 
-    public virtual Invoice Invoice { get; set; } = null!;
+    public virtual Invoice? Invoice { get; set; }
 }

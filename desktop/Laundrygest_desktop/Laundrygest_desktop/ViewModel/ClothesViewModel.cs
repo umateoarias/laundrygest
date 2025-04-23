@@ -15,13 +15,13 @@ namespace Laundrygest_desktop
     {
         public ClothesViewModel() {
             CreateCollectionCommand = new DelegateCommand(OpenCollectionDialog);
-            FinishCollectionCommand = new DelegateCommand(OpenCollectionDialog);
+            FinishCollectionCommand = new DelegateCommand(FinishCollectionDialog);
             ModifyPriceListCommand = new DelegateCommand(ModifyPriceListDialog);
         }
 
         public ICommand CreateCollectionCommand { get; }
         public ICommand FinishCollectionCommand { get; }
-
+        public ICommand ModifyCollectionCommand { get; }
         public ICommand ModifyPriceListCommand { get; }
 
         public void OpenCollectionDialog()
@@ -39,6 +39,15 @@ namespace Laundrygest_desktop
             if (result == true)
             {
                 Client selected = dialog.SelectedOption;
+                if (selected != null)
+                {
+                    var selectCollectionDialog = new SelectCollectionDialog(selected);
+                    bool? result2 = selectCollectionDialog.ShowDialog();
+
+                    if (result2 == true) { 
+                        
+                    }
+                }
             }
         }
 

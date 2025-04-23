@@ -39,7 +39,6 @@ namespace Webservice_Laundrygest.Controllers
             {
                 return NotFound();
             }
-
             return client;
         }
 
@@ -48,7 +47,7 @@ namespace Webservice_Laundrygest.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Client>>> GetClientsFilter(string filter)
         {
-            var clients = await _context.Clients.Where(x=>x.FirstName.Contains(filter) || x.LastName.Contains(filter) || x.Telephone.ToString().Contains(filter)).ToListAsync();
+            var clients = await _context.Clients.Where(x => x.FirstName.Contains(filter) || x.LastName.Contains(filter) || x.Telephone.ToString().Contains(filter)).ToListAsync();
 
             if (clients == null)
             {
@@ -62,7 +61,7 @@ namespace Webservice_Laundrygest.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [Route("api/client/{id}")]
         [HttpPut]
-        public async Task<IActionResult> PutClient(int id, Client client)
+        public async Task<IActionResult> PutClient(int id, [FromBody] Client client)
         {
             if (id != client.Code)
             {
@@ -71,6 +70,7 @@ namespace Webservice_Laundrygest.Controllers
 
             _context.Entry(client).State = EntityState.Modified;
 
+            client.Collections = await _context.Collections.Where(x => x.ClientCode == id).ToListAsync();
             try
             {
                 await _context.SaveChangesAsync();

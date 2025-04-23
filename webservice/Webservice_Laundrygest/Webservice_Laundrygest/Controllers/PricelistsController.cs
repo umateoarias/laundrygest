@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Webservice_Laundrygest.Models;
 
 namespace Webservice_Laundrygest.Controllers
@@ -21,7 +22,7 @@ namespace Webservice_Laundrygest.Controllers
         }
 
         // GET: api/Pricelists
-        [Route("api/pricelists")]
+        [Route("api/pricelists/all")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Pricelist>>> GetPricelists()
         {
@@ -29,11 +30,16 @@ namespace Webservice_Laundrygest.Controllers
         }
 
         // GET: api/Pricelists/5
-        [Route("api/pricelists/{collectionType}")]
+        [Route("api/pricelists")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Pricelist>>> GetPricelist(int collectionType)
+        public async Task<ActionResult<IEnumerable<Pricelist>>> GetPricelist([FromQuery] int collectionType, [FromQuery] string filter)
         {
-            var pricelist = await _context.Pricelists.Where(x=>x.CollectionTypeCode==collectionType).ToListAsync();
+            var pricelist = await _context.Pricelists.Where(x => x.CollectionTypeCode == collectionType).ToListAsync();
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                pricelist = pricelist.Where(x => x.Name.ToLower().Contains(filter.ToLower())).ToList();
+            }
 
             if (pricelist == null)
             {
@@ -47,7 +53,7 @@ namespace Webservice_Laundrygest.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [Route("api/pricelists/{code}")]
         [HttpPut]
-        public async Task<IActionResult> PutPricelist(int code,[FromBody] Pricelist pricelist)
+        public async Task<IActionResult> PutPricelist(int code, [FromBody] Pricelist pricelist)
         {
             if (code != pricelist.Code)
             {
@@ -79,7 +85,7 @@ namespace Webservice_Laundrygest.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [Route("api/pricelists")]
         [HttpPost]
-        public async Task<ActionResult<Pricelist>> PostPricelist([FromBody]Pricelist pricelist)
+        public async Task<ActionResult<Pricelist>> PostPricelist([FromBody] Pricelist pricelist)
         {
             _context.Pricelists.Add(pricelist);
             await _context.SaveChangesAsync();

@@ -24,7 +24,7 @@ namespace Laundrygest_desktop.ViewModel.Dialogs
         {
             this.collectionType = collectionType;
             priceListRepository = new PriceListRepository();
-            pricelists = priceListRepository.GetPricelists(collectionType).Result;
+            pricelists = priceListRepository.GetPricelists(collectionType,"").Result;
             SelectPieceCommand = new DelegateCommand(SelectPiece);
         }
         public ObservableCollection<Pricelist> pricelists

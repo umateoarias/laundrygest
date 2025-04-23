@@ -23,6 +23,8 @@ public partial class LaundrygestContext : DbContext
 
     public virtual DbSet<CollectionType> CollectionTypes { get; set; }
 
+    public virtual DbSet<Delivery> Deliveries { get; set; }
+
     public virtual DbSet<Invoice> Invoices { get; set; }
 
     public virtual DbSet<Pricelist> Pricelists { get; set; }
@@ -39,9 +41,11 @@ public partial class LaundrygestContext : DbContext
 
             entity.ToTable("client");
 
-            entity.HasIndex(e => e.UsernameApp, "UQ__client__5CD45A9CDBCF8896").IsUnique();
-
             entity.Property(e => e.Code).HasColumnName("code");
+            entity.Property(e => e.Address)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("address");
             entity.Property(e => e.Email)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -54,6 +58,10 @@ public partial class LaundrygestContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("last_name");
+            entity.Property(e => e.Locality)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("locality");
             entity.Property(e => e.Nif)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -62,14 +70,18 @@ public partial class LaundrygestContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("password_app");
-            entity.Property(e => e.Telephone).HasColumnName("telephone");
+            entity.Property(e => e.PostalCode)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("postal_code");
+            entity.Property(e => e.Telephone)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("telephone");
             entity.Property(e => e.UsernameApp)
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("username_app");
-            entity.Property(e => e.Address).HasMaxLength(255).IsUnicode(false).HasColumnName("address");
-            entity.Property(e => e.PostalCode).HasMaxLength(255).IsUnicode(false).HasColumnName("postal_code");
-            entity.Property(e => e.Locality).HasMaxLength(255).IsUnicode(false).HasColumnName("locality");
         });
 
         modelBuilder.Entity<Collection>(entity =>
@@ -88,7 +100,14 @@ public partial class LaundrygestContext : DbContext
             entity.Property(e => e.DueDate)
                 .HasColumnType("datetime")
                 .HasColumnName("due_date");
+            entity.Property(e => e.DueTotal)
+                .HasColumnType("decimal(18, 4)")
+                .HasColumnName("due_total");
             entity.Property(e => e.InvoiceId).HasColumnName("invoice_id");
+            entity.Property(e => e.PaymentMode)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("payment_mode");
             entity.Property(e => e.TaxAmount)
                 .HasColumnType("decimal(18, 4)")
                 .HasColumnName("tax_amount");
@@ -98,12 +117,9 @@ public partial class LaundrygestContext : DbContext
             entity.Property(e => e.Total)
                 .HasColumnType("decimal(18, 4)")
                 .HasColumnName("total");
-            entity.Property(e => e.DueTotal).HasColumnType("decimal(18,4)").HasColumnName("due_total");
-            entity.Property(e => e.PaymentMode).HasColumnType("varchar(50)").HasColumnName("payment_mode");
 
             entity.HasOne(d => d.ClientCodeNavigation).WithMany(p => p.Collections)
                 .HasForeignKey(d => d.ClientCode)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__collectio__clien__5629CD9C");
 
             entity.HasOne(d => d.CollectionTypeCodeNavigation).WithMany(p => p.Collections)
@@ -113,7 +129,6 @@ public partial class LaundrygestContext : DbContext
 
             entity.HasOne(d => d.Invoice).WithMany(p => p.Collections)
                 .HasForeignKey(d => d.InvoiceId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__collectio__invoi__5812160E");
         });
 
@@ -128,6 +143,7 @@ public partial class LaundrygestContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("collected_at");
             entity.Property(e => e.CollectionNumber).HasColumnName("collection_number");
+            entity.Property(e => e.DeliveryNumber).HasColumnName("delivery_number");
             entity.Property(e => e.NumPieces).HasColumnName("num_pieces");
             entity.Property(e => e.Observation)
                 .HasMaxLength(500)
@@ -143,6 +159,10 @@ public partial class LaundrygestContext : DbContext
                 .HasForeignKey(d => d.CollectionNumber)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__collectio__colle__5AEE82B9");
+
+            entity.HasOne(d => d.DeliveryNumberNavigation).WithMany(p => p.CollectionItems)
+                .HasForeignKey(d => d.DeliveryNumber)
+                .HasConstraintName("FK_deliveryItems");
 
             entity.HasOne(d => d.PricelistCodeNavigation).WithMany(p => p.CollectionItems)
                 .HasForeignKey(d => d.PricelistCode)
@@ -161,6 +181,18 @@ public partial class LaundrygestContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("NAME");
+        });
+
+        modelBuilder.Entity<Delivery>(entity =>
+        {
+            entity.HasKey(e => e.Number).HasName("PK__delivery__FD291E40FE83A363");
+
+            entity.ToTable("delivery");
+
+            entity.Property(e => e.Number).HasColumnName("number");
+            entity.Property(e => e.DeliveryDate)
+                .HasColumnType("datetime")
+                .HasColumnName("delivery_date");
         });
 
         modelBuilder.Entity<Invoice>(entity =>
@@ -205,10 +237,10 @@ public partial class LaundrygestContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("NAME");
+            entity.Property(e => e.NumPieces).HasColumnName("num_pieces");
             entity.Property(e => e.UnitPrice)
                 .HasColumnType("decimal(18, 2)")
                 .HasColumnName("unit_price");
-            entity.Property(e => e.NumPieces).HasColumnName("num_pieces");
 
             entity.HasOne(d => d.CollectionTypeCodeNavigation).WithMany(p => p.Pricelists)
                 .HasForeignKey(d => d.CollectionTypeCode)

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Laundrygest_desktop"
         mc:Ignorable="d"
-        Title="Modificar llista preus" Height="450" Width="800"
+        Title="Modificar llista preus" Height="600" Width="800"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -17,6 +17,7 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
@@ -52,7 +53,12 @@
             <Button Grid.Column="2" Grid.Row="1" Style="{StaticResource WindowButtons}" Command="{Binding ConfirmPieceCommand}" Background="DarkGreen" Content="Confirmar" Margin="15" Width="120"/>
             <Button Grid.Column="3" Grid.Row="1" Style="{StaticResource WindowButtons}" Command="{Binding CancelPieceCommand}" Background="DarkRed" Content="Cancel·lar" Margin="15" Width="120"/>
         </Grid>
-        <DataGrid Grid.Column="1" Grid.Row="3" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding PriceList}" SelectionMode="Single" HorizontalAlignment="Stretch" SelectedItem="{Binding selectedPricelist}" ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}" CellStyle="{StaticResource CellStyle}" IsReadOnly="True">
+        <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxForm}" Text="{Binding filterTextBox,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Margin="15" IsReadOnly="False">
+            <TextBox.InputBindings>
+                <KeyBinding Command="{Binding EnterPressedCommand}" Key="Return"/>
+            </TextBox.InputBindings>
+        </TextBox>
+        <DataGrid Grid.Column="1" Grid.Row="4" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding PriceList}" SelectionMode="Single" HorizontalAlignment="Stretch" SelectedItem="{Binding selectedPricelist}" ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}" CellStyle="{StaticResource CellStyle}" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nom" Binding="{Binding Name}" Width="2*"/>
                 <DataGridTextColumn Header="Preu unitari" Binding="{Binding UnitPrice}" Width="1*"/>

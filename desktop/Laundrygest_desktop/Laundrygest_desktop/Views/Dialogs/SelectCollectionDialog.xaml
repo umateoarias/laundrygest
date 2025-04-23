@@ -1,0 +1,48 @@
+﻿<Window x:Class="Laundrygest_desktop.Views.Dialogs.SelectCollectionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Laundrygest_desktop.Views.Dialogs"
+        mc:Ignorable="d"
+        Title="SelectCollectionDialog" Height="563" Width="1000">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="1" Width="700" Height="120" VerticalContentAlignment="Center" FontSize="28" Text="{Binding filterText,UpdateSourceTrigger=PropertyChanged}" >
+                <TextBox.InputBindings>
+                    <KeyBinding Command="{Binding EnterPressedCommand}" Key="Return"/>
+                </TextBox.InputBindings>
+            </TextBox>
+            <Button Grid.Column="2" Style="{StaticResource WindowButtons}" Command="{Binding SearchClientCommand}" Height="120" Width="180" Content="Buscar"/>
+        </Grid>
+        <DataGrid Grid.Row="1" Margin="25" ItemsSource="{Binding collectionList}" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="18" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" IsReadOnly="True" SelectionMode="Single" MinRowHeight="50" ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}" CellStyle="{StaticResource CellStyle}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Numero recollida" Binding="{Binding Number}" Width="3*"/>
+                <DataGridTextColumn Header="Data entrega" Binding="{Binding DueDate}" Width="3*"/>                
+                <DataGridTextColumn Header="Pendent" Binding="{Binding DueTotal}" Width="2*"/>
+                <DataGridTextColumn Header="Total" Binding="{Binding Total}" Width="2*"/>
+                <DataGridTemplateColumn Width="1*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Seleccionar" Height="45" Style="{StaticResource WindowButtons}"
+                Command="{Binding DataContext.SelectClientButtonCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                CommandParameter="{Binding}">
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

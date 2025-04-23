@@ -11,12 +11,12 @@ namespace Laundrygest_desktop.Data
     public class PriceListRepository : BaseRepository
     {
 
-        public async Task<ObservableCollection<Pricelist>> GetPricelists(int collectionType)
+        public async Task<ObservableCollection<Pricelist>> GetPricelists(int collectionType,string filter)
         {
             ObservableCollection<Pricelist> result = null;
             try
             {
-                result = await MakeRequest<ObservableCollection<Pricelist>>("pricelists/" + collectionType, "GET", null);
+                result = await MakeRequest<ObservableCollection<Pricelist>>($"pricelists?collectionType={collectionType}&filter={filter}", "GET", null);
             }
             catch { }
             if (result == null) {

@@ -11,10 +11,27 @@ namespace Laundrygest_desktop.Data
 {
     public class BaseRepository
     {
-        private static HttpClient httpClient = new HttpClient { BaseAddress= new Uri("https://localhost:7194/api/") };
+        public static string urlApi = "https://localhost:7194/api/";
+        private static HttpClient httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
 
         readonly string ErrorMessage = "Error en l'API.";
-        readonly string contentType = "application/json";       
+        readonly string contentType = "application/json";
+
+        public static async Task<bool> ConnectAsync(string url)
+        {
+            try
+            {   
+                httpClient = new HttpClient { BaseAddress = new Uri(url)};
+                HttpResponseMessage response = httpClient.GetAsync(url + "clients/").Result;
+
+                return response.IsSuccessStatusCode;                
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public async Task<T> MakeRequest<T>(string url, string method, object JSONcontent)
         ////  url: Url a partir de la base 
         ////  method: "GET"/"POST"/"PUT"/"DELETE"
@@ -72,6 +89,6 @@ namespace Laundrygest_desktop.Data
                 throw new Exception(ErrorMessage);
             }
         }
-        
+
     }
 }

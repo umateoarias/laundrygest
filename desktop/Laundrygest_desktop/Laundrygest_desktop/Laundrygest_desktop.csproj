@@ -112,6 +112,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Data\ConversionUtils.cs" />
     <Compile Include="Data\Repositories\ClientRepository.cs" />
     <Compile Include="Data\Repositories\CollectionRepository.cs" />
     <Compile Include="Data\Repositories\PriceListRepository.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Model\Collection.cs" />
     <Compile Include="Model\CollectionItem.cs" />
     <Compile Include="Model\CollectionType.cs" />
+    <Compile Include="Model\Delivery.cs" />
     <Compile Include="Model\Invoice.cs" />
     <Compile Include="Model\Pricelist.cs" />
     <Compile Include="Data\Core\BaseRepository.cs" />
@@ -129,6 +131,7 @@
     <Compile Include="ViewModel\Dialogs\CreateClientDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\ModifyPriceListViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\PaymentDialogViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\SelectCollectionDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\SelectOptionDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\SelectPieceViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
@@ -152,6 +155,9 @@
     </Compile>
     <Compile Include="Views\Dialogs\PaymentDialog.xaml.cs">
       <DependentUpon>PaymentDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\SelectCollectionDialog.xaml.cs">
+      <DependentUpon>SelectCollectionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\SelectOptionButtonsDialog.xaml.cs">
       <DependentUpon>SelectOptionButtonsDialog.xaml</DependentUpon>
@@ -195,6 +201,10 @@
     <Page Include="Views\Dialogs\PaymentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\SelectCollectionDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Dialogs\SelectOptionButtonsDialog.xaml">
       <SubType>Designer</SubType>

@@ -47,7 +47,7 @@ namespace Webservice_Laundrygest.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [Route("api/collections/{number}")]
         [HttpPut]
-        public async Task<IActionResult> PutCollection(int number,[FromBody] Collection collection)
+        public async Task<IActionResult> PutCollection(int number, [FromBody] Collection collection)
         {
             if (number != collection.Number)
             {
@@ -79,7 +79,7 @@ namespace Webservice_Laundrygest.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [Route("api/collections")]
         [HttpPost]
-        public async Task<ActionResult<Collection>> PostCollection([FromBody]Collection collection)
+        public async Task<ActionResult<Collection>> PostCollection([FromBody] Collection collection)
         {
             _context.Collections.Add(collection);
             await _context.SaveChangesAsync();

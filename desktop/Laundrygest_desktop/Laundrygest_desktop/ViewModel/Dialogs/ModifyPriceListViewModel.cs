@@ -25,6 +25,7 @@ namespace Laundrygest_desktop.ViewModel
         private string _nameTextBox;
         private string _priceTextBox;
         private string _numPiecesTextBox;
+        private string _filterTextBox;
         public Visibility visibility
         {
             get
@@ -43,12 +44,24 @@ namespace Laundrygest_desktop.ViewModel
             visibility = Visibility.Hidden;
             isUpdate = null;
             priceListRepository = new PriceListRepository();
+            filterTextBox = "";
             RefreshList();
             AddPieceCommand = new DelegateCommand(ShowAddPiece);
             UpdatePieceCommand = new DelegateCommand(ShowUpdatePiece);
             DeletePieceCommand = new DelegateCommand(DeletePiece);
             ConfirmPieceCommand = new DelegateCommand(ConfirmPiece);
             CancelPieceCommand = new DelegateCommand(CancelPiece);
+            EnterPressedCommand = new DelegateCommand(TextBox_KeyUp);
+        }
+
+        public string filterTextBox
+        {
+            get { return _filterTextBox; }
+            set
+            {
+                _filterTextBox = value;
+                OnPropertyChanged();
+            }
         }
         public string nameTextBox
         {
@@ -142,7 +155,10 @@ namespace Laundrygest_desktop.ViewModel
             }
             RefreshList();
         }
-
+        private void TextBox_KeyUp()
+        {
+            RefreshList();
+        }
         public void CancelPiece()
         {
             finishTransaction();
@@ -172,7 +188,7 @@ namespace Laundrygest_desktop.ViewModel
 
         public void RefreshList()
         {
-            PriceList = priceListRepository.GetPricelists(collectionType).Result;
+            PriceList = priceListRepository.GetPricelists(collectionType,filterTextBox).Result;
         }
 
         public ICommand AddPieceCommand { get; private set; }
@@ -180,7 +196,7 @@ namespace Laundrygest_desktop.ViewModel
         public ICommand DeletePieceCommand { get; private set; }
         public ICommand ConfirmPieceCommand { get; private set; }
         public ICommand CancelPieceCommand { get; private set; }
-
+        public ICommand EnterPressedCommand { get; private set; }
         public void ShowAddPiece()
         {
             visibility = Visibility.Visible;
