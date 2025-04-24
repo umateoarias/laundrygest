@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Laundrygest_desktop.Views"
-        xmlns:ViewModel="clr-namespace:Laundrygest_desktop.ViewModel" x:Class="Laundrygest_desktop.Views.CollectionDialog"
+        xmlns:ViewModel="clr-namespace:Laundrygest_desktop.ViewModel" d:DataContext="{d:DesignInstance Type=ViewModel:CollectionDialogViewModel}" x:Class="Laundrygest_desktop.Views.CollectionDialog"
         mc:Ignorable="d"
         Title="Recollida" Height="770" Width="1500" ResizeMode="NoResize">
     <Grid Margin="10">
@@ -44,7 +44,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Column="0" x:Name="clientText" Style="{StaticResource MiniHeaders}" Text="Client" FontWeight="Bold" Padding="5 10 5 0"/>
-                <Button Grid.Column="1" x:Name="btnSearchClient" Content="Buscar" Style="{StaticResource WindowButtons}" Command="{Binding SearchClientCommand}" Height="30" Width="90" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                <Button Grid.Column="1" x:Name="btnSearchClient" Visibility="{Binding btnVisibility}" Content="Buscar" Style="{StaticResource WindowButtons}" Command="{Binding SearchClientCommand}" Height="30" Width="90" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                 <Grid Grid.Column="1" Grid.Row="1" Margin="12">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -69,8 +69,8 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnAddClothe" Grid.Column="0" Content="Afegir Prenda" Style="{StaticResource WindowButtons}" Command="{Binding OpenAddPieceCommand}"/>
-                <Button x:Name="btnRemoveClothe" Grid.Column="1" Content="Eliminar Prenda" Style="{StaticResource WindowButtons}" Command="{Binding DeleteSelectedCommand}"/>
+                <Button x:Name="btnAddClothe" Grid.Column="0" Content="{Binding btnContent1}" Style="{StaticResource WindowButtons}" Command="{Binding OpenAddPieceCommand}"/>
+                <Button x:Name="btnRemoveClothe" Grid.Column="1" Content="{Binding btnContent2}" Style="{StaticResource WindowButtons}" Command="{Binding DeleteSelectedCommand}"/>
             </Grid>
             <Grid Grid.Row="3">
                 <Grid.RowDefinitions>

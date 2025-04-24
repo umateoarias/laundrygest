@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Webservice_Laundrygest.Models;
 
@@ -15,6 +16,7 @@ public partial class Pricelist
 
     public int? NumPieces { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<CollectionItem> CollectionItems { get; set; } = new List<CollectionItem>();
 
     public virtual CollectionType CollectionTypeCodeNavigation { get; set; } = null!;

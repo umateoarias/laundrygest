@@ -25,6 +25,20 @@ namespace Laundrygest_desktop.Data
             return result;
         }
 
+        public async Task<Client> GetClient(int code)
+        {
+            Client c = null;
+            try
+            {
+                c = await MakeRequest<Client>("client/" + code, "GET", null);
+            }
+            catch { }
+            if(c == null)
+            {
+                c = new Client();
+            }
+            return c;
+        }
         public async Task<ObservableCollection<Client>> GetClients(string filter)
         {
             ObservableCollection<Client>? result = null;

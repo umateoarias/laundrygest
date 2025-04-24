@@ -17,6 +17,7 @@ namespace Laundrygest_desktop.ViewModel.Dialogs
     {
         private readonly int collectionType;
         private readonly PriceListRepository priceListRepository;
+        private string _filterTextBox;
         private ObservableCollection<Pricelist> _pricelists;
         private Pricelist _selectedPricelist;
         public Action<Pricelist> OnOptionSelected { get; set; }
@@ -24,8 +25,19 @@ namespace Laundrygest_desktop.ViewModel.Dialogs
         {
             this.collectionType = collectionType;
             priceListRepository = new PriceListRepository();
-            pricelists = priceListRepository.GetPricelists(collectionType,"").Result;
+            filterTextBox = "";
+            FilterPricelist();
             SelectPieceCommand = new DelegateCommand(SelectPiece);
+            EnterPressedCommand = new DelegateCommand(TextBox_KeyUp);
+        }
+        public string filterTextBox
+        {
+            get { return _filterTextBox; }
+            set
+            {
+                _filterTextBox = value;
+                OnPropertyChanged();
+            }
         }
         public ObservableCollection<Pricelist> pricelists
         {
@@ -50,6 +62,7 @@ namespace Laundrygest_desktop.ViewModel.Dialogs
             }
         }
 
+        public ICommand EnterPressedCommand { get; }
         public ICommand SelectPieceCommand { get; }
 
         public void SelectPiece()
@@ -57,9 +70,20 @@ namespace Laundrygest_desktop.ViewModel.Dialogs
             if (_selectedPricelist != null)
             {
                 OnOptionSelected?.Invoke(SelectedPricelist);
-            }        
+            }
 
         }
+
+        private void FilterPricelist()
+        {
+            pricelists = priceListRepository.GetPricelists(collectionType,filterTextBox).Result;
+        }
+
+        private void TextBox_KeyUp()
+        {
+            FilterPricelist();
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

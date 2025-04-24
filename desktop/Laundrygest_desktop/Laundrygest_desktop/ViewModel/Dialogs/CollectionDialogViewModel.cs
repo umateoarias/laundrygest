@@ -16,15 +16,23 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
+
 namespace Laundrygest_desktop.ViewModel
 {
     public class CollectionDialogViewModel : INotifyPropertyChanged
     {
         private readonly CollectionRepository _repository;
+        private readonly ClientRepository _clientRepository;
+
         private Collection collection;
         private CollectionItem _selectedCollectionItem;
         private int collectionType;
         private Client _collectionClient;
+        public bool isDelivery;
+        private Visibility _btnVisibility = Visibility.Collapsed;
+
+        private string _btnContent1;
+        private string _btnContent2;
         private string _clerkTextBox;
         private string _clientFirstNameTextBox;
         private string _clientLastNameTextBox;
@@ -37,19 +45,64 @@ namespace Laundrygest_desktop.ViewModel
         private DateTime _dueDatePicker;
         private ObservableCollection<CollectionItem> _collectionItems;
         public Action CloseAction { get; set; }
-        public CollectionDialogViewModel(bool isQuilts)
+        public CollectionDialogViewModel(bool isQuilts, Collection? deliveryCollection)
         {
+            btnVisibility = new Visibility();
             collectionType = isQuilts ? 2 : 1;
             _repository = new CollectionRepository();
-            collectionItems = new ObservableCollection<CollectionItem>();
-            DueDatePicker = CreatedAtDatePicker.AddDays(7);
-            Collection c = new Collection() { CreatedAt = CreatedAtDatePicker, CollectionTypeCode = collectionType, CollectionItems = collectionItems };
-            collection = _repository.PostCollection(c).Result;
+            _clientRepository = new ClientRepository();
+            if (deliveryCollection == null)
+            {
+                isDelivery = false;
+                collectionItems = new ObservableCollection<CollectionItem>();
+                DueDatePicker = CreatedAtDatePicker.AddDays(7);
+                Collection c = new Collection() { CreatedAt = CreatedAtDatePicker, CollectionTypeCode = collectionType, CollectionItems = collectionItems };
+                collection = _repository.PostCollection(c).Result;
+            }
+            else
+            {
+                isDelivery = true;
+                collection = deliveryCollection;
+                _collectionClient = _clientRepository.GetClient((int)deliveryCollection.ClientCode).Result;
+                // CLERK NOT SAVED                
+            }
+            setFormText();
             collectionItems.CollectionChanged += CollectionItem_PropertyChanged;
+            setCommands();
+        }
+
+        private void setFormText()
+        {
+            if (isDelivery)
+            {
+                ClientFirstNameTextBox = _collectionClient.FirstName;
+                ClientLastNameTextBox = _collectionClient.LastName;
+                ClientTelephoneTextBox = _collectionClient.Telephone;
+                ClientNifTextBox = _collectionClient.Nif;
+                TotalPriceTextBox = collection.Total == null ? 0.0m : (decimal)collection.Total;
+                TaxAmountTextBox = collection.TaxAmount == null ? 0.0m : (decimal)collection.TaxAmount;
+                BasePriceTextBox = collection.TaxBase == null ? 0.0m : (decimal)collection.TaxBase;
+                CreatedAtDatePicker = collection.CreatedAt;
+                DueDatePicker = collection.DueDate == null ? CreatedAtDatePicker.AddDays(7) : (DateTime)collection.DueDate;
+                collectionItems = new ObservableCollection<CollectionItem>(collection.CollectionItems);
+                btnVisibility = Visibility.Collapsed;
+                btnContent1 = "Entregar";
+                btnContent2 = "Eliminar entregat";
+            }
+            else
+            {
+                btnVisibility = Visibility.Visible;
+                btnContent1 = "Afegir prenda";
+                btnContent2 = "Eliminar prenda";
+                OpenAddPieceCommand = new DelegateCommand(OpenAddPiece);
+                DeleteSelectedCommand = new DelegateCommand(DeleteSelectedPiece);
+            }
+        }
+
+        private void setCommands()
+        {
             SearchClientCommand = new DelegateCommand(OpenSearchClientDialog);
-            SelectClerkCommand = new DelegateCommand(OpenClerkWindow);
-            OpenAddPieceCommand = new DelegateCommand(OpenAddPiece);
-            DeleteSelectedCommand = new DelegateCommand(DeleteSelectedPiece);
+            SelectClerkCommand = new DelegateCommand(OpenClerkWindow);            
             PaymentDialogCommand = new DelegateCommand(OpenPaymentDialog);
             FinishCommand = new DelegateCommand(FinishCollection);
         }
@@ -58,6 +111,41 @@ namespace Laundrygest_desktop.ViewModel
         {
             getTotalPrice();
         }
+        public string btnContent1
+        {
+            get
+            {
+                return _btnContent1;
+            }
+            set
+            {
+                _btnContent1 = value;
+                OnPropertyChanged();
+            }
+        }
+        public string btnContent2
+        {
+            get { return _btnContent2; }
+            set
+            {
+                _btnContent2 = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Visibility btnVisibility
+        {
+            get
+            {
+                return _btnVisibility;
+            }
+            set
+            {
+                _btnVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         public DateTime CreatedAtDatePicker
         {
@@ -198,12 +286,12 @@ namespace Laundrygest_desktop.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public ICommand SelectClerkCommand { get; }
-        public ICommand SearchClientCommand { get; }
-        public ICommand OpenAddPieceCommand { get; }
-        public ICommand DeleteSelectedCommand { get; }
-        public ICommand PaymentDialogCommand { get; }
-        public ICommand FinishCommand { get; }
+        public ICommand SelectClerkCommand { get; private set; }
+        public ICommand SearchClientCommand { get; private set; }
+        public ICommand OpenAddPieceCommand { get; private set; }
+        public ICommand DeleteSelectedCommand { get; private set; }
+        public ICommand PaymentDialogCommand { get; private set; }
+        public ICommand FinishCommand { get; private set; }
         public void OpenSearchClientDialog()
         {
             var dialog = new SearchClientDialog();

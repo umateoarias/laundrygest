@@ -26,7 +26,11 @@ namespace Laundrygest_desktop.Views.Dialogs
         {
             InitializeComponent();
             var vm = new SelectCollectionDialogViewModel(selectedClient);
-
+            vm.OnCollectionSelected = (selected) =>
+            {
+                selectedCollection = selected;
+                DialogResult = true;
+            };
             DataContext = vm;
         }
     }
