@@ -108,6 +108,20 @@
                 <RowDefinition Height="120"/>
             </Grid.RowDefinitions>
             <DataGrid Margin="12" ItemsSource="{Binding collectionItems}" SelectedItem="{Binding SelectedCollectionItem}" ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}" CellStyle="{StaticResource CellStyle}" RowHeight="50" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserReorderColumns="False">
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">                     
+                        <Style.Triggers>                            
+                            <DataTrigger Binding="{Binding HasDeliveryNumber}"
+                             Value="True">
+                                <Setter Property="Foreground" Value="#2D3648"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsMarked}" Value="True">
+                                <Setter Property="Foreground" Value="Green"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Nom" Binding="{Binding PricelistCodeNavigation.Name}" Width="2*" IsReadOnly="True" FontSize="16"/>
                     <DataGridTextColumn Header="Peçes" Binding="{Binding NumPieces, UpdateSourceTrigger=PropertyChanged}" Width="1*" FontSize="24" EditingElementStyle="{StaticResource EditCellStyle}"/>

@@ -1,6 +1,7 @@
 ﻿using Laundrygest_desktop.Data;
 using Laundrygest_desktop.Data.Repositories;
 using Laundrygest_desktop.Model;
+using Laundrygest_desktop.ViewModel.Dialogs;
 using Laundrygest_desktop.Views;
 using Laundrygest_desktop.Views.Dialogs;
 using Prism.Commands;
@@ -21,11 +22,13 @@ namespace Laundrygest_desktop.ViewModel
 {
     public class CollectionDialogViewModel : INotifyPropertyChanged
     {
-        private readonly CollectionRepository _repository;
+        private readonly CollectionRepository _collectionRepository;
         private readonly ClientRepository _clientRepository;
+        private readonly DeliveryRepository _deliveryRepository;
 
+        private Delivery delivery;
         private Collection collection;
-        private CollectionItem _selectedCollectionItem;
+        private CollectionItemViewModel _selectedCollectionItem;
         private int collectionType;
         private Client _collectionClient;
         public bool isDelivery;
@@ -43,27 +46,31 @@ namespace Laundrygest_desktop.ViewModel
         private decimal _totalPriceTextBox;
         private DateTime _createdAtDatePicker = DateTime.Now;
         private DateTime _dueDatePicker;
-        private ObservableCollection<CollectionItem> _collectionItems;
+        private ObservableCollection<CollectionItemViewModel> _collectionItems;
         public Action CloseAction { get; set; }
         public CollectionDialogViewModel(bool isQuilts, Collection? deliveryCollection)
         {
             btnVisibility = new Visibility();
             collectionType = isQuilts ? 2 : 1;
-            _repository = new CollectionRepository();
+            _collectionRepository = new CollectionRepository();
             _clientRepository = new ClientRepository();
+            _deliveryRepository = new DeliveryRepository();
             if (deliveryCollection == null)
             {
                 isDelivery = false;
-                collectionItems = new ObservableCollection<CollectionItem>();
+                collectionItems = new ObservableCollection<CollectionItemViewModel>();
                 DueDatePicker = CreatedAtDatePicker.AddDays(7);
-                Collection c = new Collection() { CreatedAt = CreatedAtDatePicker, CollectionTypeCode = collectionType, CollectionItems = collectionItems };
-                collection = _repository.PostCollection(c).Result;
+                var newCollectionItems = collectionItems.Select(x => x.Model).ToList();
+                Collection c = new Collection() { CreatedAt = CreatedAtDatePicker, CollectionTypeCode = collectionType, CollectionItems = newCollectionItems };
+                collection = _collectionRepository.PostCollection(c).Result;
             }
             else
             {
                 isDelivery = true;
                 collection = deliveryCollection;
                 _collectionClient = _clientRepository.GetClient((int)deliveryCollection.ClientCode).Result;
+                Delivery d = new Delivery() { DeliveryDate=DateTime.Now};
+                delivery = _deliveryRepository.PostDelivery(d).Result;
                 // CLERK NOT SAVED                
             }
             setFormText();
@@ -84,10 +91,13 @@ namespace Laundrygest_desktop.ViewModel
                 BasePriceTextBox = collection.TaxBase == null ? 0.0m : (decimal)collection.TaxBase;
                 CreatedAtDatePicker = collection.CreatedAt;
                 DueDatePicker = collection.DueDate == null ? CreatedAtDatePicker.AddDays(7) : (DateTime)collection.DueDate;
-                collectionItems = new ObservableCollection<CollectionItem>(collection.CollectionItems);
+                collectionItems = new ObservableCollection<CollectionItemViewModel>(collection.CollectionItems.Select(x => new CollectionItemViewModel(x)));
                 btnVisibility = Visibility.Collapsed;
                 btnContent1 = "Entregar";
                 btnContent2 = "Eliminar entregat";
+                OpenAddPieceCommand = new DelegateCommand(MarkCollectionItem);
+                DeleteSelectedCommand = new DelegateCommand(UnmarkCollectionItem);
+                FinishCommand = new DelegateCommand(CloseDelivery);
             }
             else
             {
@@ -96,15 +106,42 @@ namespace Laundrygest_desktop.ViewModel
                 btnContent2 = "Eliminar prenda";
                 OpenAddPieceCommand = new DelegateCommand(OpenAddPiece);
                 DeleteSelectedCommand = new DelegateCommand(DeleteSelectedPiece);
+                FinishCommand = new DelegateCommand(FinishCollection);
+            }
+        }
+
+        private void CloseDelivery()
+        {
+            // FALTA ASEGURARSE QUE LA RECOGIDA ESTE PAGADA Y HACER UNA PUT REQUEST DE COLLECTION PARA GUARDAR LOS CAMBIOS
+            delivery.CollectionItems = collectionItems.Where(x => x.IsMarked).Select(x => x.Model).ToList();
+            var result = MessageBox.Show("Vols guardar aquest lliurament?", "Finalitzar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes && _deliveryRepository.PutDelivery(delivery.Number, delivery).Result)
+            {
+                CloseAction?.Invoke();
+            }
+        }
+
+        private void UnmarkCollectionItem()
+        {
+            if(SelectedCollectionItem!=null && !SelectedCollectionItem.HasDeliveryNumber && SelectedCollectionItem.IsMarked)
+            {
+                SelectedCollectionItem.IsMarked = false;
+            }
+        }
+
+        private void MarkCollectionItem()
+        {
+            if (SelectedCollectionItem != null && !SelectedCollectionItem.HasDeliveryNumber && !SelectedCollectionItem.IsMarked)
+            {
+                SelectedCollectionItem.IsMarked = true;
             }
         }
 
         private void setCommands()
         {
             SearchClientCommand = new DelegateCommand(OpenSearchClientDialog);
-            SelectClerkCommand = new DelegateCommand(OpenClerkWindow);            
+            SelectClerkCommand = new DelegateCommand(OpenClerkWindow);
             PaymentDialogCommand = new DelegateCommand(OpenPaymentDialog);
-            FinishCommand = new DelegateCommand(FinishCollection);
         }
 
         private void CollectionItem_PropertyChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -167,7 +204,7 @@ namespace Laundrygest_desktop.ViewModel
             }
         }
 
-        public CollectionItem SelectedCollectionItem
+        public CollectionItemViewModel SelectedCollectionItem
         {
             get
             {
@@ -254,7 +291,7 @@ namespace Laundrygest_desktop.ViewModel
                 OnPropertyChanged();
             }
         }
-        public ObservableCollection<CollectionItem> collectionItems
+        public ObservableCollection<CollectionItemViewModel> collectionItems
         {
             get { return _collectionItems; }
             set
@@ -266,7 +303,7 @@ namespace Laundrygest_desktop.ViewModel
         public void getTotalPrice()
         {
             decimal total = 0;
-            foreach (var item in _collectionItems)
+            foreach (var item in collectionItems.Select(x => x.Model))
             {
                 var pl = item.PricelistCodeNavigation;
                 var num = item.NumPieces;
@@ -324,7 +361,8 @@ namespace Laundrygest_desktop.ViewModel
                 ci.CollectionNumberNavigation = collection;
                 ci.CollectionNumber = collection.Number;
                 ci.PropertyChanged += PricelistCodeNavigation_PropertyChanged;
-                collectionItems.Add(ci);
+                var vm = new CollectionItemViewModel(ci);
+                collectionItems.Add(vm);
             }
         }
 
@@ -342,7 +380,7 @@ namespace Laundrygest_desktop.ViewModel
 
         public void FinishCollection()
         {
-            collection.CollectionItems = collectionItems;
+            collection.CollectionItems = collectionItems.Select(x => x.Model).ToList();
             collection.Total = TotalPriceTextBox;
             collection.DueDate = DueDatePicker;
             collection.CreatedAt = CreatedAtDatePicker;
@@ -351,7 +389,7 @@ namespace Laundrygest_desktop.ViewModel
             collection.ClientCodeNavigation = _collectionClient;
             collection.ClientCode = _collectionClient.Code;
             var result = MessageBox.Show("Vols guardar aquesta recollida?", "Finalitzar", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes && _repository.PutCollection(collection.Number, collection).Result)
+            if (result == MessageBoxResult.Yes && _collectionRepository.PutCollection(collection.Number, collection).Result)
             {
                 CloseAction?.Invoke();
             }

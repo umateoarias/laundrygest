@@ -23,11 +23,15 @@ namespace Laundrygest_desktop.Model
         public int CollectionNumber { get; set; }
 
         public int PricelistCode { get; set; }
+        public int? DeliveryNumber { get; set; }
+
 
         [JsonIgnore]
         public virtual Collection CollectionNumberNavigation { get; set; } = null!;
 
         public virtual Pricelist PricelistCodeNavigation { get; set; } = null!;
+        public virtual Delivery? DeliveryNumberNavigation { get; set; }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
