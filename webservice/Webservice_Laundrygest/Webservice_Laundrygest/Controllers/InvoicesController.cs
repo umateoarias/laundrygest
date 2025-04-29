@@ -9,8 +9,7 @@ using Webservice_Laundrygest.Models;
 
 namespace Webservice_Laundrygest.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class InvoicesController : ControllerBase
     {
         private readonly LaundrygestContext _context;
@@ -21,6 +20,7 @@ namespace Webservice_Laundrygest.Controllers
         }
 
         // GET: api/Invoices
+        [Route("api/invoices")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Invoice>>> GetInvoices()
         {
@@ -28,7 +28,8 @@ namespace Webservice_Laundrygest.Controllers
         }
 
         // GET: api/Invoices/5
-        [HttpGet("{id}")]
+        [Route("api/invoice/{id}")]
+        [HttpGet]
         public async Task<ActionResult<Invoice>> GetInvoice(int id)
         {
             var invoice = await _context.Invoices.FindAsync(id);
@@ -43,8 +44,9 @@ namespace Webservice_Laundrygest.Controllers
 
         // PUT: api/Invoices/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutInvoice(int id, Invoice invoice)
+        [Route("api/invoice/{id}")]
+        [HttpPut]
+        public async Task<IActionResult> PutInvoice(int id,[FromBody] Invoice invoice)
         {
             if (id != invoice.Id)
             {
@@ -74,8 +76,9 @@ namespace Webservice_Laundrygest.Controllers
 
         // POST: api/Invoices
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [Route("api/invoice")]
         [HttpPost]
-        public async Task<ActionResult<Invoice>> PostInvoice(Invoice invoice)
+        public async Task<ActionResult<Invoice>> PostInvoice([FromBody]Invoice invoice)
         {
             _context.Invoices.Add(invoice);
             await _context.SaveChangesAsync();
@@ -84,7 +87,8 @@ namespace Webservice_Laundrygest.Controllers
         }
 
         // DELETE: api/Invoices/5
-        [HttpDelete("{id}")]
+        [Route("api/invoice/{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteInvoice(int id)
         {
             var invoice = await _context.Invoices.FindAsync(id);

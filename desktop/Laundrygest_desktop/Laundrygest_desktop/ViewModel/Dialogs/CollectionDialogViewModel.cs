@@ -69,7 +69,7 @@ namespace Laundrygest_desktop.ViewModel
                 isDelivery = true;
                 collection = deliveryCollection;
                 _collectionClient = _clientRepository.GetClient((int)deliveryCollection.ClientCode).Result;
-                Delivery d = new Delivery() { DeliveryDate=DateTime.Now};
+                Delivery d = new Delivery() { DeliveryDate = DateTime.Now };
                 delivery = _deliveryRepository.PostDelivery(d).Result;
                 // CLERK NOT SAVED                
             }
@@ -112,18 +112,31 @@ namespace Laundrygest_desktop.ViewModel
 
         private void CloseDelivery()
         {
-            // FALTA ASEGURARSE QUE LA RECOGIDA ESTE PAGADA Y HACER UNA PUT REQUEST DE COLLECTION PARA GUARDAR LOS CAMBIOS
-            delivery.CollectionItems = collectionItems.Where(x => x.IsMarked).Select(x => x.Model).ToList();
-            var result = MessageBox.Show("Vols guardar aquest lliurament?", "Finalitzar", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes && _deliveryRepository.PutDelivery(delivery.Number, delivery).Result)
+            if (collection.DueTotal == 0)
+            {                
+                delivery.CollectionItems = collectionItems.Where(x => x.IsMarked).Select(x => x.Model).ToList();
+                var result = MessageBox.Show("Vols guardar aquest lliurament?", "Finalitzar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    if (_deliveryRepository.PutDelivery(delivery.Number, delivery).Result)
+                    {
+                        CloseAction?.Invoke();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error guardant el lliurament","Error",MessageBoxButton.OK,MessageBoxImage.Error);
+                    }
+                }
+            }
+            else
             {
-                CloseAction?.Invoke();
+                MessageBox.Show("Pagament pendent", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
         private void UnmarkCollectionItem()
         {
-            if(SelectedCollectionItem!=null && !SelectedCollectionItem.HasDeliveryNumber && SelectedCollectionItem.IsMarked)
+            if (SelectedCollectionItem != null && !SelectedCollectionItem.HasDeliveryNumber && SelectedCollectionItem.IsMarked)
             {
                 SelectedCollectionItem.IsMarked = false;
             }
@@ -389,9 +402,16 @@ namespace Laundrygest_desktop.ViewModel
             collection.ClientCodeNavigation = _collectionClient;
             collection.ClientCode = _collectionClient.Code;
             var result = MessageBox.Show("Vols guardar aquesta recollida?", "Finalitzar", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes && _collectionRepository.PutCollection(collection.Number, collection).Result)
+            if (result == MessageBoxResult.Yes)
             {
-                CloseAction?.Invoke();
+                if (_collectionRepository.PutCollection(collection.Number, collection).Result)
+                {
+                    CloseAction?.Invoke();
+                }
+                else
+                {
+                    MessageBox.Show("Error guardant la recollida","Error",MessageBoxButton.OK,MessageBoxImage.Error);
+                }
             }
         }
 

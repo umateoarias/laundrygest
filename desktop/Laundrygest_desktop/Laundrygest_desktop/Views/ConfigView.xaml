@@ -27,14 +27,23 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="1" Grid.Row="1" Text="Configuració" FontSize="28" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" FontWeight="Bold"/>
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="URL API:" Style="{StaticResource MiniHeaders}" Margin="10"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="URL API:" Style="{StaticResource MiniHeaders}" Margin="10,30,0,0"/>
         <Grid Grid.Row="2" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-        <TextBox Grid.Column="0" Style="{StaticResource TextBoxForm}" Text="{Binding UrlApiTextBox}" FontSize="28" Height="60" Width="320" IsReadOnly="False"/>
+        <TextBox Grid.Column="0" Style="{StaticResource TextBoxForm}" Text="{Binding UrlApiTextBox}" FontSize="28" Height="60" Width="360" IsReadOnly="False"/>
         <Button Grid.Column="1" Content="Connectar" Style="{StaticResource WindowButtons}" HorizontalAlignment="Left" Margin="15,0,0,0" Width="120" Height="60" Command="{Binding ConnectCommand}"/>
+        </Grid>
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="Dies per recollides de roba:" Style="{StaticResource MiniHeaders}" Margin="10,30,0,0"/>
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Style="{StaticResource TextBoxForm}" Text="" FontSize="28" Height="60" Width="360" IsReadOnly="False"/>
+            <!--<Button Grid.Column="1" Content="Connectar" Style="{StaticResource WindowButtons}" HorizontalAlignment="Left" Margin="15,0,0,0" Width="120" Height="60" Command="{Binding ConnectCommand}"/>-->
         </Grid>
     </Grid>
 </UserControl>

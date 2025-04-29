@@ -18,7 +18,7 @@ namespace Webservice_Laundrygest.Controllers
         public CollectionsController(LaundrygestContext context)
         {
             _context = context;
-        }
+        }        
 
         // GET: api/Collections
         [Route("api/collections")]

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Laundrygest_desktop.Views.Dialogs"
         mc:Ignorable="d"
-        Title="SelectOptionButtonsDialog" ResizeMode="NoResize" Height="450" Width="300"
+        Title="Selecciona dependent" ResizeMode="NoResize" Height="450" Width="300"
         WindowStartupLocation="CenterScreen">
     <StackPanel Margin="20">
         <ItemsControl ItemsSource="{Binding Options}">
