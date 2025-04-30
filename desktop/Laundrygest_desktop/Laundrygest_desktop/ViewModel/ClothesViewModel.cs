@@ -4,14 +4,16 @@ using Laundrygest_desktop.Views.Dialogs;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Laundrygest_desktop
 {
-    public class ClothesViewModel
+    public class ClothesViewModel : INotifyPropertyChanged
     {
         public ClothesViewModel()
         {
@@ -24,6 +26,12 @@ namespace Laundrygest_desktop
         public ICommand FinishCollectionCommand { get; }
         public ICommand ModifyCollectionCommand { get; }
         public ICommand ModifyPriceListCommand { get; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public void OpenCollectionDialog()
         {

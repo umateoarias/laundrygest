@@ -6,66 +6,79 @@
         xmlns:local="clr-namespace:Laundrygest_desktop.Views"
         xmlns:ViewModel="clr-namespace:Laundrygest_desktop.ViewModel" x:Class="Laundrygest_desktop.Views.CreateClientDialog"
         mc:Ignorable="d"
-    x:Name="CreateClientWindow"
-        Title="CreateClientDialog" Height="506" Width="900"
+        x:Name="CreateClientWindow"
+        Title="CreateClientDialog" Height="550" Width="650" Background="#F4F4F4"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.DataContext>
         <ViewModel:CreateClientDialogViewModel/>
     </Window.DataContext>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" x:Name="formDialogHeader" FontSize="28" FontWeight="Bold" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" Text="Crear client" Margin="15"/>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="50"/>
-            </Grid.ColumnDefinitions>
+    <Border BorderBrush="#DDD" BorderThickness="1" CornerRadius="8" Margin="20" Background="White">
+        <Grid Margin="20">
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Column="1" Text="Nom" Style="{StaticResource MiniHeaders}" />
-            <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBoxFirstName" Style="{StaticResource TextBoxForm}" Text="{Binding FirstNameTextBox}" IsReadOnly="False"/>
-            <TextBlock Grid.Row="0" Grid.Column="2" Text="Cognom" Style="{StaticResource MiniHeaders}" />
-            <TextBox Grid.Row="0" Grid.Column="2" x:Name="textBoxLastName" Style="{StaticResource TextBoxForm}" Text="{Binding LastNameTextBox}" IsReadOnly="False"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Text="Telefon" Style="{StaticResource MiniHeaders}"/>
-            <TextBox Grid.Row="1" Grid.Column="1" x:Name="textBoxTelephone" Style="{StaticResource TextBoxForm}" Text="{Binding TelephoneTextBox}" IsReadOnly="False"/>
-            <TextBlock Grid.Row="1" Grid.Column="2" Text="Adreça" Style="{StaticResource MiniHeaders}" />
-            <TextBox Grid.Row="1" Grid.Column="2" x:Name="textBoxAddress" Style="{StaticResource TextBoxForm}" Text="{Binding AddressTextBox}" IsReadOnly="False"/>
-            <TextBlock Grid.Row="2" Grid.Column="1" Text="Codi postal" Style="{StaticResource MiniHeaders}"/>
-            <TextBox Grid.Row="2" Grid.Column="1" x:Name="textBoxPostalCode" Style="{StaticResource TextBoxForm}" Text="{Binding PostalCodeTextBox}" IsReadOnly="False"/>
-            <TextBlock Grid.Row="2" Grid.Column="2" Text="Email" Style="{StaticResource MiniHeaders}" />
-            <TextBox Grid.Row="2" Grid.Column="2" x:Name="textBoxEmail" Style="{StaticResource TextBoxForm}" Text="{Binding EmailTextBox}" IsReadOnly="False"/>
-            <TextBlock Grid.Row="3" Grid.Column="1" Text="Localitat" Style="{StaticResource MiniHeaders}" />
-            <TextBox Grid.Row="3" Grid.Column="1" x:Name="textBoxLocality" Style="{StaticResource TextBoxForm}" Text="{Binding LocalityTextBox}" IsReadOnly="False"/>
+
+            <TextBlock Text="Crear client" FontSize="26" FontWeight="Bold" Margin="0,0,0,20" />
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
+                    <TextBlock Text="Nom" />
+                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding FirstNameTextBox}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="0" Margin="5">
+                    <TextBlock Text="Telèfon" />
+                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding TelephoneTextBox}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.Column="0" Margin="5">
+                    <TextBlock Text="Codi postal" />
+                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding PostalCodeTextBox}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="3" Grid.Column="0" Margin="5">
+                    <TextBlock Text="Localitat" />
+                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding LocalityTextBox}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="0" Grid.Column="1" Margin="5">
+                    <TextBlock Text="Cognom" />
+                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding LastNameTextBox}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="1" Margin="5">
+                    <TextBlock Text="Adreça" />
+                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding AddressTextBox}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="2" Grid.Column="1" Margin="5">
+                    <TextBlock Text="Email" />
+                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding EmailTextBox}"/>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,20,0,0">
+                <CheckBox x:Name="checkBoxEmpresa" Content="És empresa?" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <TextBox Width="200"  IsEnabled="{Binding IsChecked, ElementName=checkBoxEmpresa}" Style="{StaticResource ModernTextBox}" Text="{Binding NifTextBox}"/>
+            </StackPanel>
+
+            <DockPanel Grid.Row="3" Margin="0,30,0,0" LastChildFill="False">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                    <Button Content="Crear" Style="{StaticResource PrimaryButton}" Width="100" Margin="5,0" Command="{Binding CreateClientCommand}" CommandParameter="{Binding ElementName=CreateClientWindow}"/>
+                    <Button Content="Cancel·lar" Style="{StaticResource SecondaryButton}" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=CreateClientWindow}" Width="100" Margin="5,0"/>
+                </StackPanel>
+            </DockPanel>
         </Grid>
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <CheckBox Grid.Column="1" x:Name="checkBoxEmpresa" Content="Es empresa?" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" FontSize="16" FontWeight="SemiBold" Margin="15" Width="120"/>
-            <TextBox Grid.Column="2" x:Name="textBoxEmpresa" IsEnabled="{Binding IsChecked, ElementName=checkBoxEmpresa}"  Style="{StaticResource TextBoxForm}" HorizontalAlignment="Left" Text="{Binding NifTextBox}" IsReadOnly="False"/>
-        </Grid>
-        <Grid Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" x:Name="btnCreateClient" Style="{StaticResource WindowButtons}" Content="Crear" Width="120" Height="45" Command="{Binding CreateClientCommand}" CommandParameter="{Binding ElementName=CreateClientWindow}" />
-            <Button Grid.Column="2" x:Name="btnCancelCreateClient" Style="{StaticResource WindowButtons}" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=CreateClientWindow}" Content="Cancel·lar" Width="120" Height="45"/>
-        </Grid>
-    </Grid>
+    </Border>
 </Window>

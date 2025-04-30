@@ -20,8 +20,8 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="1" Grid.Row="1" Text="Quantitat:" Style="{StaticResource MiniHeaders}" VerticalAlignment="Center" Margin="25"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxForm}" Width="200" Height="45" FontSize="20" HorizontalContentAlignment="Right" Text="{Binding PaymentAmount,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False"/>
-        <Button Grid.Column="1" Grid.Row="1" Content="Total" Style="{StaticResource WindowButtons}" HorizontalAlignment="Right" VerticalAlignment="Center" Height="45" Width="120" Command="{Binding GetTotalCommand}"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Style="{StaticResource ModernTextBox}" Width="200" Height="45" FontSize="20" HorizontalContentAlignment="Right" Text="{Binding PaymentAmount,UpdateSourceTrigger=PropertyChanged, StringFormat=F2}"/>
+        <Button Grid.Column="1" Grid.Row="1" Content="Total" Style="{StaticResource SecondaryButton}" HorizontalAlignment="Right" VerticalAlignment="Center" Height="45" Width="120" Command="{Binding GetTotalCommand}"/>
         <Grid Grid.Row="2" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -31,6 +31,8 @@
         <Button x:Name="btnCard" Grid.Column="0" Content="Targeta" Style="{StaticResource WindowButtons}" Margin="30" Command="{Binding CardPayCommand}"/>
         </Grid>
         <TextBlock Text="Quantitat a retornar: " Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Style="{StaticResource MiniHeaders}"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxForm}" HorizontalAlignment="Right" IsReadOnly="True" HorizontalContentAlignment="Center" Text="{Binding ReturnAmount, UpdateSourceTrigger=PropertyChanged, StringFormat=F2}"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource ModernTextBox}" Width="300" HorizontalAlignment="Right" IsReadOnly="True" Text="{Binding ReturnAmount, UpdateSourceTrigger=PropertyChanged, StringFormat=F2}"/>
     </Grid>
 </Window>
+
+    

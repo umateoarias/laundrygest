@@ -22,11 +22,11 @@ namespace Laundrygest_desktop.Views.Dialogs
     {
         public string PaymentMode { get; private set; }
         public decimal RemainingAmount { get; private set; }
-        public PaymentDialog(decimal totalPrice)
+        public PaymentDialog(decimal totalPrice, decimal dueTotal)
         {
             InitializeComponent();
 
-            var vm = new PaymentDialogViewModel(totalPrice);
+            var vm = new PaymentDialogViewModel(totalPrice,dueTotal);
             vm.PaymentModeReturn = (payment, remaining)=>{
                 PaymentMode = payment;
                 RemainingAmount = remaining;

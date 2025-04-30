@@ -123,9 +123,9 @@
                 </DataGrid.RowStyle>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nom" Binding="{Binding PricelistCodeNavigation.Name}" Width="2*" IsReadOnly="True" FontSize="16"/>
-                    <DataGridTextColumn Header="Peçes" Binding="{Binding NumPieces, UpdateSourceTrigger=PropertyChanged}" Width="1*" FontSize="24" EditingElementStyle="{StaticResource EditCellStyle}"/>
-                    <DataGridTextColumn Header="Preu unitari" Binding="{Binding PricelistCodeNavigation.UnitPrice,UpdateSourceTrigger=PropertyChanged}" Width="1*" FontSize="24" EditingElementStyle="{StaticResource EditCellStyle}"/>
+                    <DataGridTextColumn Header="Nom" Binding="{Binding Model.PricelistCodeNavigation.Name}" Width="2*" IsReadOnly="True" FontSize="20"/>
+                    <DataGridTextColumn Header="Peçes" Binding="{Binding Model.NumPieces, UpdateSourceTrigger=PropertyChanged}" Width="1*" FontSize="24" EditingElementStyle="{StaticResource EditCellStyle}"/>
+                    <DataGridTextColumn Header="Preu unitari" Binding="{Binding Model.PricelistCodeNavigation.UnitPrice,UpdateSourceTrigger=PropertyChanged}" Width="1*" FontSize="24" EditingElementStyle="{StaticResource EditCellStyle}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <Grid Grid.Row="1">

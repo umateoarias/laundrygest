@@ -19,11 +19,12 @@ namespace Laundrygest_desktop.ViewModel.Dialogs
         private decimal _returnAmount;
         private bool _isCard;
         public Action<string, decimal> PaymentModeReturn { get; set; }
-        public PaymentDialogViewModel(decimal totalPrice)
-        {
-            PaymentAmount = 0.0m;
+        public PaymentDialogViewModel(decimal totalPrice,decimal dueTotal)
+        {            
             ReturnAmount = 0.0m;
             _totalPrice = totalPrice;
+            _remainingAmount = dueTotal;
+            PaymentAmount = totalPrice-dueTotal;
             CardPayCommand = new DelegateCommand(PayWithCard);
             CashPayCommand = new DelegateCommand(PayWithCash);
             GetTotalCommand = new DelegateCommand(GetTotalAmount);

@@ -113,7 +113,7 @@ namespace Laundrygest_desktop.ViewModel
         private void CloseDelivery()
         {
             if (collection.DueTotal == 0)
-            {                
+            {
                 delivery.CollectionItems = collectionItems.Where(x => x.IsMarked).Select(x => x.Model).ToList();
                 var result = MessageBox.Show("Vols guardar aquest lliurament?", "Finalitzar", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
@@ -124,7 +124,7 @@ namespace Laundrygest_desktop.ViewModel
                     }
                     else
                     {
-                        MessageBox.Show("Error guardant el lliurament","Error",MessageBoxButton.OK,MessageBoxImage.Error);
+                        MessageBox.Show("Error guardant el lliurament", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
@@ -381,7 +381,8 @@ namespace Laundrygest_desktop.ViewModel
 
         public void OpenPaymentDialog()
         {
-            var dialog = new PaymentDialog(TotalPriceTextBox);
+            if (!collection.DueTotal.HasValue) { collection.DueTotal = TotalPriceTextBox; }
+            var dialog = new PaymentDialog(TotalPriceTextBox, collection.DueTotal.Value);
             bool? result = dialog.ShowDialog();
 
             if (result == true)
@@ -410,7 +411,7 @@ namespace Laundrygest_desktop.ViewModel
                 }
                 else
                 {
-                    MessageBox.Show("Error guardant la recollida","Error",MessageBoxButton.OK,MessageBoxImage.Error);
+                    MessageBox.Show("Error guardant la recollida", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
