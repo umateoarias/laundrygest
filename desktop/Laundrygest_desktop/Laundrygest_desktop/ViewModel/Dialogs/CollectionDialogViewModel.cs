@@ -23,15 +23,14 @@ namespace Laundrygest_desktop.ViewModel
     public class CollectionDialogViewModel : INotifyPropertyChanged
     {
         private readonly CollectionRepository _collectionRepository;
-        private readonly ClientRepository _clientRepository;
         private readonly DeliveryRepository _deliveryRepository;
 
-        private Delivery delivery;
-        private Collection collection;
+        private readonly Delivery _delivery;
+        private readonly Collection _collection;
         private CollectionItemViewModel _selectedCollectionItem;
-        private int collectionType;
+        private readonly int _collectionType;
         private Client _collectionClient;
-        public bool isDelivery;
+        private readonly bool _isDelivery;
         private Visibility _btnVisibility = Visibility.Collapsed;
 
         private string _btnContent1;
@@ -50,60 +49,61 @@ namespace Laundrygest_desktop.ViewModel
         public Action CloseAction { get; set; }
         public CollectionDialogViewModel(bool isQuilts, Collection? deliveryCollection)
         {
-            btnVisibility = new Visibility();
-            collectionType = isQuilts ? 2 : 1;
+            BtnVisibility = new Visibility();
+            _collectionType = isQuilts ? 2 : 1;
             _collectionRepository = new CollectionRepository();
-            _clientRepository = new ClientRepository();
+            var clientRepository = new ClientRepository();
             _deliveryRepository = new DeliveryRepository();
             if (deliveryCollection == null)
             {
-                isDelivery = false;
-                collectionItems = new ObservableCollection<CollectionItemViewModel>();
+                _isDelivery = false;
+                CollectionItems = new ObservableCollection<CollectionItemViewModel>();
                 DueDatePicker = CreatedAtDatePicker.AddDays(7);
-                var newCollectionItems = collectionItems.Select(x => x.Model).ToList();
-                Collection c = new Collection() { CreatedAt = CreatedAtDatePicker, CollectionTypeCode = collectionType, CollectionItems = newCollectionItems };
-                collection = _collectionRepository.PostCollection(c).Result;
+                var newCollectionItems = CollectionItems.Select(x => x.Model).ToList();
+                Collection c = new Collection() { CreatedAt = CreatedAtDatePicker, CollectionTypeCode = _collectionType, CollectionItems = newCollectionItems };
+                _collection = _collectionRepository.PostCollection(c).Result;
             }
             else
             {
-                isDelivery = true;
-                collection = deliveryCollection;
-                _collectionClient = _clientRepository.GetClient((int)deliveryCollection.ClientCode).Result;
+                _isDelivery = true;
+                _collection = deliveryCollection;
+                if (deliveryCollection.ClientCode != null)
+                    _collectionClient = clientRepository.GetClient((int)deliveryCollection.ClientCode).Result;
                 Delivery d = new Delivery() { DeliveryDate = DateTime.Now };
-                delivery = _deliveryRepository.PostDelivery(d).Result;
+                _delivery = _deliveryRepository.PostDelivery(d).Result;
                 // CLERK NOT SAVED                
             }
-            setFormText();
-            collectionItems.CollectionChanged += CollectionItem_PropertyChanged;
-            setCommands();
+            SetFormText();
+            CollectionItems.CollectionChanged += CollectionItem_PropertyChanged;
+            SetCommands();
         }
 
-        private void setFormText()
+        private void SetFormText()
         {
-            if (isDelivery)
+            if (_isDelivery)
             {
                 ClientFirstNameTextBox = _collectionClient.FirstName;
                 ClientLastNameTextBox = _collectionClient.LastName;
                 ClientTelephoneTextBox = _collectionClient.Telephone;
                 ClientNifTextBox = _collectionClient.Nif;
-                TotalPriceTextBox = collection.Total == null ? 0.0m : (decimal)collection.Total;
-                TaxAmountTextBox = collection.TaxAmount == null ? 0.0m : (decimal)collection.TaxAmount;
-                BasePriceTextBox = collection.TaxBase == null ? 0.0m : (decimal)collection.TaxBase;
-                CreatedAtDatePicker = collection.CreatedAt;
-                DueDatePicker = collection.DueDate == null ? CreatedAtDatePicker.AddDays(7) : (DateTime)collection.DueDate;
-                collectionItems = new ObservableCollection<CollectionItemViewModel>(collection.CollectionItems.Select(x => new CollectionItemViewModel(x)));
-                btnVisibility = Visibility.Collapsed;
-                btnContent1 = "Entregar";
-                btnContent2 = "Eliminar entregat";
+                TotalPriceTextBox = _collection.Total == null ? 0.0m : (decimal)_collection.Total;
+                TaxAmountTextBox = _collection.TaxAmount == null ? 0.0m : (decimal)_collection.TaxAmount;
+                BasePriceTextBox = _collection.TaxBase == null ? 0.0m : (decimal)_collection.TaxBase;
+                CreatedAtDatePicker = _collection.CreatedAt;
+                DueDatePicker = _collection.DueDate == null ? CreatedAtDatePicker.AddDays(7) : (DateTime)_collection.DueDate;
+                CollectionItems = new ObservableCollection<CollectionItemViewModel>(_collection.CollectionItems.Select(x => new CollectionItemViewModel(x)));
+                BtnVisibility = Visibility.Collapsed;
+                BtnContent1 = "Entregar";
+                BtnContent2 = "Eliminar entregat";
                 OpenAddPieceCommand = new DelegateCommand(MarkCollectionItem);
                 DeleteSelectedCommand = new DelegateCommand(UnmarkCollectionItem);
                 FinishCommand = new DelegateCommand(CloseDelivery);
             }
             else
             {
-                btnVisibility = Visibility.Visible;
-                btnContent1 = "Afegir prenda";
-                btnContent2 = "Eliminar prenda";
+                BtnVisibility = Visibility.Visible;
+                BtnContent1 = "Afegir prenda";
+                BtnContent2 = "Eliminar prenda";
                 OpenAddPieceCommand = new DelegateCommand(OpenAddPiece);
                 DeleteSelectedCommand = new DelegateCommand(DeleteSelectedPiece);
                 FinishCommand = new DelegateCommand(FinishCollection);
@@ -112,13 +112,13 @@ namespace Laundrygest_desktop.ViewModel
 
         private void CloseDelivery()
         {
-            if (collection.DueTotal == 0)
+            if (_collection.DueTotal == 0)
             {
-                delivery.CollectionItems = collectionItems.Where(x => x.IsMarked).Select(x => x.Model).ToList();
+                _delivery.CollectionItems = CollectionItems.Where(x => x.IsMarked).Select(x => x.Model).ToList();
                 var result = MessageBox.Show("Vols guardar aquest lliurament?", "Finalitzar", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
-                    if (_deliveryRepository.PutDelivery(delivery.Number, delivery).Result)
+                    if (_deliveryRepository.PutDelivery(_delivery.Number, _delivery).Result)
                     {
                         CloseAction?.Invoke();
                     }
@@ -150,7 +150,7 @@ namespace Laundrygest_desktop.ViewModel
             }
         }
 
-        private void setCommands()
+        private void SetCommands()
         {
             SearchClientCommand = new DelegateCommand(OpenSearchClientDialog);
             SelectClerkCommand = new DelegateCommand(OpenClerkWindow);
@@ -159,23 +159,20 @@ namespace Laundrygest_desktop.ViewModel
 
         private void CollectionItem_PropertyChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            getTotalPrice();
+            GetTotalPrice();
         }
-        public string btnContent1
+        public string BtnContent1
         {
-            get
-            {
-                return _btnContent1;
-            }
+            get => _btnContent1;
             set
             {
                 _btnContent1 = value;
                 OnPropertyChanged();
             }
         }
-        public string btnContent2
+        public string BtnContent2
         {
-            get { return _btnContent2; }
+            get => _btnContent2;
             set
             {
                 _btnContent2 = value;
@@ -183,12 +180,9 @@ namespace Laundrygest_desktop.ViewModel
             }
         }
 
-        public Visibility btnVisibility
+        public Visibility BtnVisibility
         {
-            get
-            {
-                return _btnVisibility;
-            }
+            get => _btnVisibility;
             set
             {
                 _btnVisibility = value;
@@ -199,7 +193,7 @@ namespace Laundrygest_desktop.ViewModel
 
         public DateTime CreatedAtDatePicker
         {
-            get { return _createdAtDatePicker; }
+            get => _createdAtDatePicker;
             set
             {
                 _createdAtDatePicker = value;
@@ -209,7 +203,7 @@ namespace Laundrygest_desktop.ViewModel
 
         public DateTime DueDatePicker
         {
-            get { return _dueDatePicker; }
+            get => _dueDatePicker;
             set
             {
                 _dueDatePicker = value;
@@ -219,10 +213,7 @@ namespace Laundrygest_desktop.ViewModel
 
         public CollectionItemViewModel SelectedCollectionItem
         {
-            get
-            {
-                return _selectedCollectionItem;
-            }
+            get => _selectedCollectionItem;
             set
             {
                 _selectedCollectionItem = value;
@@ -233,7 +224,7 @@ namespace Laundrygest_desktop.ViewModel
 
         public string ClerkTextBox
         {
-            get { return _clerkTextBox; }
+            get => _clerkTextBox;
             set
             {
                 _clerkTextBox = value;
@@ -242,7 +233,7 @@ namespace Laundrygest_desktop.ViewModel
         }
         public string ClientFirstNameTextBox
         {
-            get { return _clientFirstNameTextBox; }
+            get => _clientFirstNameTextBox;
             set
             {
                 _clientFirstNameTextBox = value;
@@ -252,7 +243,7 @@ namespace Laundrygest_desktop.ViewModel
 
         public string ClientLastNameTextBox
         {
-            get { return _clientLastNameTextBox; }
+            get => _clientLastNameTextBox;
             set
             {
                 _clientLastNameTextBox = value;
@@ -261,7 +252,7 @@ namespace Laundrygest_desktop.ViewModel
         }
         public string ClientTelephoneTextBox
         {
-            get { return _clientTelephoneTextBox; }
+            get => _clientTelephoneTextBox;
             set
             {
                 _clientTelephoneTextBox = value;
@@ -270,7 +261,7 @@ namespace Laundrygest_desktop.ViewModel
         }
         public string ClientNifTextBox
         {
-            get { return _clientNifTextBox; }
+            get => _clientNifTextBox;
             set
             {
                 _clientNifTextBox = value;
@@ -279,7 +270,7 @@ namespace Laundrygest_desktop.ViewModel
         }
         public decimal BasePriceTextBox
         {
-            get { return _basePriceTextBox; }
+            get => _basePriceTextBox;
             set
             {
                 _basePriceTextBox = value;
@@ -288,7 +279,7 @@ namespace Laundrygest_desktop.ViewModel
         }
         public decimal TaxAmountTextBox
         {
-            get { return _taxAmountTextBox; }
+            get => _taxAmountTextBox;
             set
             {
                 _taxAmountTextBox = value;
@@ -297,14 +288,14 @@ namespace Laundrygest_desktop.ViewModel
         }
         public decimal TotalPriceTextBox
         {
-            get { return _totalPriceTextBox; }
+            get => _totalPriceTextBox;
             set
             {
                 _totalPriceTextBox = value;
                 OnPropertyChanged();
             }
         }
-        public ObservableCollection<CollectionItemViewModel> collectionItems
+        public ObservableCollection<CollectionItemViewModel> CollectionItems
         {
             get { return _collectionItems; }
             set
@@ -313,14 +304,15 @@ namespace Laundrygest_desktop.ViewModel
                 OnPropertyChanged();
             }
         }
-        public void getTotalPrice()
+
+        private void GetTotalPrice()
         {
             decimal total = 0;
-            foreach (var item in collectionItems.Select(x => x.Model))
+            foreach (var item in CollectionItems.Select(x => x.Model))
             {
                 var pl = item.PricelistCodeNavigation;
                 var num = item.NumPieces;
-                if (pl != null && num > 0)
+                if (num > 0)
                 {
                     total += pl.UnitPrice * num;
                 }
@@ -342,97 +334,92 @@ namespace Laundrygest_desktop.ViewModel
         public ICommand DeleteSelectedCommand { get; private set; }
         public ICommand PaymentDialogCommand { get; private set; }
         public ICommand FinishCommand { get; private set; }
-        public void OpenSearchClientDialog()
+
+        private void OpenSearchClientDialog()
         {
             var dialog = new SearchClientDialog();
             dialog.WindowState = System.Windows.WindowState.Maximized;
-            bool? result = dialog.ShowDialog();
+            var result = dialog.ShowDialog();
 
-            if (result == true)
-            {
-                _collectionClient = dialog.SelectedOption;
-                ClientFirstNameTextBox = _collectionClient.FirstName;
-                ClientLastNameTextBox = _collectionClient.LastName;
-                ClientTelephoneTextBox = _collectionClient.Telephone;
-                ClientNifTextBox = _collectionClient.Nif;
-            }
+            if (result != true) return;
+            _collectionClient = dialog.SelectedOption;
+            ClientFirstNameTextBox = _collectionClient.FirstName;
+            ClientLastNameTextBox = _collectionClient.LastName;
+            ClientTelephoneTextBox = _collectionClient.Telephone;
+            ClientNifTextBox = _collectionClient.Nif;
 
         }
 
-        public void OpenAddPiece()
+        private void OpenAddPiece()
         {
-            var dialog = new SelectPieceDialog(collectionType);
-            bool? result = dialog.ShowDialog();
+            var dialog = new SelectPieceDialog(_collectionType);
+            var result = dialog.ShowDialog();
 
-            if (result == true)
+            if (result != true) return;
+            var ci = new CollectionItem
             {
-                CollectionItem ci = new CollectionItem();
-                ci.NumPieces = 1;
-                ci.PricelistCodeNavigation = dialog.SelectedOption;
-                ci.PricelistCodeNavigation.PropertyChanged += PricelistCodeNavigation_PropertyChanged;
-                ci.PricelistCode = dialog.SelectedOption.Code;
-                ci.CollectionNumberNavigation = collection;
-                ci.CollectionNumber = collection.Number;
-                ci.PropertyChanged += PricelistCodeNavigation_PropertyChanged;
-                var vm = new CollectionItemViewModel(ci);
-                collectionItems.Add(vm);
-            }
+                NumPieces = 1,
+                PricelistCodeNavigation = dialog.SelectedOption,
+                PricelistCode = dialog.SelectedOption.Code,
+                CollectionNumber = _collection.Number,
+                CollectionNumberNavigation = _collection
+            };
+            ci.PricelistCodeNavigation.PropertyChanged += PricelistCodeNavigation_PropertyChanged;
+            ci.PropertyChanged += PricelistCodeNavigation_PropertyChanged;
+            var vm = new CollectionItemViewModel(ci);
+            CollectionItems.Add(vm);
         }
 
-        public void OpenPaymentDialog()
+        private void OpenPaymentDialog()
         {
-            if (!collection.DueTotal.HasValue) { collection.DueTotal = TotalPriceTextBox; }
-            var dialog = new PaymentDialog(TotalPriceTextBox, collection.DueTotal.Value);
-            bool? result = dialog.ShowDialog();
+            if (!_collection.DueTotal.HasValue) { _collection.DueTotal = TotalPriceTextBox; }
+            var dialog = new PaymentDialog(TotalPriceTextBox, _collection.DueTotal.Value);
+            var result = dialog.ShowDialog();
 
-            if (result == true)
-            {
-                collection.DueTotal = dialog.RemainingAmount;
-                collection.PaymentMode = dialog.PaymentMode;
-            }
+            if (result != true) return;
+            _collection.DueTotal = dialog.RemainingAmount;
+            _collection.PaymentMode = dialog.PaymentMode;
         }
 
-        public void FinishCollection()
+        private void FinishCollection()
         {
-            collection.CollectionItems = collectionItems.Select(x => x.Model).ToList();
-            collection.Total = TotalPriceTextBox;
-            collection.DueDate = DueDatePicker;
-            collection.CreatedAt = CreatedAtDatePicker;
-            collection.TaxAmount = TaxAmountTextBox;
-            collection.TaxBase = BasePriceTextBox;
-            collection.ClientCodeNavigation = _collectionClient;
-            collection.ClientCode = _collectionClient.Code;
+            _collection.CollectionItems = CollectionItems.Select(x => x.Model).ToList();
+            _collection.Total = TotalPriceTextBox;
+            _collection.DueDate = DueDatePicker;
+            _collection.CreatedAt = CreatedAtDatePicker;
+            _collection.TaxAmount = TaxAmountTextBox;
+            _collection.TaxBase = BasePriceTextBox;
+            _collection.ClientCodeNavigation = _collectionClient;
+            _collection.ClientCode = _collectionClient.Code;
             var result = MessageBox.Show("Vols guardar aquesta recollida?", "Finalitzar", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            if (result != MessageBoxResult.Yes) return;
+            if (_collectionRepository.PutCollection(_collection.Number, _collection).Result)
             {
-                if (_collectionRepository.PutCollection(collection.Number, collection).Result)
-                {
-                    CloseAction?.Invoke();
-                }
-                else
-                {
-                    MessageBox.Show("Error guardant la recollida", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                CloseAction?.Invoke();
+            }
+            else
+            {
+                MessageBox.Show("Error guardant la recollida", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void PricelistCodeNavigation_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            getTotalPrice();
+            GetTotalPrice();
         }
 
-        public void DeleteSelectedPiece()
+        private void DeleteSelectedPiece()
         {
             if (SelectedCollectionItem != null)
             {
-                collectionItems.Remove(SelectedCollectionItem);
+                CollectionItems.Remove(SelectedCollectionItem);
             }
         }
 
-        public void OpenClerkWindow()
+        private void OpenClerkWindow()
         {
             var dialog = new SelectOptionButtonsDialog(new List<string>() { "Joan", "Maria" });
-            bool? result = dialog.ShowDialog();
+            var result = dialog.ShowDialog();
 
             if (result == true)
             {
