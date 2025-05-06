@@ -26,6 +26,7 @@ public partial class Client
     public string? PostalCode { get; set; }
 
     public string? Locality { get; set; }
+    public DateTime LastLoginMobile { get; set; }
 
     public virtual ICollection<Collection> Collections { get; set; } = new List<Collection>();
 
