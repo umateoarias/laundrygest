@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Laundrygest_Android</string>
+    <string name="title_activity_principal">Finestra Principal</string>
+    <string name="title_home">Inici</string>
+    <string name="title_dashboard">Tickets</string>
+    <string name="title_timetable">Horari</string>
+</resources>

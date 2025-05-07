@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.laundrygest_android.ui.notifications.NotificationsFragment"
+        android:id="@+id/navigation_timetable"
+        android:name="com.example.laundrygest_android.ui.timetable.TimetableFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_timetable" />
 </navigation>

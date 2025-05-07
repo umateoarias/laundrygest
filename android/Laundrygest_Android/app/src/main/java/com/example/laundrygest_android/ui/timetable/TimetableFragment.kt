@@ -1,4 +1,4 @@
-package com.example.laundrygest_android.ui.notifications
+package com.example.laundrygest_android.ui.timetable
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.laundrygest_android.databinding.FragmentNotificationsBinding
 
-class NotificationsFragment : Fragment() {
+class TimetableFragment : Fragment() {
 
     private var _binding: FragmentNotificationsBinding? = null
 
@@ -22,14 +22,14 @@ class NotificationsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
+        val timetableViewModel =
+            ViewModelProvider(this).get(TimetableViewModel::class.java)
 
         _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
+        timetableViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root

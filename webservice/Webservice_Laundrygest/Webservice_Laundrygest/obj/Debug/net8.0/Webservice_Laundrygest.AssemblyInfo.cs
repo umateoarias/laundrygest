@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Webservice_Laundrygest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e75df59d926bca111eb9d4f75d8e3d9a50b8930e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f1a856cecc8faec6ca093d199bf6f5ff9a7e2101")]
 [assembly: System.Reflection.AssemblyProductAttribute("Webservice_Laundrygest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Webservice_Laundrygest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

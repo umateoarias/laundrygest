@@ -2,6 +2,6 @@
     <string name="app_name">Laundrygest_Android</string>
     <string name="title_activity_principal">PrincipalActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_dashboard">Tickets</string>
+    <string name="title_timetable">Timetable</string>
 </resources>

@@ -2,11 +2,13 @@ package com.example.laundrygest_android
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isNotEmpty
+import com.example.laundrygest_android.data.LaundrygestCrudApi
 import com.example.laundrygest_android.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -21,10 +23,18 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val crudApi = LaundrygestCrudApi()
         binding.btLogin.setOnClickListener {
-            if(binding.userField.text!!.isNotEmpty() && binding.passwordField.text!!.isNotEmpty()){
-                val activityIntent = Intent(this,PrincipalActivity::class.java)
-                startActivity(activityIntent)
+            val username = binding.userField.text!!.toString()
+            val password = binding.passwordField.text!!.toString()
+            if(username.isNotEmpty() && password.isNotEmpty()){
+                val client = crudApi.getClientLogin(username,password)
+                if(client!=null) {
+                    val activityIntent = Intent(this, PrincipalActivity::class.java)
+                    startActivity(activityIntent)
+                }else{
+                    Toast.makeText(this,"Login incorrecte, torna a intentar-ho",Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
