@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
                 val client = crudApi.getClientLogin(username,password)
                 if(client!=null) {
                     val activityIntent = Intent(this, PrincipalActivity::class.java)
+                    activityIntent.putExtra("client_code",client.code)
                     startActivity(activityIntent)
                 }else{
                     Toast.makeText(this,"Login incorrecte, torna a intentar-ho",Toast.LENGTH_LONG).show()

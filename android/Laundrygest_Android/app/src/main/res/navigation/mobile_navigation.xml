@@ -20,6 +20,6 @@
     <fragment
         android:id="@+id/navigation_timetable"
         android:name="com.example.laundrygest_android.ui.timetable.TimetableFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_timetable"
         tools:layout="@layout/fragment_timetable" />
 </navigation>

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.laundrygest_android.PrincipalActivity
+import com.example.laundrygest_android.data.LaundrygestCrudApi
 import com.example.laundrygest_android.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment() {
@@ -28,10 +30,9 @@ class DashboardFragment : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        val crudApi = LaundrygestCrudApi()
+        val collectionList = crudApi
+
         return root
     }
 
