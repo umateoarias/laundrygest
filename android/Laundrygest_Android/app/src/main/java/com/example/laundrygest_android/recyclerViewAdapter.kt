@@ -1,5 +1,7 @@
 package com.example.laundrygest_android
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,7 @@ import com.example.laundrygest_android.data.CollectionDto
 
 class recyclerViewAdapter(val list : List<CollectionDto>)
     : RecyclerView.Adapter<recyclerViewAdapter.ViewHolder>() {
+        lateinit var context : Context
     class ViewHolder(val view : View) : RecyclerView.ViewHolder(view) {
         val numCollection = view.findViewById<TextView>(R.id.collection_code_text)
         val dateCollection = view.findViewById<TextView>(R.id.collection_date_text)
@@ -17,6 +20,7 @@ class recyclerViewAdapter(val list : List<CollectionDto>)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layout = LayoutInflater.from(parent.context)
+        this.context = parent.context
         return ViewHolder(layout.inflate(R.layout.cardview,parent,false))
     }
 
@@ -27,6 +31,10 @@ class recyclerViewAdapter(val list : List<CollectionDto>)
         holder.dateCollection.setText(list[position].dueDate.toString())
         holder.priceCollection.setText(list[position].dueTotal.toString())
         // ADD FUNCTIONALITY TO CLICK ON CARDVIEW TO SEE DETAILS ON COLLECTION
+        holder.itemView.setOnClickListener{
+            var intent = Intent(context, CollectionDetailActivity::class.java)
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
 }

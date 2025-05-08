@@ -7,17 +7,26 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.laundrygest_android.PrincipalActivity
 import com.example.laundrygest_android.data.LaundrygestCrudApi
 import com.example.laundrygest_android.databinding.FragmentDashboardBinding
+import com.example.laundrygest_android.recyclerViewAdapter
+
+private const val ARG_CLIENT_CODE = "_clientCode"
 
 class DashboardFragment : Fragment() {
-
+    private var _clientCode: Int? = null
     private var _binding: FragmentDashboardBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?){
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +40,15 @@ class DashboardFragment : Fragment() {
         val root: View = binding.root
 
         val crudApi = LaundrygestCrudApi()
-        val collectionList = crudApi
+
+        dashboardViewModel.clientCode.observe(viewLifecycleOwner){
+            val collectionList = crudApi.getCollectionsClient(it)
+            if(collectionList != null) {
+                binding.recyclerViewCollections.adapter = recyclerViewAdapter(collectionList)
+                binding.recyclerViewCollections.layoutManager = LinearLayoutManager(this.context)
+            }
+
+        }
 
         return root
     }
@@ -39,5 +56,14 @@ class DashboardFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+
+    companion object{
+        fun newInstance(clientCode:Int) = DashboardFragment().apply {
+            arguments = Bundle().apply {
+                putInt(ARG_CLIENT_CODE,clientCode)
+            }
+        }
     }
 }

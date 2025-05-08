@@ -1,5 +1,7 @@
 package com.example.laundrygest_android.data
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import java.math.BigDecimal
 import java.util.Date
@@ -31,7 +33,27 @@ data class CollectionDto(
     val collectionItems: List<CollectionItemDto> = emptyList(),
     @SerializedName("CollectionTypeCodeNavigation")
     val collectionType: CollectionTypeDto
-)
+) : Parcelable {
+    override fun describeContents(): Int = 0
+
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.let {
+            dest.writeInt(number)
+            dest.writeSerializable(createdAt)
+            dest.writeSerializable(dueDate)
+            dest.writeSerializable(taxBase)
+            dest.writeSerializable(taxAmount)
+            dest.writeSerializable(total)
+            dest.writeInt(clientCode!!)
+            dest.writeInt(collectionTypeCode)
+            dest.writeInt(invoiceId!!)
+            dest.writeSerializable(dueTotal)
+            dest.writeString(paymentMode)
+            dest.writeList(collectionItems)
+            dest.writeParcelable(collectionType,flags)
+        }
+    }
+}
 
 data class CollectionItemDto(
     @SerializedName("Id")
@@ -57,7 +79,18 @@ data class CollectionTypeDto(
     val collections : List<CollectionDto> = emptyList(),
     @SerializedName("Pricelists")
     val pricelists : List<PricelistDTO> = emptyList()
-)
+) : Parcelable {
+    override fun describeContents(): Int =0
+
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.let {
+            dest.writeInt(code)
+            dest.writeString(description)
+            dest.writeList(collections)
+            dest.writeList(pricelists)
+        }
+    }
+}
 
 data class PricelistDTO(
     @SerializedName("Code")

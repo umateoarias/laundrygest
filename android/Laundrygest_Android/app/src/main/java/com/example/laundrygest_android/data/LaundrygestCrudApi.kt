@@ -49,4 +49,18 @@ class LaundrygestCrudApi : CoroutineScope {
         return client
     }
 
+    fun getCollectionsClient(code:Int) : List<CollectionDto>?{
+        var collections : List<CollectionDto>? = null
+        runBlocking {
+            var response : Response<List<CollectionDto>>? = null
+            var cor = launch {
+                response = getRetrofit().create(LaundrygestApiService::class.java).getCollectionsClient(code)
+            }
+            cor.join()
+            if(response!!.isSuccessful)
+                collections = response!!.body()
+        }
+        return collections
+    }
+
 }

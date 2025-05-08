@@ -15,7 +15,13 @@
         android:id="@+id/navigation_dashboard"
         android:name="com.example.laundrygest_android.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+
+        <argument
+            android:name="client_code"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_timetable"
