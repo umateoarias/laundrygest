@@ -12,7 +12,7 @@ import com.example.laundrygest_android.data.LaundrygestCrudApi
 import com.example.laundrygest_android.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    lateinit var binding : ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,14 +27,15 @@ class MainActivity : AppCompatActivity() {
         binding.btLogin.setOnClickListener {
             val username = binding.userField.text!!.toString()
             val password = binding.passwordField.text!!.toString()
-            if(username.isNotEmpty() && password.isNotEmpty()){
-                val client = crudApi.getClientLogin(username,password)
-                if(client!=null) {
+            if (username.isNotEmpty() && password.isNotEmpty()) {
+                val client = crudApi.getClientLogin(username, password)
+                if (client != null) {
                     val activityIntent = Intent(this, PrincipalActivity::class.java)
-                    activityIntent.putExtra("client_code",client.code)
+                    activityIntent.putExtra("client_code", client.code)
                     startActivity(activityIntent)
-                }else{
-                    Toast.makeText(this,"Login incorrecte, torna a intentar-ho",Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, "Login incorrecte, torna a intentar-ho", Toast.LENGTH_LONG)
+                        .show()
                 }
             }
         }
