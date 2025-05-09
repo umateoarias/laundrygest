@@ -18,7 +18,7 @@ class LaundrygestCrudApi : CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    var urlApi = "http://localhost:5254/api"
+    var urlApi = "http://172.16.24.139:5254/api/"
 
     private fun getClient() : OkHttpClient{
         var logging = HttpLoggingInterceptor()

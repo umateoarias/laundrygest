@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavGraphNavigator
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigator
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -27,7 +28,9 @@ class PrincipalActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_principal)
+        val navController = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_principal)
+            ?.let { it as NavHostFragment }
+            ?.navController ?: throw IllegalStateException("NavHostFragment not found")
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
@@ -38,7 +41,7 @@ class PrincipalActivity : AppCompatActivity() {
         client_code = intent.getIntExtra("client_code",-1)
         val dashboardViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
         dashboardViewModel.setClientCode(client_code)
-        setupActionBarWithNavController(navController, appBarConfiguration)
+//        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
 }
