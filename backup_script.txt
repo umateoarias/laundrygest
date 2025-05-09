@@ -1,0 +1,2 @@
+sqlpackage   /Action:Export   /SourceServerName:"127.0.0.1"   /SourceDatabaseName:"laundrygest"   /SourceUser:"sa"   /SourcePassword:"Unikb6847"   /SourceTrustServerCertificate:True   /TargetFile:"./Laundrygest.bacpac"
+

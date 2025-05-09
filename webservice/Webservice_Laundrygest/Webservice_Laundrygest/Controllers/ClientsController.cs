@@ -41,6 +41,26 @@ namespace Webservice_Laundrygest.Controllers
             }
             return client;
         }
+        
+        // GET: api/Clients/5
+        [Route("api/client_mobile")]
+        [HttpGet]
+        public async Task<ActionResult<Client>> GetClientMobile(string user, string password)
+        {
+            var client = await _context.Clients.Where(x=>x.UsernameApp != null && x.UsernameApp.Equals(user) && x.PasswordApp != null && x.PasswordApp.Equals(password)).FirstOrDefaultAsync();
+
+            if (client == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                client.LastLoginMobile = DateTime.Now;
+                _context.Clients.Update(client);
+                await _context.SaveChangesAsync();
+            }
+            return client;
+        }
 
         // GET: api/Clients/5
         [Route("api/clients/{filter}")]

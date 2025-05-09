@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CollectionDetailActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp"
+        android:background="@color/md_theme_secondaryFixed">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/collection_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:text="Nº recollida: "
+                android:textSize="32sp" />
+
+            <TextView
+                android:id="@+id/collection_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data recollida: "
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/collection_client_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="Nom client"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/collection_client_telephone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Telefon client" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/collection_items_rcv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp" />
+
+            <TextView
+                android:id="@+id/collection_due_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data entrega: "
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/colllection_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Total recollida: "
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/collection_due_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Quantitat pendent: "
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
