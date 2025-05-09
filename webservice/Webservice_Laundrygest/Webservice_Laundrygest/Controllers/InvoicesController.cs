@@ -82,7 +82,6 @@ namespace Webservice_Laundrygest.Controllers
         {
             _context.Invoices.Add(invoice);
             await _context.SaveChangesAsync();
-
             return CreatedAtAction("GetInvoice", new { id = invoice.Id }, invoice);
         }
 
