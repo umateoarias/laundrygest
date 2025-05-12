@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.laundrygest_android.PrincipalActivity
@@ -18,12 +19,13 @@ private const val ARG_CLIENT_CODE = "_clientCode"
 class DashboardFragment : Fragment() {
     private var _clientCode: Int? = null
     private var _binding: FragmentDashboardBinding? = null
+    private val dashboardViewModel : DashboardViewModel by activityViewModels()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?){
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
@@ -33,22 +35,19 @@ class DashboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
-
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val crudApi = LaundrygestCrudApi()
 
-        dashboardViewModel.clientCode.observe(viewLifecycleOwner){
-            val collectionList = crudApi.getCollectionsClient(it)
-            if(collectionList != null) {
+        dashboardViewModel.clientCode.observe(viewLifecycleOwner) { code ->
+            val collectionList = crudApi.getCollectionsClient(code)
+            if (collectionList != null) {
                 binding.recyclerViewCollections.adapter = recyclerViewAdapter(collectionList)
                 binding.recyclerViewCollections.layoutManager = LinearLayoutManager(this.context)
             }
-
         }
+
 
         return root
     }
@@ -59,10 +58,10 @@ class DashboardFragment : Fragment() {
     }
 
 
-    companion object{
-        fun newInstance(clientCode:Int) = DashboardFragment().apply {
+    companion object {
+        fun newInstance(clientCode: Int) = DashboardFragment().apply {
             arguments = Bundle().apply {
-                putInt(ARG_CLIENT_CODE,clientCode)
+                putInt(ARG_CLIENT_CODE, clientCode)
             }
         }
     }

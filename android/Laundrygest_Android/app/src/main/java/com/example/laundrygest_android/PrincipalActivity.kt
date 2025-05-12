@@ -18,7 +18,7 @@ import com.example.laundrygest_android.ui.dashboard.DashboardViewModel
 class PrincipalActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPrincipalBinding
-    var client_code : Int = -1
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +28,10 @@ class PrincipalActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 
-        val navController = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_principal)
-            ?.let { it as NavHostFragment }
-            ?.navController ?: throw IllegalStateException("NavHostFragment not found")
+        val navController =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_principal)
+                ?.let { it as NavHostFragment }
+                ?.navController ?: throw IllegalStateException("NavHostFragment not found")
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
@@ -38,7 +39,7 @@ class PrincipalActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_timetable
             )
         )
-        client_code = intent.getIntExtra("client_code",-1)
+        var client_code = intent.getIntExtra("client_code", 0)
         val dashboardViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
         dashboardViewModel.setClientCode(client_code)
 //        setupActionBarWithNavController(navController, appBarConfiguration)

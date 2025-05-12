@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.laundrygest_android.data.CollectionDto
 import com.example.laundrygest_android.databinding.ActivityCollectionDetailBinding
+import com.example.laundrygest_android.tools.DateParser
 
 class CollectionDetailActivity : AppCompatActivity() {
     lateinit var binding: ActivityCollectionDetailBinding
@@ -27,13 +28,13 @@ class CollectionDetailActivity : AppCompatActivity() {
         collection = intent.getSerializableExtra("collection") as CollectionDto
         if (collection != null) {
             binding.collectionNumber.append(collection.number.toString())
-            binding.collectionDate.append(collection.createdAt.toString())
+            binding.collectionDate.append(DateParser.formatDate(collection.createdAt.toString()))
             binding.collectionClientName.text =
                 collection.client.firstName + " " + collection.client.lastName
             binding.collectionClientTelephone.text = collection.client.telephone
-            binding.collectionDueDate.append(collection.dueDate.toString())
-            binding.collectionDueTotal.append(collection.dueTotal.toString())
-            binding.colllectionTotal.append(collection.total.toString())
+            binding.collectionDueDate.append(DateParser.formatDate(collection.dueDate.toString()))
+            binding.collectionDueTotal.append(String.format("%.2f",collection.dueTotal))
+            binding.colllectionTotal.append(String.format("%.2f",collection.total))
             binding.collectionItemsRcv.adapter = collectionItemAdapter(collection.collectionItems)
             binding.collectionItemsRcv.layoutManager = LinearLayoutManager(this)
         }

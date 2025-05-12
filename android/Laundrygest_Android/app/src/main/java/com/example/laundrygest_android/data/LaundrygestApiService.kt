@@ -7,8 +7,11 @@ import retrofit2.http.Query
 
 interface LaundrygestApiService {
     @GET("client_mobile")
-    suspend fun getClientLogin(@Query("user") user:String,@Query("password") password:String) : Response<Client>
+    suspend fun getClientLogin(
+        @Query("user") user: String,
+        @Query("password") password: String
+    ): Response<Client>
 
     @GET("collections/{code}")
-    suspend fun getCollectionsClient(@Path("code") code: Int) : Response<List<CollectionDto>>
+    suspend fun getCollectionsClient(@Path("code") code: Int): Response<List<CollectionDto>>
 }

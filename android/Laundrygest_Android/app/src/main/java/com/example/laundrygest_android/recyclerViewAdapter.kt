@@ -7,7 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.Visibility
 import com.example.laundrygest_android.data.CollectionDto
+import com.example.laundrygest_android.tools.DateParser
+import java.text.SimpleDateFormat
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Date
+import java.util.Locale
 
 class recyclerViewAdapter(val list: List<CollectionDto>) :
     RecyclerView.Adapter<recyclerViewAdapter.ViewHolder>() {
@@ -28,13 +35,18 @@ class recyclerViewAdapter(val list: List<CollectionDto>) :
     override fun getItemCount() = list.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.numCollection.setText(list[position].number)
-        holder.dateCollection.setText(list[position].dueDate.toString())
-        holder.priceCollection.setText(list[position].dueTotal.toString())
+        holder.numCollection.append(list[position].number.toString())
+        holder.dateCollection.append(DateParser.formatDate(list[position].dueDate.toString()))
+        var dueTotal = list[position].dueTotal
+        if(dueTotal!=null) {
+            holder.priceCollection.append(String.format("%.2f€", dueTotal))
+        }else{
+            holder.priceCollection.visibility = View.INVISIBLE
+        }
         holder.itemView.setOnClickListener {
             var intent = Intent(context, CollectionDetailActivity::class.java)
             intent.putExtra("collection", list[position])
-            holder.itemView.context.startActivity(intent)
+            context.startActivity(intent)
         }
     }
 

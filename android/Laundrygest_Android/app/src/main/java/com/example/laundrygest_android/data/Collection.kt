@@ -5,76 +5,77 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.math.BigDecimal
+import java.time.OffsetDateTime
 import java.util.Date
 
 data class CollectionDto(
-    @SerializedName("Number")
+    @SerializedName("number")
     val number: Int,
-    @SerializedName("CreatedAt")
-    val createdAt: Date,
-    @SerializedName("DueDate")
-    val dueDate: Date?,
-    @SerializedName("TaxBase")
+    @SerializedName("createdAt")
+    val createdAt: String,
+    @SerializedName("dueDate")
+    val dueDate: String?,
+    @SerializedName("taxBase")
     val taxBase: BigDecimal?,
-    @SerializedName("TaxAmount")
+    @SerializedName("taxAmount")
     val taxAmount: BigDecimal?,
-    @SerializedName("Total")
+    @SerializedName("total")
     val total: BigDecimal?,
-    @SerializedName("ClientCode")
+    @SerializedName("clientCode")
     val clientCode: Int?,
-    @SerializedName("CollectionTypeCode")
+    @SerializedName("collectionTypeCode")
     val collectionTypeCode: Int,
-    @SerializedName("InvoiceId")
+    @SerializedName("invoiceId")
     val invoiceId: Int?,
-    @SerializedName("DueTotal")
+    @SerializedName("dueTotal")
     val dueTotal: BigDecimal?,
-    @SerializedName("PaymentMode")
+    @SerializedName("paymentMode")
     val paymentMode: String?,
-    @SerializedName("CollectionItems")
+    @SerializedName("collectionItems")
     val collectionItems: List<CollectionItemDto> = emptyList(),
-    @SerializedName("CollectionTypeCodeNavigation")
+    @SerializedName("collectionTypeCodeNavigation")
     val collectionType: CollectionTypeDto,
-    @SerializedName("ClientCodeNavigation")
+    @SerializedName("clientCodeNavigation")
     val client: Client
 ) : Serializable
 
 data class CollectionItemDto(
-    @SerializedName("Id")
+    @SerializedName("id")
     val id: Int,
-    @SerializedName("CollectionNumber")
+    @SerializedName("collectionNumber")
     val collectionNumber: Int,
-    @SerializedName("CollectedAt")
-    val collectedAt: Date?,
-    @SerializedName("NumPieces")
+    @SerializedName("collectedAt")
+    val collectedAt: String?,
+    @SerializedName("numPieces")
     val numPieces: Int,
-    @SerializedName("PricelistCode")
+    @SerializedName("pricelistCode")
     val pricelistCode: Int,
-    @SerializedName("PricelistCodeNavigation")
+    @SerializedName("pricelistCodeNavigation")
     val pricelist: PricelistDTO
 ) : Serializable
 
 data class CollectionTypeDto(
-    @SerializedName("Code")
+    @SerializedName("code")
     val code: Int,
-    @SerializedName("Name")
+    @SerializedName("name")
     val description: String,
-    @SerializedName("Collections")
+    @SerializedName("collections")
     val collections: List<CollectionDto> = emptyList(),
-    @SerializedName("Pricelists")
+    @SerializedName("pricelists")
     val pricelists: List<PricelistDTO> = emptyList()
 ) : Serializable
 
 data class PricelistDTO(
-    @SerializedName("Code")
+    @SerializedName("code")
     val code: Int,
-    @SerializedName("Name")
+    @SerializedName("name")
     val name: String,
-    @SerializedName("UnitPrice")
+    @SerializedName("unitPrice")
     val unitPrice: BigDecimal,
-    @SerializedName("CollectionTypeCode")
+    @SerializedName("collectionTypeCode")
     val collectionTypeCode: Int,
-    @SerializedName("NumPieces")
+    @SerializedName("numPieces")
     val numPieces: Int,
-    @SerializedName("CollectionTypeCodeNavigation")
+    @SerializedName("collectionTypeCodeNavigation")
     val collectionType: CollectionTypeDto
 ) : Serializable

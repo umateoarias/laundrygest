@@ -1,34 +1,35 @@
 package com.example.laundrygest_android.data
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 import java.util.Date
 
 data class Client(
-    @SerializedName("Code")
+    @SerializedName("code")
     val code: Int,
-    @SerializedName("FirstName")
+    @SerializedName("firstName")
     val firstName: String,
-    @SerializedName("LastName")
+    @SerializedName("lastName")
     val lastName: String,
-    @SerializedName("Email")
+    @SerializedName("email")
     val email: String?,
-    @SerializedName("Telephone")
+    @SerializedName("telephone")
     val telephone: String,
-    @SerializedName("Nif")
+    @SerializedName("nif")
     val nif: String?,
-    @SerializedName("UsernameApp")
+    @SerializedName("usernameApp")
     val usernameApp: String?,
-    @SerializedName("PasswordApp")
+    @SerializedName("passwordApp")
     val passwordApp: String?,
-    @SerializedName("Address")
+    @SerializedName("address")
     val address: String?,
-    @SerializedName("PostalCode")
+    @SerializedName("postalCode")
     val postalCode: String?,
-    @SerializedName("Locality")
+    @SerializedName("locality")
     val locality: String?,
-    @SerializedName("LastLoginMobile")
+    @SerializedName("lastLoginMobile")
     val lastLoginMobile: Date,
-    @SerializedName("Collections")
+    @SerializedName("collections")
     val collections: List<CollectionDto> = emptyList()
-)
+): Serializable
 
