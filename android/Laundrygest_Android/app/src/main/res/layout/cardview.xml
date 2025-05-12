@@ -22,14 +22,14 @@
                 android:id="@+id/collection_code_text"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:hint="Numero recollida"
-                android:textSize="24sp"/>
+                android:text="Nº recollida: "
+                android:textSize="20sp"/>
             <TextView
                 android:id="@+id/collection_date_text"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:hint="Data recollida"
-                android:layout_marginTop="10dp"/>
+                android:text="Data recollida: "
+                android:layout_marginTop="11dp"/>
 
         </LinearLayout>
 
@@ -43,7 +43,7 @@
                 android:id="@+id/due_total_text"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:hint="Total pendent"
+                android:text="Pendent: "
                 android:textSize="18sp"
                 android:layout_gravity="end"/>
         </LinearLayout>

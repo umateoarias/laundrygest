@@ -6,12 +6,10 @@ import androidx.lifecycle.ViewModel
 
 class DashboardViewModel : ViewModel() {
 
-    private val _clientCode = MutableLiveData<Int>().apply {
-        value = -1
-    }
+    private val _clientCode = MutableLiveData<Int>()
     val clientCode: LiveData<Int> = _clientCode
 
-    fun setClientCode(code : Int){
+    fun setClientCode(code: Int) {
         _clientCode.value = code
     }
 }

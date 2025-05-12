@@ -18,46 +18,47 @@ class LaundrygestCrudApi : CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    var urlApi = "http://localhost:5254/api"
+    var urlApi = "http://172.16.24.139:5254/api/"
 
-    private fun getClient() : OkHttpClient{
+    private fun getClient(): OkHttpClient {
         var logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         return OkHttpClient.Builder().addInterceptor(logging).build()
     }
 
-    private fun getRetrofit() : Retrofit{
-        val gson = GsonBuilder().setLenient().create()
+    private fun getRetrofit(): Retrofit {
+        val gson = GsonBuilder().setLenient().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS").create()
 
         return Retrofit.Builder().baseUrl(urlApi).client(getClient())
             .addConverterFactory(GsonConverterFactory.create(gson)).build()
     }
 
-    fun getClientLogin(user:String,password:String) : Client?{
-        var client : Client? = null
+    fun getClientLogin(user: String, password: String): Client? {
+        var client: Client? = null
         runBlocking {
-            var response : Response<Client>? = null
+            var response: Response<Client>? = null
             var cor = launch {
                 response = getRetrofit()
-                    .create(LaundrygestApiService::class.java).getClientLogin(user,password)
+                    .create(LaundrygestApiService::class.java).getClientLogin(user, password)
             }
             cor.join()
-            if(response!!.isSuccessful)
+            if (response!!.isSuccessful)
                 client = response!!.body()
         }
         return client
     }
 
-    fun getCollectionsClient(code:Int) : List<CollectionDto>?{
-        var collections : List<CollectionDto>? = null
+    fun getCollectionsClient(code: Int): List<CollectionDto>? {
+        var collections: List<CollectionDto>? = null
         runBlocking {
-            var response : Response<List<CollectionDto>>? = null
+            var response: Response<List<CollectionDto>>? = null
             var cor = launch {
-                response = getRetrofit().create(LaundrygestApiService::class.java).getCollectionsClient(code)
+                response = getRetrofit().create(LaundrygestApiService::class.java)
+                    .getCollectionsClient(code)
             }
             cor.join()
-            if(response!!.isSuccessful)
+            if (response!!.isSuccessful)
                 collections = response!!.body()
         }
         return collections
