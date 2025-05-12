@@ -47,7 +47,7 @@ namespace Webservice_Laundrygest.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Collection>>> GetCollectionsClient(int code)
         {
-            var collections = await _context.Collections.Where(x=>x.ClientCode==code).Include(x=>x.CollectionItems).ThenInclude(x=>x.PricelistCodeNavigation).ToListAsync();            
+            var collections = await _context.Collections.Where(x=>x.ClientCode==code).Include(x=>x.CollectionItems).ThenInclude(x=>x.PricelistCodeNavigation).Include(x=>x.ClientCodeNavigation).ToListAsync();            
 
             if (collections == null)
             {
