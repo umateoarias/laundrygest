@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Laundrygest_desktop.Views;
 
 namespace Laundrygest_desktop
 {
@@ -39,6 +40,19 @@ namespace Laundrygest_desktop
         
         }
         public void OpenCreateInvoice() { }
-        public void OpenModifyClients() { }
+
+        public void OpenModifyClients()
+        {
+            var dialog = new SearchClientDialog();
+            var result = dialog.ShowDialog();
+
+            if (result != true) return;
+            var selected = dialog.SelectedOption;
+
+            if (selected != null)
+            {
+
+            }
+        }
     }
 }

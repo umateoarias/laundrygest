@@ -120,10 +120,13 @@
     <Compile Include="Model\Collection.cs" />
     <Compile Include="Model\CollectionItem.cs" />
     <Compile Include="Model\CollectionType.cs" />
+    <Compile Include="Model\ColumnDescription.cs" />
     <Compile Include="Model\Delivery.cs" />
     <Compile Include="Model\Invoice.cs" />
+    <Compile Include="Model\MonthlyStatsDTO.cs" />
     <Compile Include="Model\Pricelist.cs" />
     <Compile Include="Data\Core\BaseRepository.cs" />
+    <Compile Include="Model\PricelistStatsDTO.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
     <Compile Include="ViewModel\ClothesViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\CollectionDialogViewModel.cs" />
@@ -135,6 +138,7 @@
     <Compile Include="ViewModel\Dialogs\SelectCollectionDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\SelectOptionDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\SelectPieceViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\StatsTableDialogViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\QuiltsViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\SearchDialogViewModel.cs" />
@@ -165,6 +169,9 @@
     </Compile>
     <Compile Include="Views\Dialogs\SelectPieceDialog.xaml.cs">
       <DependentUpon>SelectPieceDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\StatsTableDialog.xaml.cs">
+      <DependentUpon>StatsTableDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\QuiltsView.xaml.cs">
       <DependentUpon>QuiltsView.xaml</DependentUpon>
@@ -212,6 +219,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Dialogs\SelectPieceDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Dialogs\StatsTableDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

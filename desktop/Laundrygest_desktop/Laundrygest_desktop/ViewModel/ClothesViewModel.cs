@@ -43,27 +43,21 @@ namespace Laundrygest_desktop
         public void FinishCollectionDialog()
         {
             var dialog = new SearchClientDialog();
-            bool? result = dialog.ShowDialog();
+            var result = dialog.ShowDialog();
 
-            if (result == true)
-            {
-                Client selected = dialog.SelectedOption;
-                if (selected != null)
-                {
-                    var selectCollectionDialog = new SelectCollectionDialog(selected);
-                    bool? result2 = selectCollectionDialog.ShowDialog();
+            if (result != true) return;
+            var selected = dialog.SelectedOption;
 
-                    if (result2 == true)
-                    {
-                        Collection collection = selectCollectionDialog.selectedCollection;
-                        if (collection != null)
-                        {
-                            var deliveryDialog = new CollectionDialog(false,collection);
-                            deliveryDialog.ShowDialog();
-                        }
-                    }
-                }
-            }
+            if (selected == null) return;
+            var selectCollectionDialog = new SelectCollectionDialog(selected);
+            var result2 = selectCollectionDialog.ShowDialog();
+
+            if (result2 != true) return;
+            var collection = selectCollectionDialog.selectedCollection;
+
+            if (collection == null) return;
+            var deliveryDialog = new CollectionDialog(false,collection);
+            deliveryDialog.ShowDialog();
         }
 
         public void ModifyPriceListDialog()
