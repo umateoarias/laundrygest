@@ -1,4 +1,5 @@
-﻿using Laundrygest_desktop.Data;
+﻿#nullable enable
+using Laundrygest_desktop.Data;
 using Laundrygest_desktop.Model;
 using Prism.Commands;
 using System;
@@ -15,7 +16,8 @@ namespace Laundrygest_desktop.ViewModel
 {
     public class CreateClientDialogViewModel : INotifyPropertyChanged
     {
-        private ClientRepository clientRepository;
+        private readonly Client _client;
+        private readonly ClientRepository _clientRepository;
         private string _firstNameTextBox;
         private string _lastNameTextBox;
         private string _telephoneTextBox;
@@ -24,6 +26,10 @@ namespace Laundrygest_desktop.ViewModel
         private string _addressTextBox;
         private string _localityTextBox;
         private string _nifTextBox;
+        private bool? _checkBoxState;
+        private string _confirmButtonContent;
+
+        private readonly bool _isUpdate = false;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -31,18 +37,53 @@ namespace Laundrygest_desktop.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public CreateClientDialogViewModel()
+        public CreateClientDialogViewModel(Client? client)
         {
-            clientRepository = new ClientRepository();
+            ConfirmButtonContent = "Crear";
+            CheckBoxState = false;
+            _clientRepository = new ClientRepository();
             CloseWindowCommand = new DelegateCommand<Window>(CloseWindow);
             CreateClientCommand = new DelegateCommand<Window>(CreateClient);
+
+            if (client == null) return;
+            _client = client;
+            _isUpdate = true;
+            ConfirmButtonContent = "Actualitzar";
+            FirstNameTextBox = client.FirstName;
+            LastNameTextBox = client.LastName;
+            TelephoneTextBox = client.Telephone;
+            EmailTextBox = client.Email;
+            PostalCodeTextBox = client.PostalCode;
+            AddressTextBox = client.Address;
+            LocalityTextBox = client.Locality;
+
+            if (client.Nif == null) return;
+            CheckBoxState = true;
+            NifTextBox = client.Nif;
+        }
+
+        public string ConfirmButtonContent
+        {
+            get => _confirmButtonContent;
+            set
+            {
+                _confirmButtonContent = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool? CheckBoxState
+        {
+            get => _checkBoxState;
+            set
+            {
+                _checkBoxState = value;
+                OnPropertyChanged();
+            }
         }
         public string FirstNameTextBox
         {
-            get
-            {
-                return _firstNameTextBox;
-            }
+            get => _firstNameTextBox;
             set
             {
                 _firstNameTextBox = value;
@@ -52,10 +93,7 @@ namespace Laundrygest_desktop.ViewModel
 
         public string LastNameTextBox
         {
-            get
-            {
-                return _lastNameTextBox;
-            }
+            get => _lastNameTextBox;
             set
             {
                 _lastNameTextBox = value;
@@ -64,10 +102,7 @@ namespace Laundrygest_desktop.ViewModel
         }
         public string TelephoneTextBox
         {
-            get
-            {
-                return _telephoneTextBox;
-            }
+            get => _telephoneTextBox;
             set
             {
                 _telephoneTextBox = value;
@@ -77,10 +112,7 @@ namespace Laundrygest_desktop.ViewModel
 
         public string EmailTextBox
         {
-            get
-            {
-                return _emailTextBox;
-            }
+            get => _emailTextBox;
             set
             {
                 _emailTextBox = value;
@@ -90,10 +122,7 @@ namespace Laundrygest_desktop.ViewModel
 
         public string AddressTextBox
         {
-            get
-            {
-                return _addressTextBox;
-            }
+            get => _addressTextBox;
             set
             {
                 _addressTextBox = value;
@@ -103,10 +132,7 @@ namespace Laundrygest_desktop.ViewModel
 
         public string PostalCodeTextBox
         {
-            get
-            {
-                return _postalCodeTextBox;
-            }
+            get => _postalCodeTextBox;
             set
             {
                 _postalCodeTextBox = value;
@@ -116,10 +142,7 @@ namespace Laundrygest_desktop.ViewModel
 
         public string LocalityTextBox
         {
-            get
-            {
-                return _localityTextBox;
-            }
+            get => _localityTextBox;
             set
             {
                 _localityTextBox = value;
@@ -129,10 +152,7 @@ namespace Laundrygest_desktop.ViewModel
 
         public string NifTextBox
         {
-            get
-            {
-                return _nifTextBox;
-            }
+            get => _nifTextBox;
             set
             {
                 _nifTextBox = value;
@@ -150,7 +170,7 @@ namespace Laundrygest_desktop.ViewModel
 
         public void CreateClient(Window window)
         {
-            Client c = new Client();
+            var c = _isUpdate ? _client : new Client();
             c.FirstName = FirstNameTextBox;
             c.LastName = LastNameTextBox;
             c.Email = EmailTextBox;            
@@ -159,14 +179,35 @@ namespace Laundrygest_desktop.ViewModel
             c.PostalCode = PostalCodeTextBox;
             c.Locality = LocalityTextBox;
             c.Nif = NifTextBox;
-            Client tempClient = clientRepository.PostClient(c).Result;
-            if (tempClient == null)
+            if (_isUpdate)
             {
-                MessageBox.Show("No s'ha pogut afegir el client, torna a probar-ho","ERROR",MessageBoxButton.OK, MessageBoxImage.Error);
+                var result = _clientRepository.PutClient(c.Code, c).Result;
+                if (result)
+                {
+                    var response = MessageBox.Show("S'ha actualitzat correctament", "Operació completada", MessageBoxButton.OK);
+                    if (response == MessageBoxResult.OK)
+                    {
+                        window?.Close();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No s'ha pogut actualitzar el client", "ERROR", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
             }
             else
             {
-                window?.Close();
+                Client tempClient = _clientRepository.PostClient(c).Result;
+                if (tempClient == null)
+                {
+                    MessageBox.Show("No s'ha pogut afegir el client, torna a probar-ho", "ERROR", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                }
+                else
+                {
+                    window?.Close();
+                }
             }
         }
     }

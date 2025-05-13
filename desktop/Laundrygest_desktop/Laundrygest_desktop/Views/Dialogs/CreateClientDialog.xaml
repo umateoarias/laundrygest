@@ -9,9 +9,9 @@
         x:Name="CreateClientWindow"
         Title="CreateClientDialog" Height="550" Width="650" Background="#F4F4F4"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <Window.DataContext>
+    <!--<Window.DataContext>
         <ViewModel:CreateClientDialogViewModel/>
-    </Window.DataContext>
+    </Window.DataContext>-->
     <Border BorderBrush="#DDD" BorderThickness="1" CornerRadius="8" Margin="20" Background="White">
         <Grid Margin="20">
             <Grid.RowDefinitions>
@@ -69,13 +69,13 @@
             </Grid>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,20,0,0">
-                <CheckBox x:Name="checkBoxEmpresa" Content="És empresa?" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <CheckBox x:Name="checkBoxEmpresa" Content="És empresa?" VerticalAlignment="Center" Margin="0,0,10,0" IsChecked="{Binding CheckBoxState}"/>
                 <TextBox Width="200"  IsEnabled="{Binding IsChecked, ElementName=checkBoxEmpresa}" Style="{StaticResource ModernTextBox}" Text="{Binding NifTextBox}"/>
             </StackPanel>
 
             <DockPanel Grid.Row="3" Margin="0,30,0,0" LastChildFill="False">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right">
-                    <Button Content="Crear" Style="{StaticResource PrimaryButton}" Width="100" Margin="5,0" Command="{Binding CreateClientCommand}" CommandParameter="{Binding ElementName=CreateClientWindow}"/>
+                    <Button Content="{Binding ConfirmButtonContent}" Style="{StaticResource PrimaryButton}" Width="100" Margin="5,0" Command="{Binding CreateClientCommand}" CommandParameter="{Binding ElementName=CreateClientWindow}"/>
                     <Button Content="Cancel·lar" Style="{StaticResource SecondaryButton}" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=CreateClientWindow}" Width="100" Margin="5,0"/>
                 </StackPanel>
             </DockPanel>

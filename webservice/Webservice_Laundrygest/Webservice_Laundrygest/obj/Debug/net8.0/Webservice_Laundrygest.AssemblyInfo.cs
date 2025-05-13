@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Webservice_Laundrygest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9b84dc399d2cbc4cd4d1b7bcc2804a2deddea8f4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2c0d24e04a5c555a750babe5ea72649805ef8e1f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Webservice_Laundrygest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Webservice_Laundrygest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

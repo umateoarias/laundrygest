@@ -22,9 +22,15 @@ namespace Webservice_Laundrygest.Controllers
         // GET: api/stats/pricelistStats
         [Route("api/stats/pricelistStats")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PricelistStatsDTO>>> GetPricelistsStats(string dateFrom, string dateTo)
+        public async Task<ActionResult<IEnumerable<PricelistStatsDTO>>> GetPricelistsStats([FromQuery] DateTime dateFrom,[FromQuery] DateTime dateTo)
         {
-            var stats = await _context.Pricelists.Select(x => new PricelistStatsDTO { namePricelist = x.Name, numPieces = x.CollectionItems.Sum(z => z.NumPieces), totalAmount = x.CollectionItems.Sum(z => z.NumPieces * x.NumPieces.Value) }).ToListAsync();
+            var stats = await _context.Pricelists
+                .Select(x => new PricelistStatsDTO
+                {
+                    namePricelist = x.Name, 
+                    numPieces = x.CollectionItems.Sum(z => z.NumPieces), 
+                    totalAmount = x.CollectionItems.Sum(z => z.NumPieces) * x.NumPieces.Value
+                }).ToListAsync();
 
             if (stats == null)
             {
@@ -38,14 +44,27 @@ namespace Webservice_Laundrygest.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MonthlyStatsDTO>>> GetMonthlyStats([FromQuery] DateTime dateFrom, [FromQuery] DateTime dateTo)
         {
-            var stats = await _context.Collections.Where(x => x.CreatedAt > dateFrom && x.CreatedAt < dateTo).GroupBy(x => new { x.CreatedAt.Year, x.CreatedAt.Month }).OrderBy(x => x.Key.Year).ThenBy(x => x.Key.Month)
-                .Select(x => new MonthlyStatsDTO
+            var rawStats = await _context.Collections
+                .Where(x => x.CreatedAt >= dateFrom && x.CreatedAt <= dateTo)
+                .GroupBy(x => new { x.CreatedAt.Year, x.CreatedAt.Month })
+                .OrderBy(g => g.Key.Year)
+                .ThenBy(g => g.Key.Month)
+                .Select(g => new 
                 {
-                    dateName = GetMonthName(x.Key.Month, x.Key.Year),
-                    totalAmount = x.Sum(z => z.Total.Value),
-                    taxAmount = x.Sum(z => z.TaxAmount.Value),
-                    baseAmount = x.Sum(z => z.TaxBase.Value)
+                    Year = g.Key.Year,
+                    Month = g.Key.Month,
+                    TotalAmount = g.Sum(z => z.Total.Value),
+                    TaxAmount = g.Sum(z => z.TaxAmount.Value),
+                    BaseAmount = g.Sum(z => z.TaxBase.Value)
                 }).ToListAsync();
+
+            var stats = rawStats.Select(g => new MonthlyStatsDTO
+            {
+                dateName = GetMonthName(g.Month, g.Year),
+                totalAmount = g.TotalAmount,
+                taxAmount = g.TaxAmount,
+                baseAmount = g.BaseAmount
+            }).ToList();
             if (stats == null) { return NotFound(); }
             return stats;
         }
