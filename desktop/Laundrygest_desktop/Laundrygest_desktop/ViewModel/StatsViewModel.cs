@@ -73,7 +73,30 @@ namespace Laundrygest_desktop
             dialogStats.ShowDialog();
 
         }
-        public void OpenCreateInvoice() { }
+
+        public void OpenCreateInvoice()
+        {
+            var dialogClient = new SearchClientDialog();
+            var result = dialogClient.ShowDialog();
+
+            if (result != true) return;
+            var selected = dialogClient.SelectedOption;
+
+            if (selected == null) return;
+            var collectionVm = new SelectCollectionInvoiceDialogViewModel(dialogClient.SelectedOption);
+            var dialogCollections = new SelectCollectionsInvoiceDialog(collectionVm);
+            var result2 = dialogCollections.ShowDialog();
+
+            if (result2 != true) return;
+            var collectionsInvoice = collectionVm.GetSelectedCollections();
+            Invoice invoice = new Invoice
+            {
+                ClientCode = selected.Code,
+                ClientCodeNavigation = selected,
+                Collections = collectionsInvoice,
+
+            };
+        }
 
         public void OpenModifyClients()
         {
@@ -83,11 +106,9 @@ namespace Laundrygest_desktop
             if (result != true) return;
             var selected = dialog.SelectedOption;
 
-            if (selected != null)
-            {
-                var dialogUpdate = new CreateClientDialog(selected);
-                dialogUpdate.ShowDialog();
-            }
+            if (selected == null) return;
+            var dialogUpdate = new CreateClientDialog(selected);
+            dialogUpdate.ShowDialog();
         }
     }
 }

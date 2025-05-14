@@ -119,6 +119,7 @@
     <Compile Include="Data\Repositories\ClientRepository.cs" />
     <Compile Include="Data\Repositories\CollectionRepository.cs" />
     <Compile Include="Data\Repositories\DeliveryRepository.cs" />
+    <Compile Include="Data\Repositories\InvoiceRepository.cs" />
     <Compile Include="Data\Repositories\PriceListRepository.cs" />
     <Compile Include="Data\Repositories\StatsRepository.cs" />
     <Compile Include="Model\Client.cs" />
@@ -134,13 +135,15 @@
     <Compile Include="Model\PricelistStatsDTO.cs" />
     <Compile Include="ViewModel\AppViewModel.cs" />
     <Compile Include="ViewModel\ClothesViewModel.cs" />
+    <Compile Include="ViewModel\Data\InvoiceCollectionViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\CollectionDialogViewModel.cs" />
     <Compile Include="ViewModel\ConfigViewModel.cs" />
-    <Compile Include="ViewModel\Dialogs\CollectionItemViewModel.cs" />
+    <Compile Include="ViewModel\Data\CollectionItemViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\CreateClientDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\ModifyPriceListViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\PaymentDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\SelectCollectionDialogViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\SelectCollectionInvoiceDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\SelectDateRangeDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\SelectOptionDialogViewModel.cs" />
     <Compile Include="ViewModel\Dialogs\SelectPieceViewModel.cs" />
@@ -169,6 +172,9 @@
     </Compile>
     <Compile Include="Views\Dialogs\SelectCollectionDialog.xaml.cs">
       <DependentUpon>SelectCollectionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialogs\SelectCollectionsInvoiceDialog.xaml.cs">
+      <DependentUpon>SelectCollectionsInvoiceDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Dialogs\SelectDateRangeDialog.xaml.cs">
       <DependentUpon>SelectDateRangeDialog.xaml</DependentUpon>
@@ -222,6 +228,10 @@
     <Page Include="Views\Dialogs\SelectCollectionDialog.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\SelectCollectionsInvoiceDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Dialogs\SelectDateRangeDialog.xaml">
       <SubType>Designer</SubType>

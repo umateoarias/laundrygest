@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\cv\\source\\repos\\umateoarias\\laundrygest\\webservice\\Webservice_Laundrygest\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D8A75E48-9BC5-4337-AAF8-A499110BFAC9}|Webservice_Laundrygest\\Webservice_Laundrygest.csproj|c:\\users\\cv\\source\\repos\\umateoarias\\laundrygest\\webservice\\webservice_laundrygest\\webservice_laundrygest\\controllers\\invoicescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D8A75E48-9BC5-4337-AAF8-A499110BFAC9}|Webservice_Laundrygest\\Webservice_Laundrygest.csproj|solutionrelative:webservice_laundrygest\\controllers\\invoicescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D8A75E48-9BC5-4337-AAF8-A499110BFAC9}|Webservice_Laundrygest\\Webservice_Laundrygest.csproj|c:\\users\\cv\\source\\repos\\umateoarias\\laundrygest\\webservice\\webservice_laundrygest\\webservice_laundrygest\\controllers\\statscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D8A75E48-9BC5-4337-AAF8-A499110BFAC9}|Webservice_Laundrygest\\Webservice_Laundrygest.csproj|solutionrelative:webservice_laundrygest\\controllers\\statscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -18,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 136,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -30,7 +34,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "InvoicesController.cs",
+              "DocumentMoniker": "C:\\Users\\cv\\source\\repos\\umateoarias\\laundrygest\\webservice\\Webservice_Laundrygest\\Webservice_Laundrygest\\Controllers\\InvoicesController.cs",
+              "RelativeDocumentMoniker": "Webservice_Laundrygest\\Controllers\\InvoicesController.cs",
+              "ToolTip": "C:\\Users\\cv\\source\\repos\\umateoarias\\laundrygest\\webservice\\Webservice_Laundrygest\\Webservice_Laundrygest\\Controllers\\InvoicesController.cs",
+              "RelativeToolTip": "Webservice_Laundrygest\\Controllers\\InvoicesController.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAmwFAAAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-14T17:03:10.264Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\cv\\source\\repos\\umateoarias\\laundrygest\\webservice\\Webservice_Laundrygest\\Webservice_Laundrygest\\Program.cs",
               "RelativeDocumentMoniker": "Webservice_Laundrygest\\Program.cs",
@@ -38,12 +55,11 @@
               "RelativeToolTip": "Webservice_Laundrygest\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-13T17:04:40.185Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-13T17:04:40.185Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "StatsController.cs",
               "DocumentMoniker": "C:\\Users\\cv\\source\\repos\\umateoarias\\laundrygest\\webservice\\Webservice_Laundrygest\\Webservice_Laundrygest\\Controllers\\StatsController.cs",
               "RelativeDocumentMoniker": "Webservice_Laundrygest\\Controllers\\StatsController.cs",
