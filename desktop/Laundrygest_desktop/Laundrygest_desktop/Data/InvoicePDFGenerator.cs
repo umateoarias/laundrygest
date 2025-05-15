@@ -52,12 +52,11 @@ namespace Laundrygest_desktop.Data
                                         .Text($"Invoice #{invoice.Number}")
                                         .FontSize(20).SemiBold().FontColor(Colors.Blue.Medium);
 
-                                    //AQUI FALTA GENERAR DATE EN INVOICE
-                                    //column.Item().Text(text =>
-                                    //{
-                                    //    text.Span("Issue date: ").SemiBold();
-                                    //    text.Span($"{invoice:d}");
-                                    //});
+                                    column.Item().Text(text =>
+                                    {
+                                        text.Span("Issue date: ").SemiBold();
+                                        text.Span($"{invoice.InvoiceDate:d}");
+                                    });
 
                                     //column.Item().Text(text =>
                                     //{
@@ -108,7 +107,7 @@ namespace Laundrygest_desktop.Data
                             {
                                 table.ColumnsDefinition(columns =>
                                 {
-                                    columns.RelativeColumn();
+                                    columns.RelativeColumn(30);
                                     columns.RelativeColumn();
                                     columns.RelativeColumn();
                                     columns.RelativeColumn();
@@ -117,10 +116,10 @@ namespace Laundrygest_desktop.Data
                                 table.Header(header =>
                                 {
                                     header.Cell().Element(CellStyle).Text("");
-                                    header.Cell().Element(CellStyle).Text("Peça");
-                                    header.Cell().Element(CellStyle).Text("Quantitat");
-                                    header.Cell().Element(CellStyle).Text("P. Unitari");
-                                    header.Cell().Element(CellStyle).Text("Total");
+                                    header.Cell().Element(CellStyle).AlignCenter().Text("Peça");
+                                    header.Cell().Element(CellStyle).AlignRight().Text("Quantitat");
+                                    header.Cell().Element(CellStyle).AlignRight().Text("P. Unitari");
+                                    header.Cell().Element(CellStyle).AlignRight().Text("Total");
 
                                     static IContainer CellStyle(IContainer container)
                                     {
@@ -130,7 +129,7 @@ namespace Laundrygest_desktop.Data
                                 });
                                 foreach (var collection in invoice.Collections)
                                 {
-                                    table.Cell().Element(CellStyle).Text("Nº Recollida: " + collection.Number);
+                                    table.Cell().Element(CellStyle).Text("Nº Recollida: " + collection.Number).Bold();
                                     table.Cell().Element(CellStyle).Text("");
                                     table.Cell().Element(CellStyle).Text("");
                                     table.Cell().Element(CellStyle).Text("");
@@ -138,13 +137,13 @@ namespace Laundrygest_desktop.Data
                                     foreach (var collectionItem in collection.CollectionItems)
                                     {
                                         table.Cell().Text("");
-                                        table.Cell().Text(collectionItem.PricelistCodeNavigation.Name);
-                                        table.Cell().Text(collectionItem.NumPieces.ToString());
-                                        table.Cell().Text(collectionItem.PricelistCodeNavigation.UnitPrice.ToString(CultureInfo.CurrentCulture));
-                                        table.Cell()
+                                        table.Cell().AlignCenter().Text(collectionItem.PricelistCodeNavigation.Name).AlignCenter();
+                                        table.Cell().AlignRight().Text(collectionItem.NumPieces.ToString()).AlignRight();
+                                        table.Cell().AlignRight().Text(collectionItem.PricelistCodeNavigation.UnitPrice.ToString(CultureInfo.CurrentCulture)).AlignRight();
+                                        table.Cell().AlignRight()
                                             .Text((collectionItem.NumPieces *
                                                    collectionItem.PricelistCodeNavigation.UnitPrice)
-                                                .ToString(CultureInfo.CurrentCulture));
+                                                .ToString(CultureInfo.CurrentCulture)).AlignRight();
                                     }
                                     static IContainer CellStyle(IContainer container)
                                     {
@@ -154,18 +153,14 @@ namespace Laundrygest_desktop.Data
                                 }
                             });
 
-                            column.Item().Text($"Base imponible: {invoice.TaxBase:C}");
-                            column.Item().Text($"Impuesto: {invoice.TaxAmount:C}");
-                            column.Item().Text($"Total: {invoice.TotalBase:C}");
+                            column.Item().Text($"Base imponible: {invoice.TaxBase}").AlignRight();
+                            column.Item().Text($"Impuesto: {invoice.TaxAmount}").AlignRight();
+                            column.Item().Text($"Total: {invoice.TotalBase}").AlignRight();
                         });
                 });
             });
 
             document.GeneratePdf(path);
-        }
-        public static IComponent ComposeAdress(IContainer container, string title, Invoice invoice)
-        {
-            container
         }
     }
 }

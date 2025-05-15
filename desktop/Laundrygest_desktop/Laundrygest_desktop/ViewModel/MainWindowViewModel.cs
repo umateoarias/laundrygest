@@ -1,4 +1,5 @@
 ﻿using Prism.Commands;
+using QuestPDF.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,6 +28,7 @@ namespace Laundrygest_desktop
 
         public MainWindowViewModel()
         {
+            QuestPDF.Settings.License = LicenseType.Community;
             NavigateCommand = new DelegateCommand<string>(Navigate);
             SelectedView = new ClothesViewModel();
         }
