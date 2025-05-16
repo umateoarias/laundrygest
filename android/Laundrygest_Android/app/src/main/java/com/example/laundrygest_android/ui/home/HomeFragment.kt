@@ -4,10 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.laundrygest_android.data.PricelistDTO
 import com.example.laundrygest_android.databinding.FragmentHomeBinding
+import com.example.laundrygest_android.pricelistRCV_adapter
 
 class HomeFragment : Fragment() {
 
@@ -16,6 +21,8 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    lateinit var fullList : List<PricelistDTO>
+    lateinit var adapter : pricelistRCV_adapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,15 +35,28 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        adapter = pricelistRCV_adapter(fullList)
+        binding.pricelistRecyclerView.layoutManager = LinearLayoutManager(this.context)
+        binding.pricelistRecyclerView.adapter = adapter
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean = false
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList(newText.orEmpty())
+                return true
+            }
+        })
         return root
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun filterList(query: String) {
+        val filtered = fullList.filter {
+            it.name.contains(query, ignoreCase = true)
+        }
     }
 }
