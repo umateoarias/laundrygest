@@ -27,7 +27,7 @@ namespace Laundrygest_desktop.ViewModel.Dialogs
         {
             var collectionRepo = new CollectionRepository();
             Collections = new ObservableCollection<InvoiceCollectionViewModel>(
-                collectionRepo.GetCollections(c).Result.Select(x => new InvoiceCollectionViewModel(x))
+                collectionRepo.GetCollectionsInvoice(c).Result.Select(x => new InvoiceCollectionViewModel(x))
                 );
             ConfirmCommand = new DelegateCommand(ConfirmSelection);
             CancelCommand = new DelegateCommand(CancelSelection);

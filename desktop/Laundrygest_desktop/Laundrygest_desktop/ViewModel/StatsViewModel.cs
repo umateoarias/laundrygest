@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Laundrygest_desktop.Data;
 using Laundrygest_desktop.Data.Repositories;
@@ -87,6 +88,11 @@ namespace Laundrygest_desktop
             var selected = dialogClient.SelectedOption;
 
             if (selected == null) return;
+            if (selected.Nif == null)
+            {
+                MessageBox.Show("No pots facturar aquest client", "Error", MessageBoxButton.OK);
+                return;
+            }
             var collectionVm = new SelectCollectionInvoiceDialogViewModel(dialogClient.SelectedOption);
             var dialogCollections = new SelectCollectionsInvoiceDialog(collectionVm);
             var result2 = dialogCollections.ShowDialog();

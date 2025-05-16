@@ -33,7 +33,7 @@ namespace Webservice_Laundrygest.Controllers
         [HttpGet]
         public async Task<ActionResult<Invoice>> GetInvoice(int id)
         {
-            var invoice = await _context.Invoices.Where(x=>x.Id==id).Include(x=>x.ClientCodeNavigation).Include(x=>x.Collections).FirstOrDefaultAsync();
+            var invoice = await _context.Invoices.Where(x=>x.Id==id).Include(x=>x.ClientCodeNavigation).Include(x=>x.Collections).ThenInclude(z=>z.CollectionItems).ThenInclude(y=>y.PricelistCodeNavigation).FirstOrDefaultAsync();
 
             if (invoice == null)
             {
@@ -59,6 +59,12 @@ namespace Webservice_Laundrygest.Controllers
             try
             {
                 GetNextInvoiceNumber(invoice);
+                foreach (var c in invoice.Collections)
+                {
+                    var collection = await _context.Collections.Where(x => x.Number == c.Number).FirstOrDefaultAsync();
+                    collection.InvoiceId = invoice.Id;
+                    collection.Invoice = invoice;
+                }
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

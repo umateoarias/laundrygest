@@ -14,6 +14,7 @@ namespace Laundrygest_desktop.Data
     {
         public static void ExportInvoiceToPdf(Invoice invoice)
         {
+            var currenctyCulture = CultureInfo.CreateSpecificCulture("es-ES");
             var dialogo = new SaveFileDialog
             {
                 Title = "Guardar factura como PDF",
@@ -49,12 +50,12 @@ namespace Laundrygest_desktop.Data
                                 row.RelativeItem().Column(column =>
                                 {
                                     column.Item()
-                                        .Text($"Invoice #{invoice.Number}")
+                                        .Text($"Factura Nº {invoice.Number}")
                                         .FontSize(20).SemiBold().FontColor(Colors.Blue.Medium);
 
                                     column.Item().Text(text =>
                                     {
-                                        text.Span("Issue date: ").SemiBold();
+                                        text.Span("Data factura: ").SemiBold();
                                         text.Span($"{invoice.InvoiceDate:d}");
                                     });
 
@@ -75,10 +76,10 @@ namespace Laundrygest_desktop.Data
                                 {
                                     column.Spacing(2);
 
-                                    column.Item().BorderBottom(1).PaddingBottom(5).Text("Client").SemiBold();
+                                    column.Item().BorderBottom(1).PaddingBottom(5).Text("Destaca").SemiBold();
 
-                                    column.Item().Text("Destaca");
-                                    column.Item().Text("Joan Mateo Martinez");
+                                    column.Item().Text("Joan");
+                                    column.Item().Text("Mateo Martinez");
                                     column.Item().Text("123456789");
                                     column.Item().Text("87249825T");
                                     column.Item().Text("Avinguda Espanya, 2, Montcada");
@@ -107,7 +108,7 @@ namespace Laundrygest_desktop.Data
                             {
                                 table.ColumnsDefinition(columns =>
                                 {
-                                    columns.RelativeColumn(30);
+                                    columns.RelativeColumn();
                                     columns.RelativeColumn();
                                     columns.RelativeColumn();
                                     columns.RelativeColumn();
@@ -116,7 +117,7 @@ namespace Laundrygest_desktop.Data
                                 table.Header(header =>
                                 {
                                     header.Cell().Element(CellStyle).Text("");
-                                    header.Cell().Element(CellStyle).AlignCenter().Text("Peça");
+                                    header.Cell().Element(CellStyle).AlignRight().Text("Peça");
                                     header.Cell().Element(CellStyle).AlignRight().Text("Quantitat");
                                     header.Cell().Element(CellStyle).AlignRight().Text("P. Unitari");
                                     header.Cell().Element(CellStyle).AlignRight().Text("Total");
@@ -137,13 +138,18 @@ namespace Laundrygest_desktop.Data
                                     foreach (var collectionItem in collection.CollectionItems)
                                     {
                                         table.Cell().Text("");
-                                        table.Cell().AlignCenter().Text(collectionItem.PricelistCodeNavigation.Name).AlignCenter();
-                                        table.Cell().AlignRight().Text(collectionItem.NumPieces.ToString()).AlignRight();
-                                        table.Cell().AlignRight().Text(collectionItem.PricelistCodeNavigation.UnitPrice.ToString(CultureInfo.CurrentCulture)).AlignRight();
-                                        table.Cell().AlignRight()
+                                        table.Cell().Element(RowStyle).Text(collectionItem.PricelistCodeNavigation.Name);
+                                        table.Cell().Element(RowStyle).Text(collectionItem.NumPieces.ToString());
+                                        table.Cell().Element(RowStyle).Text(collectionItem.PricelistCodeNavigation.UnitPrice.ToString("C", currenctyCulture));
+                                        table.Cell().Element(RowStyle)
                                             .Text((collectionItem.NumPieces *
                                                    collectionItem.PricelistCodeNavigation.UnitPrice)
-                                                .ToString(CultureInfo.CurrentCulture)).AlignRight();
+                                                .ToString("C", currenctyCulture));
+
+                                        static IContainer RowStyle(IContainer container)
+                                        {
+                                            return container.PaddingVertical(2).AlignRight();
+                                        }
                                     }
                                     static IContainer CellStyle(IContainer container)
                                     {
@@ -153,9 +159,11 @@ namespace Laundrygest_desktop.Data
                                 }
                             });
 
-                            column.Item().Text($"Base imponible: {invoice.TaxBase}").AlignRight();
-                            column.Item().Text($"Impuesto: {invoice.TaxAmount}").AlignRight();
-                            column.Item().Text($"Total: {invoice.TotalBase}").AlignRight();
+                            column.Spacing(10);
+
+                            column.Item().Text($"Base imponible: {invoice.TaxBase.Value.ToString("C", currenctyCulture)}").AlignRight();
+                            column.Item().Text($"Impuesto: {invoice.TaxAmount.Value.ToString("C",currenctyCulture)}").AlignRight();
+                            column.Item().Text($"Total: {invoice.TotalBase.Value.ToString("C",currenctyCulture)}").AlignRight();
                         });
                 });
             });
