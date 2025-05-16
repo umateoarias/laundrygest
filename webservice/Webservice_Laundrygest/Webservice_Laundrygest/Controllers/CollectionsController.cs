@@ -58,6 +58,21 @@ namespace Webservice_Laundrygest.Controllers
             return collections;
         }
 
+        [Route("api/collections/{code}/invoices")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Collection>>> GetCollectionsInvoiceClient(int code)
+        {
+            var collections = await _context.Collections.Where(x => x.ClientCode == code).Include(x => x.CollectionItems).ThenInclude(x => x.PricelistCodeNavigation).Include(x => x.ClientCodeNavigation).ToListAsync();
+
+            if (collections == null)
+            {
+                return NotFound();
+            }
+            collections = collections.Where(x => x.CollectionItems.Any(y => y.DeliveryNumber == null) && x.InvoiceId==null).ToList();
+
+            return collections;
+        }
+
         // PUT: api/Collections/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [Route("api/collections/{number}")]

@@ -19,13 +19,13 @@ namespace Laundrygest_desktop.ViewModel
 
     public class SearchDialogViewModel : INotifyPropertyChanged
     {
-        private ClientRepository clientRepository;
+        private readonly ClientRepository _clientRepository;
         private string _filterText;
         private ObservableCollection<Client> _clientList;
         public Action<Client> OnOptionSelected { get; set; }
         public SearchDialogViewModel()
         {
-            clientRepository = new ClientRepository();
+            _clientRepository = new ClientRepository();
             SearchClient();
             CreateClientCommand = new DelegateCommand(OpenCreateClientDialog);
             SearchClientCommand = new DelegateCommand(SearchClient);
@@ -33,9 +33,9 @@ namespace Laundrygest_desktop.ViewModel
             EnterPressedCommand = new DelegateCommand(TextBox_KeyUp);
         }
 
-        public string filterText
+        public string FilterText
         {
-            get { return _filterText; }
+            get => _filterText;
             set
             {
                 _filterText = value;
@@ -43,12 +43,9 @@ namespace Laundrygest_desktop.ViewModel
             }
         }
 
-        public ObservableCollection<Client> clientList
+        public ObservableCollection<Client> ClientList
         {
-            get
-            {
-                return _clientList;
-            }
+            get => _clientList;
             set
             {
                 _clientList = value;
@@ -61,16 +58,15 @@ namespace Laundrygest_desktop.ViewModel
 
         public void OpenCreateClientDialog()
         {
-            var dialog = new CreateClientDialog();
+            var dialog = new CreateClientDialog(null);
             dialog.ShowDialog();
-            filterText = "";
+            FilterText = "";
             SearchClient();
         }
 
         private void ChooseClient(object parameter)
         {
-            var fila = parameter as Client;
-            if (fila != null)
+            if (parameter is Client fila)
             {
                 SelectClient(fila);
             }
@@ -80,7 +76,7 @@ namespace Laundrygest_desktop.ViewModel
 
         private void SearchClient()
         {
-            clientList = clientRepository.GetClients(filterText).Result;
+            ClientList = _clientRepository.GetClients(FilterText).Result;
         }
         private void SelectClient(Client client)
         {

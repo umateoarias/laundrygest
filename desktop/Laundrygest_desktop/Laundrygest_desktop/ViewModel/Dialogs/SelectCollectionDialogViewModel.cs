@@ -27,7 +27,7 @@ namespace Laundrygest_desktop.ViewModel.Dialogs
         }
         public Collection selectedCollection
         {
-            get { return _selectedCollection; }
+            get => _selectedCollection;
             set
             {
                 _selectedCollection = value;
@@ -36,7 +36,7 @@ namespace Laundrygest_desktop.ViewModel.Dialogs
         }
         public ObservableCollection<Collection> Collections
         {
-            get { return _collections; }
+            get => _collections;
             set
             {
                 _collections = value;
@@ -46,8 +46,7 @@ namespace Laundrygest_desktop.ViewModel.Dialogs
 
         private void ChooseCollection(object parameter)
         {
-            var fila = parameter as Collection;
-            if (fila != null)
+            if (parameter is Collection fila)
             {
                 CollectionSelected(fila);
             }

@@ -24,6 +24,21 @@ namespace Laundrygest_desktop.Data.Repositories
             }
             return c;
         }
+
+        public async Task<ObservableCollection<Collection>> GetCollectionsInvoice(Client client)
+        {
+            ObservableCollection<Collection> c = null;
+            try
+            {
+                c = await MakeRequest<ObservableCollection<Collection>>("collections/" + client.Code+"/invoices", "GET", null);
+            }
+            catch { }
+            if (c == null)
+            {
+                c = new ObservableCollection<Collection>();
+            }
+            return c;
+        }
         public async Task<Collection> PostCollection(Collection collection)
         {
             Collection c = null;

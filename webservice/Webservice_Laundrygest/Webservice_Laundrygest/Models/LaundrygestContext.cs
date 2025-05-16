@@ -32,8 +32,8 @@ public partial class LaundrygestContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=.\\sqlexpress; Trusted_Connection=True; Encrypt=false; Database=Laundrygest");
-        //=> optionsBuilder.UseSqlServer("Server=127.0.0.1,1433;Database=Laundrygest;User ID=sa;Password=Unikb6847;Authentication=SqlPassword;Encrypt=True;TrustServerCertificate=True;);
-
+    //=> optionsBuilder.UseSqlServer("Server=127.0.0.1,1433;Database=Laundrygest;User ID=sa;Password=Unikb6847;Authentication=SqlPassword;Encrypt=True;TrustServerCertificate=True;);
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Client>(entity =>
@@ -83,7 +83,7 @@ public partial class LaundrygestContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("username_app");
-            entity.Property(e=>e.LastLoginMobile).HasColumnType("datetime").HasColumnName("last_login_mobile");
+            entity.Property(e => e.LastLoginMobile).HasColumnType("datetime").HasColumnName("last_login_mobile");
         });
 
         modelBuilder.Entity<Collection>(entity =>
@@ -203,13 +203,10 @@ public partial class LaundrygestContext : DbContext
 
             entity.ToTable("invoice");
 
-            entity.HasIndex(e => e.Number, "UQ__invoice__FD291E413F7A0006").IsUnique();
-
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ClientCode).HasColumnName("client_code");
             entity.Property(e => e.Number)
-                .HasMaxLength(50)
-                .IsUnicode(false)
+                .HasColumnType("int")
                 .HasColumnName("number");
             entity.Property(e => e.TaxAmount)
                 .HasColumnType("decimal(18, 2)")
@@ -220,6 +217,7 @@ public partial class LaundrygestContext : DbContext
             entity.Property(e => e.TotalBase)
                 .HasColumnType("decimal(18, 2)")
                 .HasColumnName("total_base");
+            entity.Property(e => e.InvoiceDate).HasColumnType("datetime").HasColumnName("invoice_date");
 
             entity.HasOne(d => d.ClientCodeNavigation).WithMany(p => p.Invoices)
                 .HasForeignKey(d => d.ClientCode)

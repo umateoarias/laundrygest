@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Webservice_Laundrygest.Models;
 
 namespace Webservice_Laundrygest.Controllers
@@ -32,7 +33,7 @@ namespace Webservice_Laundrygest.Controllers
         [HttpGet]
         public async Task<ActionResult<Invoice>> GetInvoice(int id)
         {
-            var invoice = await _context.Invoices.FindAsync(id);
+            var invoice = await _context.Invoices.Where(x=>x.Id==id).Include(x=>x.ClientCodeNavigation).Include(x=>x.Collections).ThenInclude(z=>z.CollectionItems).ThenInclude(y=>y.PricelistCodeNavigation).FirstOrDefaultAsync();
 
             if (invoice == null)
             {
@@ -57,6 +58,13 @@ namespace Webservice_Laundrygest.Controllers
 
             try
             {
+                GetNextInvoiceNumber(invoice);
+                foreach (var c in invoice.Collections)
+                {
+                    var collection = await _context.Collections.Where(x => x.Number == c.Number).FirstOrDefaultAsync();
+                    collection.InvoiceId = invoice.Id;
+                    collection.Invoice = invoice;
+                }
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -105,6 +113,12 @@ namespace Webservice_Laundrygest.Controllers
         private bool InvoiceExists(int id)
         {
             return _context.Invoices.Any(e => e.Id == id);
+        }
+
+        private void GetNextInvoiceNumber(Invoice invoice)
+        {
+            var next = (!_context.Invoices.Any() ? 1 : _context.Invoices.Max(i => i.Number) + 1) ?? 1;
+            invoice.Number = next;
         }
     }
 }

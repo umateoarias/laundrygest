@@ -27,7 +27,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="1" Width="900" Height="120" VerticalContentAlignment="Center" FontSize="28" Text="{Binding filterText,UpdateSourceTrigger=PropertyChanged}" >
+            <TextBox Grid.Column="1" Width="900" Height="120" VerticalContentAlignment="Center" FontSize="28" Text="{Binding FilterText,UpdateSourceTrigger=PropertyChanged}" >
                 <TextBox.InputBindings>
                     <KeyBinding Command="{Binding EnterPressedCommand}" Key="Return"/>
                 </TextBox.InputBindings>
@@ -35,7 +35,7 @@
             <Button Grid.Column="2" Style="{StaticResource WindowButtons}" Command="{Binding SearchClientCommand}" Height="120" Width="180" Content="Buscar"/>
             <Button Grid.Column="3" Style="{StaticResource WindowButtons}" Command="{Binding CreateClientCommand}" Height="120" Width="180" Content="Crear"/>
         </Grid>
-        <DataGrid Grid.Row="1" Margin="25" ItemsSource="{Binding clientList}" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="18" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" IsReadOnly="True" SelectionMode="Single" MinRowHeight="50" ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}" CellStyle="{StaticResource CellStyle}">
+        <DataGrid Grid.Row="1" Margin="25" ItemsSource="{Binding ClientList}" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="18" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" IsReadOnly="True" SelectionMode="Single" MinRowHeight="50" ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}" CellStyle="{StaticResource CellStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nom" Binding="{Binding FirstName}" Width="2*"/>
                 <DataGridTextColumn Header="Cognom" Binding="{Binding LastName}" Width="2*"/>

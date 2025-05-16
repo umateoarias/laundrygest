@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Laundrygest_desktop.Model
@@ -8,17 +9,18 @@ namespace Laundrygest_desktop.Model
     {
         public int Id { get; set; }
 
-        public string Number { get; set; } = null!;
+        public int? Number { get; set; }
 
-        public decimal TotalBase { get; set; }
+        public decimal? TotalBase { get; set; }
 
-        public decimal TaxAmount { get; set; }
+        public decimal? TaxAmount { get; set; }
 
-        public decimal TaxBase { get; set; }
+        public decimal? TaxBase { get; set; }
 
-        public int ClientCode { get; set; }
-
-        public virtual Client ClientCodeNavigation { get; set; } = null!;
+        public int? ClientCode { get; set; }
+        public DateTime InvoiceDate { get; set; }
+        [JsonIgnore]
+        public virtual Client? ClientCodeNavigation { get; set; } = null!;
 
         public virtual ICollection<Collection> Collections { get; set; } = new List<Collection>();
     }
