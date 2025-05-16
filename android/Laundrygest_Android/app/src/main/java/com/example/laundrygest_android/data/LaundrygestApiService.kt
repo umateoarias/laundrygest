@@ -14,4 +14,7 @@ interface LaundrygestApiService {
 
     @GET("collections/{code}")
     suspend fun getCollectionsClient(@Path("code") code: Int): Response<List<CollectionDto>>
+
+    @GET("pricelists/all")
+    suspend fun getPricelists(): Response<List<PricelistDTO>>
 }

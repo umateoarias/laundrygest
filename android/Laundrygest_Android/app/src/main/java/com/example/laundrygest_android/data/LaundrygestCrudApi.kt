@@ -64,4 +64,18 @@ class LaundrygestCrudApi : CoroutineScope {
         return collections
     }
 
+    fun getPricelists() : List<PricelistDTO>?{
+        var pricelists : List<PricelistDTO>? = null
+        runBlocking {
+            var res : Response<List<PricelistDTO>>? = null
+            var cor = launch{
+                res = getRetrofit().create(LaundrygestApiService::class.java).getPricelists()
+            }
+            cor.join()
+            if(res!!.isSuccessful)
+                pricelists = res!!.body()
+        }
+        return pricelists
+    }
+
 }

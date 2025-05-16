@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.laundrygest_android.data.LaundrygestCrudApi
 import com.example.laundrygest_android.data.PricelistDTO
 import com.example.laundrygest_android.databinding.FragmentHomeBinding
 import com.example.laundrygest_android.pricelistRCV_adapter
@@ -21,7 +22,7 @@ class HomeFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-    lateinit var fullList : List<PricelistDTO>
+    private var fullList : List<PricelistDTO>? = null
     lateinit var adapter : pricelistRCV_adapter
 
     override fun onCreateView(
@@ -35,17 +36,22 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        adapter = pricelistRCV_adapter(fullList)
-        binding.pricelistRecyclerView.layoutManager = LinearLayoutManager(this.context)
-        binding.pricelistRecyclerView.adapter = adapter
+        var crudApi = LaundrygestCrudApi()
+        fullList = crudApi.getPricelists()
 
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean = false
-            override fun onQueryTextChange(newText: String?): Boolean {
-                filterList(newText.orEmpty())
-                return true
-            }
-        })
+        if(fullList!=null) {
+            adapter = pricelistRCV_adapter(fullList!!)
+            binding.pricelistRecyclerView.layoutManager = LinearLayoutManager(this.context)
+            binding.pricelistRecyclerView.adapter = adapter
+
+            binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean = false
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    filterList(newText.orEmpty())
+                    return true
+                }
+            })
+        }
         return root
     }
 
@@ -55,7 +61,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun filterList(query: String) {
-        val filtered = fullList.filter {
+        val filtered = fullList!!.filter {
             it.name.contains(query, ignoreCase = true)
         }
     }
