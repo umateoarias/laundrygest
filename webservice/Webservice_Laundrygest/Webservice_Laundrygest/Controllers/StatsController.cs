@@ -30,7 +30,7 @@ namespace Webservice_Laundrygest.Controllers
                     namePricelist = x.Name, 
                     numPieces = x.CollectionItems.Sum(z => z.NumPieces), 
                     totalAmount = x.CollectionItems.Sum(z => z.NumPieces) * x.NumPieces.Value
-                }).ToListAsync();
+                }).Where(x=>x.numPieces>0).OrderBy(x=>x.numPieces).ThenBy(x=>x.namePricelist).ToListAsync();
 
             if (stats == null)
             {

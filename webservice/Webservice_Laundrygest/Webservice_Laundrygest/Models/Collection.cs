@@ -27,6 +27,8 @@ public partial class Collection
 
     public string? PaymentMode { get; set; }
 
+    public string? Clerk { get; set; }
+
     public virtual Client? ClientCodeNavigation { get; set; }
 
     public virtual ICollection<CollectionItem> CollectionItems { get; set; } = new List<CollectionItem>();

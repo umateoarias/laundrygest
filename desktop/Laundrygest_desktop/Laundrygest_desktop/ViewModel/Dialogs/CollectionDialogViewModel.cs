@@ -71,7 +71,6 @@ namespace Laundrygest_desktop.ViewModel
                     _collectionClient = clientRepository.GetClient((int)deliveryCollection.ClientCode).Result;
                 Delivery d = new Delivery() { DeliveryDate = DateTime.Now };
                 _delivery = _deliveryRepository.PostDelivery(d).Result;
-                // CLERK NOT SAVED                
             }
             SetFormText();
             CollectionItems.CollectionChanged += CollectionItem_PropertyChanged;
@@ -82,6 +81,7 @@ namespace Laundrygest_desktop.ViewModel
         {
             if (_isDelivery)
             {
+                ClerkTextBox = _collection.Clerk;
                 ClientFirstNameTextBox = _collectionClient.FirstName;
                 ClientLastNameTextBox = _collectionClient.LastName;
                 ClientTelephoneTextBox = _collectionClient.Telephone;
@@ -115,6 +115,7 @@ namespace Laundrygest_desktop.ViewModel
             if (_collection.DueTotal == 0)
             {
                 _delivery.CollectionItems = CollectionItems.Where(x => x.IsMarked).Select(x => x.Model).ToList();
+                _delivery.Clerk = ClerkTextBox;
                 var result = MessageBox.Show("Vols guardar aquest lliurament?", "Finalitzar", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
@@ -391,6 +392,7 @@ namespace Laundrygest_desktop.ViewModel
             _collection.TaxBase = BasePriceTextBox;
             _collection.ClientCodeNavigation = _collectionClient;
             _collection.ClientCode = _collectionClient.Code;
+            _collection.Clerk = ClerkTextBox;
             var result = MessageBox.Show("Vols guardar aquesta recollida?", "Finalitzar", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
             if (_collectionRepository.PutCollection(_collection.Number, _collection).Result)

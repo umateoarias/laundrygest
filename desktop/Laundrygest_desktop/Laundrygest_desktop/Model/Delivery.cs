@@ -11,6 +11,7 @@ namespace Laundrygest_desktop.Model
         public int Number { get; set; }
 
         public DateTime? DeliveryDate { get; set; }
+        public string? Clerk { get; set; }
 
         public virtual ICollection<CollectionItem> CollectionItems { get; set; } = new List<CollectionItem>();
     }

@@ -9,17 +9,122 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Laundrygest_desktop.Model;
 
 namespace Laundrygest_desktop
 {
     public class ConfigViewModel : INotifyPropertyChanged
     {
         private string _urlApiTextBox;
-        public ConfigViewModel() {
-            UrlApiTextBox = BaseRepository.urlApi;
+        private readonly Settings _settings;
+        private int _daysDelayTextBox;
+        private string _companyNameTextBox;
+        private string _ownerNameTextBox;
+        private string _ownerLastNameTextBox;
+        private string _telephoneTextBox;
+        private string _addressTextBox;
+        private string _nifTextBox;
+        private string _postalCodeTextBox;
+        public ConfigViewModel()
+        {
+            //ConfigController.BuildFile();
+            _settings = ConfigController.GetSettings();
+            LoadSettings();
+
             ConnectCommand = new DelegateCommand(TryConnect);
+            SaveSettings = new DelegateCommand(SaveConfig);
         }
 
+        private void LoadSettings()
+        {
+            UrlApiTextBox = _settings.ApiUrl ?? "";
+            DaysDelayTextBox = _settings.DaysDelay;
+            CompanyNameTextBox = _settings.Company.CompanyName ?? "";
+            OwnerNameTextBox = _settings.Company.OwnerName ?? "";
+            OwnerLastNameTextBox = _settings.Company.OwnerLastName ?? "";
+            TelephoneTextBox = _settings.Company.Telephone ?? "";
+            AddressTextBox = _settings.Company.Address ?? "";
+            PostalCodeTextBox = _settings.Company.PostalCode ?? "";
+            NifTextBox = _settings.Company.Nif ?? "";
+        }
+
+        public string PostalCodeTextBox
+        {
+            get => _postalCodeTextBox;
+            set
+            {
+                _postalCodeTextBox = value;
+                OnPropertyChanged(nameof(PostalCodeTextBox));
+            }
+        }
+
+        public string NifTextBox
+        {
+            get => _nifTextBox;
+            set
+            {
+                _nifTextBox = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string AddressTextBox
+        {
+            get => _addressTextBox;
+            set
+            {
+                _addressTextBox = value;
+                OnPropertyChanged();
+            }
+        }
+        public string TelephoneTextBox
+        {
+            get => _telephoneTextBox;
+            set
+            {
+                _telephoneTextBox = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string OwnerLastNameTextBox
+        {
+            get => _ownerLastNameTextBox;
+            set
+            {
+                _ownerLastNameTextBox = value;
+                OnPropertyChanged();
+            }
+        }
+        public string OwnerNameTextBox
+        {
+            get => _ownerNameTextBox;
+            set
+            {
+                _ownerNameTextBox = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string CompanyNameTextBox
+        {
+            get => _companyNameTextBox;
+            set
+            {
+                _companyNameTextBox = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int DaysDelayTextBox
+        {
+            get => _daysDelayTextBox;
+            set
+            {
+                _daysDelayTextBox = value;
+                OnPropertyChanged();
+            }
+        }
         public string UrlApiTextBox
         {
             get { return _urlApiTextBox; }
@@ -27,6 +132,21 @@ namespace Laundrygest_desktop
         }
 
         public ICommand ConnectCommand { get; }
+        public ICommand SaveSettings { get; }
+
+        public void SaveConfig()
+        {
+            _settings.ApiUrl = UrlApiTextBox;
+            _settings.DaysDelay = DaysDelayTextBox;
+            _settings.Company.CompanyName = CompanyNameTextBox;
+            _settings.Company.OwnerName = OwnerNameTextBox;
+            _settings.Company.OwnerLastName = OwnerLastNameTextBox;
+            _settings.Company.Telephone = TelephoneTextBox;
+            _settings.Company.Nif = NifTextBox;
+            _settings.Company.Address = AddressTextBox;
+            _settings.Company.PostalCode = PostalCodeTextBox;
+            ConfigController.SaveSettings(_settings);
+        }
 
         public async void TryConnect()
         {
