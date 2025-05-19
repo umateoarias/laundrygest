@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Laundrygest_desktop.Views" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-        xmlns:ViewModel="clr-namespace:Laundrygest_desktop.ViewModel" Background="LightGray" d:DataContext="{d:DesignInstance Type=ViewModel:CollectionDialogViewModel}" x:Class="Laundrygest_desktop.Views.CollectionDialog"
+        xmlns:ViewModel="clr-namespace:Laundrygest_desktop.ViewModel" Background="#F4F4F4" d:DataContext="{d:DesignInstance Type=ViewModel:CollectionDialogViewModel}" x:Class="Laundrygest_desktop.Views.CollectionDialog"
         mc:Ignorable="d"
         Title="Recollida" Height="770" Width="1500" ResizeMode="NoResize">
     <Grid Margin="10">
