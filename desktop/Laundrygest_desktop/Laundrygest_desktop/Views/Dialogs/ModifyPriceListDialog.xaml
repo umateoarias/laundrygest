@@ -28,9 +28,9 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="2" Margin="10" Style="{StaticResource WindowButtons}" Content="Afegir" Command="{Binding AddPieceCommand}"/>
-            <Button Grid.Column="1" Margin="10" Style="{StaticResource WindowButtons}" Content="Modificar seleccionat" Command="{Binding UpdatePieceCommand}"/>
-            <Button Grid.Column="0" Margin="10" Style="{StaticResource WindowButtons}" Content="Eliminar seleccionat" Command="{Binding DeletePieceCommand}"/>
+            <Button Grid.Column="2" Margin="10" FontSize="14" Content="Afegir" Command="{Binding AddPieceCommand}"/>
+            <Button Grid.Column="1" Margin="10" FontSize="14"  Content="Modificar seleccionat" Command="{Binding UpdatePieceCommand}"/>
+            <Button Grid.Column="0" Margin="10" FontSize="14" Content="Eliminar seleccionat" Command="{Binding DeletePieceCommand}"/>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="2" Margin="10" Visibility="{Binding visibility}">
             <Grid.ColumnDefinitions>

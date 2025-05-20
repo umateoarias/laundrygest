@@ -54,24 +54,27 @@ namespace Webservice_Laundrygest.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(delivery).State = EntityState.Modified;
+            _context.Update(delivery);
+            //_context.Entry(delivery).State = EntityState.Modified;
 
-            foreach (var item in delivery.CollectionItems)
-            {
-                if (item.DeliveryNumberNavigation != null)
-                {
-                    var existingDelivery = await _context.Deliveries.FirstOrDefaultAsync(d => d.Number == item.DeliveryNumberNavigation.Number);
+            //foreach (var item in delivery.CollectionItems)
+            //{
+            //    if (item.DeliveryNumberNavigation != null)
+            //    {
+            //        var existingDelivery = await _context.Deliveries.FirstOrDefaultAsync(d => d.Number == item.DeliveryNumberNavigation.Number);
 
-                    if (existingDelivery != null) {
-                        _context.Entry(existingDelivery).State = EntityState.Unchanged;
-                        item.DeliveryNumberNavigation = existingDelivery;
-                    }
-                    else
-                    {
-                        throw new Exception("Delivery no encontrado");
-                    }
-                }                
-            }
+            //        if (existingDelivery != null)
+            //        {
+            //            _context.Entry(existingDelivery).State = EntityState.Unchanged;
+            //            item.DeliveryNumber = existingDelivery.Number;
+            //            item.DeliveryNumberNavigation = existingDelivery;
+            //        }
+            //        else
+            //        {
+            //            throw new Exception("Delivery no encontrado");
+            //        }
+            //    }
+            //}
 
             try
             {

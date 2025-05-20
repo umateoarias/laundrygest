@@ -32,23 +32,26 @@
                     <KeyBinding Command="{Binding EnterPressedCommand}" Key="Return"/>
                 </TextBox.InputBindings>
             </TextBox>
-            <Button Grid.Column="2" Style="{StaticResource WindowButtons}" Command="{Binding SearchClientCommand}" Height="120" Width="180" Content="Buscar"/>
-            <Button Grid.Column="3" Style="{StaticResource WindowButtons}" Command="{Binding CreateClientCommand}" Height="120" Width="180" Content="Crear"/>
+            <Button Grid.Column="2" Command="{Binding SearchClientCommand}" FontSize="20" Height="120" Width="180" Content="Buscar" Margin="12"/>
+            <Button Grid.Column="3" Command="{Binding CreateClientCommand}" FontSize="20" Height="120" Width="180" Content="Crear"/>
         </Grid>
-        <DataGrid Grid.Row="1" Margin="25" ItemsSource="{Binding ClientList}" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="18" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" IsReadOnly="True" SelectionMode="Single" MinRowHeight="50" ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}" CellStyle="{StaticResource CellStyle}">
+        <DataGrid Grid.Row="1" Margin="25,25,25,25" ItemsSource="{Binding ClientList}" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="18" IsReadOnly="True" SelectionMode="Single" MinRowHeight="50" GridLinesVisibility="Horizontal" BorderThickness="2">
+            <DataGrid.BorderBrush>
+                <SolidColorBrush Color="{DynamicResource Color_000}"/>
+            </DataGrid.BorderBrush>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Nom" Binding="{Binding FirstName}" Width="2*"/>
-                <DataGridTextColumn Header="Cognom" Binding="{Binding LastName}" Width="2*"/>
-                <DataGridTextColumn Header="Telefon" Binding="{Binding Telephone}" Width="2*"/>
-                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="1*"/>
+                <DataGridTextColumn Header="Nom" Binding="{Binding FirstName}" Width="1*"/>
+                <DataGridTextColumn Header="Cognom" Binding="{Binding LastName}" Width="1*"/>
+                <DataGridTextColumn Header="Telefon" Binding="{Binding Telephone}" Width="1*"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="2*"/>
                 <DataGridTextColumn Header="NIF" Binding="{Binding Nif}" Width="1*"/>
-                <DataGridTextColumn Header="Adreça" Binding="{Binding Address}" Width="2*"/>
-                <DataGridTextColumn Header="Codi Postal" Binding="{Binding PostalCode}" Width="1*"/>
+                <DataGridTextColumn Header="Adreça" Binding="{Binding Address}" Width="2*" />
+                <DataGridTextColumn Header="Codi Postal" Binding="{Binding PostalCode}" Width="2*"/>
                 <DataGridTextColumn Header="Localitat" Binding="{Binding Locality}" Width="2*"/>
                 <DataGridTemplateColumn Width="1*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Seleccionar" Height="45" Style="{StaticResource WindowButtons}"
+                            <Button Content="Seleccionar" Height="45" 
                         Command="{Binding DataContext.SelectClientButtonCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                         CommandParameter="{Binding}">
                             </Button>
