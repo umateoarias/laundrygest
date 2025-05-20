@@ -45,7 +45,10 @@ class HomeFragment : Fragment() {
             binding.pricelistRecyclerView.adapter = adapter
 
             binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean = false
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    filterList(query.orEmpty())
+                    return true
+                }
                 override fun onQueryTextChange(newText: String?): Boolean {
                     filterList(newText.orEmpty())
                     return true
@@ -64,5 +67,6 @@ class HomeFragment : Fragment() {
         val filtered = fullList!!.filter {
             it.name.contains(query, ignoreCase = true)
         }
+        adapter.updateItems(filtered)
     }
 }

@@ -31,6 +31,8 @@ data class CollectionDto(
     val dueTotal: BigDecimal?,
     @SerializedName("paymentMode")
     val paymentMode: String?,
+    @SerializedName("clerk")
+    val clerk: String?,
     @SerializedName("collectionItems")
     val collectionItems: List<CollectionItemDto> = emptyList(),
     @SerializedName("collectionTypeCodeNavigation")

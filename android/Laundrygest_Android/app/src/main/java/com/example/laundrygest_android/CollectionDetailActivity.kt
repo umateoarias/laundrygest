@@ -33,8 +33,8 @@ class CollectionDetailActivity : AppCompatActivity() {
                 collection.client.firstName + " " + collection.client.lastName
             binding.collectionClientTelephone.text = collection.client.telephone
             binding.collectionDueDate.append(DateParser.formatDate(collection.dueDate.toString()))
-            binding.collectionDueTotal.append(String.format("%.2f",collection.dueTotal))
-            binding.colllectionTotal.append(String.format("%.2f",collection.total))
+            binding.collectionDueTotal.append(String.format("%.2f€", collection.dueTotal))
+            binding.colllectionTotal.append(String.format("%.2f€", collection.total))
             binding.collectionItemsRcv.adapter = collectionItemAdapter(collection.collectionItems)
             binding.collectionItemsRcv.layoutManager = LinearLayoutManager(this)
         }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Laundrygest_Android</string>
+    <string name="app_name">Laundrygest</string>
     <string name="title_activity_principal">PrincipalActivity</string>
     <string name="title_home">Prices</string>
     <string name="title_dashboard">Tickets</string>

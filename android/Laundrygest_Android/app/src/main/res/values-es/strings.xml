@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Laundrygest_Android</string>
+    <string name="app_name">Laundrygest</string>
     <string name="title_activity_principal">Pantalla Principal</string>
     <string name="title_home">Precios</string>
     <string name="title_dashboard">Tickets</string>

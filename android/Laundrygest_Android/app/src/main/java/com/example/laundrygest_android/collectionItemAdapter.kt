@@ -23,7 +23,7 @@ class collectionItemAdapter(val list: List<CollectionItemDto>) :
     ) {
         holder.namePiece.setText(list[position].pricelist.name)
         holder.qntPiece.setText(list[position].numPieces.toString())
-        holder.pricePiece.setText(list[position].pricelist.unitPrice.toString())
+        holder.pricePiece.setText(list[position].pricelist.unitPrice.toString()+"€")
     }
 
     override fun getItemCount() = list.size

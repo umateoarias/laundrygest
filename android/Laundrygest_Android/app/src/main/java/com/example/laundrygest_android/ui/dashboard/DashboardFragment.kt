@@ -20,6 +20,7 @@ class DashboardFragment : Fragment() {
     private var _clientCode: Int? = null
     private var _binding: FragmentDashboardBinding? = null
     private val dashboardViewModel : DashboardViewModel by activityViewModels()
+    private val crudApi = LaundrygestCrudApi()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -38,16 +39,12 @@ class DashboardFragment : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val crudApi = LaundrygestCrudApi()
-
         dashboardViewModel.clientCode.observe(viewLifecycleOwner) { code ->
-            val collectionList = crudApi.getCollectionsClient(code)
-            if (collectionList != null) {
-                binding.recyclerViewCollections.adapter = recyclerViewAdapter(collectionList)
-                binding.recyclerViewCollections.layoutManager = LinearLayoutManager(this.context)
-            }
+            _clientCode = code
         }
-
+        if(_clientCode!=null) {
+            updateRecyclerView(_clientCode!!)
+        }
 
         return root
     }
@@ -55,6 +52,14 @@ class DashboardFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun updateRecyclerView(code:Int){
+        val collectionList = crudApi.getCollectionsClient(code)
+        if (collectionList != null) {
+            binding.recyclerViewCollections.adapter = recyclerViewAdapter(collectionList)
+            binding.recyclerViewCollections.layoutManager = LinearLayoutManager(this.context)
+        }
     }
 
 
@@ -65,4 +70,5 @@ class DashboardFragment : Fragment() {
             }
         }
     }
+
 }

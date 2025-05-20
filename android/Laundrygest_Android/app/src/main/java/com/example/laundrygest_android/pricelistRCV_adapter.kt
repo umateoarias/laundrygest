@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.laundrygest_android.data.PricelistDTO
 
-class pricelistRCV_adapter(val list : List<PricelistDTO>): RecyclerView.Adapter<pricelistRCV_adapter.ViewHolder>() {
+class pricelistRCV_adapter(var list : List<PricelistDTO>): RecyclerView.Adapter<pricelistRCV_adapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -21,7 +21,7 @@ class pricelistRCV_adapter(val list : List<PricelistDTO>): RecyclerView.Adapter<
         position: Int
     ) {
         holder.namePricelist.setText(list[position].name)
-        holder.pricePricelist.setText(list[position].unitPrice.toString())
+        holder.pricePricelist.setText(list[position].unitPrice.toString()+"€")
     }
 
     override fun getItemCount() = list.size
@@ -29,5 +29,10 @@ class pricelistRCV_adapter(val list : List<PricelistDTO>): RecyclerView.Adapter<
     class ViewHolder(val view : View) : RecyclerView.ViewHolder(view) {
         val namePricelist = view.findViewById<TextView>(R.id.pricelistName)
         val pricePricelist = view.findViewById<TextView>(R.id.pricelistPrice)
+    }
+
+    fun updateItems(newItems: List<PricelistDTO>) {
+        this.list = newItems
+        notifyDataSetChanged()
     }
 }
