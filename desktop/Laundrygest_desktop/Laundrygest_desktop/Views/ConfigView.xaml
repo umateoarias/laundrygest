@@ -13,8 +13,9 @@
     <Grid Background="#FFFFFF">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="6*"/>
-            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="12*"/>
+            <ColumnDefinition Width="12*"/>
+            <ColumnDefinition Width="12*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -24,26 +25,49 @@
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="1" Grid.Row="1" Text="Configuració" FontSize="28" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" FontWeight="Bold"/>
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="URL API:" Style="{StaticResource MiniHeaders}" Margin="10,30,0,0"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="URL API:" Style="{StaticResource MiniHeaders}" Margin="10,10,0,0"/>
         <Grid Grid.Row="2" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-        <TextBox Grid.Column="0" Style="{StaticResource TextBoxForm}" Text="{Binding UrlApiTextBox}" FontSize="28" Height="60" Width="360" IsReadOnly="False"/>
-        <Button Grid.Column="1" Content="Connectar" Style="{StaticResource WindowButtons}" HorizontalAlignment="Left" Margin="15,0,0,0" Width="120" Height="60" Command="{Binding ConnectCommand}"/>
+            <TextBox Grid.Column="0" Style="{StaticResource TextBoxForm}" Text="{Binding UrlApiTextBox}" FontSize="28" Height="60" Width="360" IsReadOnly="False"/>
+            <Button Grid.Column="1" Content="Connectar" Style="{StaticResource WindowButtons}" HorizontalAlignment="Left" Margin="15,0,0,0" Width="120" Height="60" Command="{Binding ConnectCommand}"/>
         </Grid>
-        <TextBlock Grid.Row="3" Grid.Column="1" Text="Dies per recollides de roba:" Style="{StaticResource MiniHeaders}" Margin="10,30,0,0"/>
+        <TextBlock Grid.Row="3" Grid.Column="1" Text="Dies per recollides de roba:" Style="{StaticResource MiniHeaders}" Margin="10,10,0,0"/>
         <Grid Grid.Row="3" Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0" Style="{StaticResource TextBoxForm}" Text="" FontSize="28" Height="60" Width="360" IsReadOnly="False"/>
-            <!--<Button Grid.Column="1" Content="Connectar" Style="{StaticResource WindowButtons}" HorizontalAlignment="Left" Margin="15,0,0,0" Width="120" Height="60" Command="{Binding ConnectCommand}"/>-->
+            <TextBox Grid.Column="0" Style="{StaticResource TextBoxForm}" Text="{Binding DaysDelayTextBox}" FontSize="28" Height="60" Width="360" IsReadOnly="False"/>
         </Grid>
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="Nom empresa:" Style="{StaticResource MiniHeaders}" Margin="70,10,0,0"/>
+        <TextBox Grid.Row="2" Grid.Column="2" Style="{StaticResource TextBoxForm}" Text="{Binding CompanyNameTextBox}" FontSize="28" Height="60" Width="360" IsReadOnly="False" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+
+        <TextBlock Grid.Row="2" Grid.Column="3" Text="Nom propietari:" Style="{StaticResource MiniHeaders}" Margin="70,10,0,0"/>
+        <TextBox Grid.Row="2" Grid.Column="3" Style="{StaticResource TextBoxForm}" Text="{Binding OwnerNameTextBox}" FontSize="28" Height="60" Width="360" IsReadOnly="False" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="3" Text="Cognom propietari:" Style="{StaticResource MiniHeaders}" Margin="70,10,0,0"/>
+        <TextBox Grid.Row="3" Grid.Column="3" Style="{StaticResource TextBoxForm}" Text="{Binding OwnerLastNameTextBox}" FontSize="28" Height="60" Width="360" IsReadOnly="False" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="3" Text="Telefon:" Style="{StaticResource MiniHeaders}" Margin="70,10,0,0"/>
+        <TextBox Grid.Row="4" Grid.Column="3" Style="{StaticResource TextBoxForm}" Text="{Binding TelephoneTextBox}" FontSize="28" Height="60" Width="360" IsReadOnly="False" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="2" Text="Nif:" Style="{StaticResource MiniHeaders}" Margin="70,10,0,0"/>
+        <TextBox Grid.Row="3" Grid.Column="2" Style="{StaticResource TextBoxForm}" Text="{Binding NifTextBox}" FontSize="28" Height="60" Width="360" IsReadOnly="False" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="2" Text="Adreça:" Style="{StaticResource MiniHeaders}" Margin="70,10,0,0"/>
+        <TextBox Grid.Row="4" Grid.Column="2" Style="{StaticResource TextBoxForm}" Text="{Binding AddressTextBox}" FontSize="28" Height="60" Width="360" IsReadOnly="False" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+
+        <TextBlock Grid.Row="5" Grid.Column="2" Text="Codi postal:" Style="{StaticResource MiniHeaders}" Margin="70,10,0,0"/>
+        <TextBox Grid.Row="5" Grid.Column="2" Style="{StaticResource TextBoxForm}" Text="{Binding PostalCodeTextBox}" FontSize="28" Height="60" Width="360" IsReadOnly="False" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+
+        <Button Grid.Row="6" Grid.Column="3" Style="{StaticResource WindowButtons}" Command="{Binding SaveSettings }" HorizontalAlignment="Right" Height="60" Content="Guardar configuració" Margin="0,0,15,0"/>
     </Grid>
 </UserControl>

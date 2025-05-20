@@ -27,6 +27,7 @@ namespace Laundrygest_desktop.Model
         public decimal? DueTotal { get; set; }
 
         public string? PaymentMode { get; set; }
+        public string? Clerk { get; set; }
 
         public virtual Client ClientCodeNavigation { get; set; } = null!;
 

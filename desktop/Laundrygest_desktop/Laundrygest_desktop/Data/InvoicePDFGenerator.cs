@@ -14,6 +14,7 @@ namespace Laundrygest_desktop.Data
     {
         public static void ExportInvoiceToPdf(Invoice invoice)
         {
+            var company = ConfigController.GetSettings().Company;
             var currenctyCulture = CultureInfo.CreateSpecificCulture("es-ES");
             var dialogo = new SaveFileDialog
             {
@@ -51,19 +52,13 @@ namespace Laundrygest_desktop.Data
                                 {
                                     column.Item()
                                         .Text($"Factura Nº {invoice.Number}")
-                                        .FontSize(20).SemiBold().FontColor(Colors.Blue.Medium);
+                                        .FontSize(20).SemiBold().FontColor(Colors.Cyan.Darken2);
 
                                     column.Item().Text(text =>
                                     {
                                         text.Span("Data factura: ").SemiBold();
                                         text.Span($"{invoice.InvoiceDate:d}");
                                     });
-
-                                    //column.Item().Text(text =>
-                                    //{
-                                    //    text.Span("Due date: ").SemiBold();
-                                    //    text.Span($"{Model.DueDate:d}");
-                                    //});
                                 });
 
                                 row.ConstantItem(100).Height(50).Placeholder();
@@ -76,14 +71,14 @@ namespace Laundrygest_desktop.Data
                                 {
                                     column.Spacing(2);
 
-                                    column.Item().BorderBottom(1).PaddingBottom(5).Text("Destaca").SemiBold();
+                                    column.Item().BorderBottom(1).PaddingBottom(5).Text(company.CompanyName).SemiBold();
 
-                                    column.Item().Text("Joan");
-                                    column.Item().Text("Mateo Martinez");
-                                    column.Item().Text("123456789");
-                                    column.Item().Text("87249825T");
-                                    column.Item().Text("Avinguda Espanya, 2, Montcada");
-                                    column.Item().Text("08420");
+                                    column.Item().Text(company.OwnerName);
+                                    column.Item().Text(company.OwnerLastName);
+                                    column.Item().Text(company.Telephone);
+                                    column.Item().Text(company.Nif);
+                                    column.Item().Text(company.Address);
+                                    column.Item().Text(company.PostalCode);
                                 });
                                 row.ConstantItem(50);
                                 row.RelativeItem().Column(column =>
@@ -161,8 +156,8 @@ namespace Laundrygest_desktop.Data
 
                             column.Spacing(10);
 
-                            column.Item().Text($"Base imponible: {invoice.TaxBase.Value.ToString("C", currenctyCulture)}").AlignRight();
-                            column.Item().Text($"Impuesto: {invoice.TaxAmount.Value.ToString("C",currenctyCulture)}").AlignRight();
+                            column.Item().Text($"Base imposable: {invoice.TaxBase.Value.ToString("C", currenctyCulture)}").AlignRight();
+                            column.Item().Text($"IVA: {invoice.TaxAmount.Value.ToString("C",currenctyCulture)}").AlignRight();
                             column.Item().Text($"Total: {invoice.TotalBase.Value.ToString("C",currenctyCulture)}").AlignRight();
                         });
                 });

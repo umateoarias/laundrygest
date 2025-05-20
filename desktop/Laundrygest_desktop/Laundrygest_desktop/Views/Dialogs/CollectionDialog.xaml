@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Laundrygest_desktop.Views"
-        xmlns:ViewModel="clr-namespace:Laundrygest_desktop.ViewModel" d:DataContext="{d:DesignInstance Type=ViewModel:CollectionDialogViewModel}" x:Class="Laundrygest_desktop.Views.CollectionDialog"
+        xmlns:local="clr-namespace:Laundrygest_desktop.Views" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:ViewModel="clr-namespace:Laundrygest_desktop.ViewModel" Background="#F4F4F4" d:DataContext="{d:DesignInstance Type=ViewModel:CollectionDialogViewModel}" x:Class="Laundrygest_desktop.Views.CollectionDialog"
         mc:Ignorable="d"
         Title="Recollida" Height="770" Width="1500" ResizeMode="NoResize">
     <Grid Margin="10">
@@ -24,46 +24,50 @@
                 <RowDefinition Height="90"/>
                 <RowDefinition Height="90"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" x:Name="clerkText" Style="{StaticResource MiniHeaders}" FontWeight="Bold" Text="Dependent" Margin="5"/>
-                <Button Grid.Column="1" x:Name="btnClerk" Style="{StaticResource WindowButtons}" Height="30" Width="120" Content="Seleccionar" HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding SelectClerkCommand}"/>
-                <TextBox Grid.Column="2" x:Name="textBoxClerk" Width="300" Height="45" Text="{Binding ClerkTextBox}" IsReadOnly="True" FontSize="24" VerticalContentAlignment="Center"/>
-            </Grid>
-            <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Column="0" x:Name="clientText" Style="{StaticResource MiniHeaders}" Text="Client" FontWeight="Bold" Padding="5 10 5 0"/>
-                <Button Grid.Column="1" x:Name="btnSearchClient" Visibility="{Binding BtnVisibility}" Content="Buscar" Style="{StaticResource WindowButtons}" Command="{Binding SearchClientCommand}" Height="30" Width="90" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                <Grid Grid.Column="1" Grid.Row="1" Margin="12">
+            <Border Grid.Row="0" BorderBrush="#DDD" Margin="5" BorderThickness="1" CornerRadius="8"  Background="White">
+                <Grid>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" x:Name="clerkText" Style="{StaticResource MiniHeaders}" FontWeight="Bold" Text="Dependent" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    <Button Grid.Column="1" x:Name="btnClerk" Style="{StaticResource WindowButtons}" Margin="15,0,0,0" Height="30" Width="120" Content="Seleccionar" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding SelectClerkCommand}"/>
+                    <TextBox Grid.Column="2" x:Name="textBoxClerk" Width="300" Height="35" Text="{Binding ClerkTextBox}" IsReadOnly="True" FontSize="24" VerticalContentAlignment="Center"/>
+                </Grid>
+            </Border>
+            <Border Grid.Row="1" BorderBrush="#DDD" BorderThickness="1" CornerRadius="8" Margin="5" Background="White">
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Nom" Style="{StaticResource MiniHeaders}"/>
-                    <TextBox Grid.Row="0" Grid.Column="0" x:Name="textBoxFirstName" Style="{StaticResource TextBoxForm}" Text="{Binding ClientFirstNameTextBox}"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Cognom" Style="{StaticResource MiniHeaders}"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBoxLastName" Style="{StaticResource TextBoxForm}" Text="{Binding ClientLastNameTextBox}"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Telefon" Style="{StaticResource MiniHeaders}"/>
-                    <TextBox Grid.Row="1" Grid.Column="0" x:Name="textBoxTelephone" Style="{StaticResource TextBoxForm}" Text="{Binding ClientTelephoneTextBox}" />
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="NIF" Style="{StaticResource MiniHeaders}"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="textBoxNIF" Style="{StaticResource TextBoxForm}" Text="{Binding ClientNifTextBox}"/>
+                    <TextBlock Grid.Column="0" x:Name="clientText" FontWeight="Bold" Style="{StaticResource MiniHeaders}" Text="Client" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                    <Button Grid.Column="1" x:Name="btnSearchClient" Visibility="{Binding BtnVisibility}" Content="Buscar" Style="{StaticResource WindowButtons}" Command="{Binding SearchClientCommand}" Height="30" Width="90" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Grid Grid.Column="1" Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Nom" Style="{StaticResource MiniHeaders}" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="0" Grid.Column="0" x:Name="textBoxFirstName" Style="{StaticResource TextBoxForm}" Text="{Binding ClientFirstNameTextBox}" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="Cognom" Style="{StaticResource MiniHeaders}" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBoxLastName" Style="{StaticResource TextBoxForm}" Text="{Binding ClientLastNameTextBox}" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Telefon" Style="{StaticResource MiniHeaders}" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="1" Grid.Column="0" x:Name="textBoxTelephone" Style="{StaticResource TextBoxForm}" Text="{Binding ClientTelephoneTextBox}" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="NIF" Style="{StaticResource MiniHeaders}" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="textBoxNIF" Style="{StaticResource TextBoxForm}" Text="{Binding ClientNifTextBox}" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </Border>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -72,45 +76,44 @@
                 <Button x:Name="btnAddClothe" Grid.Column="0" Content="{Binding BtnContent1}" Style="{StaticResource WindowButtons}" Command="{Binding OpenAddPieceCommand}"/>
                 <Button x:Name="btnRemoveClothe" Grid.Column="1" Content="{Binding BtnContent2}" Style="{StaticResource WindowButtons}" Command="{Binding DeleteSelectedCommand}"/>
             </Grid>
-            <Grid Grid.Row="3">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock x:Name="paymentText" Grid.Row="0" Style="{StaticResource MiniHeaders}" FontWeight="Bold" Text="Pagament" Margin="5"/>
-                <Grid Grid.Row="1" Grid.Column="1" Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+            <Border Grid.Row="3" BorderBrush="#DDD" BorderThickness="1" CornerRadius="8" Margin="5" Background="White">
+                <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Base" Style="{StaticResource MiniHeaders}"/>
-                    <TextBox Grid.Row="0" Grid.Column="0" x:Name="textBoxBase" Style="{StaticResource TextBoxForm}" Text="{Binding BasePriceTextBox,UpdateSourceTrigger=PropertyChanged,StringFormat=F2}" IsReadOnly="True"/>
-                    <TextBlock Grid.Row="0" Grid.Column="1" Text="IVA" Style="{StaticResource MiniHeaders}"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBoxTax" Style="{StaticResource TextBoxForm}" Text="{Binding TaxAmountTextBox,UpdateSourceTrigger=PropertyChanged, StringFormat=F2}" IsReadOnly="True"/>
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Total" Style="{StaticResource MiniHeaders}"/>
-                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="textBoxTotal" Style="{StaticResource TextBoxForm}" Text="{Binding TotalPriceTextBox,UpdateSourceTrigger=PropertyChanged,StringFormat=F2}" IsReadOnly="True"/>
+                    <TextBlock x:Name="paymentText" Grid.Row="0" Style="{StaticResource MiniHeaders}" FontWeight="Bold" Text="Pagament" Margin="5"/>
+                    <Grid Grid.Row="1" Grid.Column="1" Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Base" Style="{StaticResource MiniHeaders}" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="0" Grid.Column="0" x:Name="textBoxBase" Style="{StaticResource TextBoxForm}" Text="{Binding BasePriceTextBox,UpdateSourceTrigger=PropertyChanged,StringFormat=F2}" IsReadOnly="True"/>
+                        <TextBlock Grid.Row="0" Grid.Column="1" Text="IVA" Style="{StaticResource MiniHeaders}" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBoxTax" Style="{StaticResource TextBoxForm}" Text="{Binding TaxAmountTextBox,UpdateSourceTrigger=PropertyChanged, StringFormat=F2}" IsReadOnly="True"/>
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="Total" Style="{StaticResource MiniHeaders}" VerticalAlignment="Center"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="textBoxTotal" Style="{StaticResource TextBoxForm}" Text="{Binding TotalPriceTextBox,UpdateSourceTrigger=PropertyChanged,StringFormat=F2}" IsReadOnly="True"/>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </Border>
             <Button x:Name="btnPayment" Grid.Row="4" Content="Pagament" Style="{StaticResource WindowButtons}" Command="{Binding PaymentDialogCommand}"/>
             <Button x:Name="btnAccept" Grid.Row="5" Content="Finalitzar" Style="{StaticResource WindowButtons}" Command="{Binding FinishCommand}"/>
         </Grid>
+
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="120"/>
             </Grid.RowDefinitions>
-            <DataGrid Margin="12" ItemsSource="{Binding CollectionItems}" SelectedItem="{Binding SelectedCollectionItem}" ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}" CellStyle="{StaticResource CellStyle}" RowHeight="50" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserReorderColumns="False">
-                <DataGrid.RowStyle>
-                    <Style TargetType="DataGridRow">                     
-                        <Style.Triggers>                            
+            <ui:DataGrid Margin="12" ItemsSource="{Binding CollectionItems}" SelectedItem="{Binding SelectedCollectionItem}" ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}" CellStyle="{StaticResource CellStyle}" RowHeight="50" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserReorderColumns="False">
+                <ui:DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
                             <DataTrigger Binding="{Binding HasDeliveryNumber}"
                              Value="True">
                                 <Setter Property="Foreground" Value="#2D3648"/>
@@ -120,14 +123,15 @@
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </DataGrid.RowStyle>
+                </ui:DataGrid.RowStyle>
 
-                <DataGrid.Columns>
+                <ui:DataGrid.Columns>
                     <DataGridTextColumn Header="Nom" Binding="{Binding Model.PricelistCodeNavigation.Name}" Width="2*" IsReadOnly="True" FontSize="20"/>
                     <DataGridTextColumn Header="Peçes" Binding="{Binding Model.NumPieces, UpdateSourceTrigger=PropertyChanged}" Width="1*" FontSize="24" EditingElementStyle="{StaticResource EditCellStyle}"/>
                     <DataGridTextColumn Header="Preu unitari" Binding="{Binding Model.PricelistCodeNavigation.UnitPrice,UpdateSourceTrigger=PropertyChanged}" Width="1*" FontSize="24" EditingElementStyle="{StaticResource EditCellStyle}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+                </ui:DataGrid.Columns>
+            </ui:DataGrid>
+            <Border Grid.Row="1" BorderBrush="#DDD" BorderThickness="1" CornerRadius="8" Margin="5" Background="White">
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -172,6 +176,7 @@
                     </DatePicker.Resources>
                 </DatePicker>
             </Grid>
+                </Border>
         </Grid>
     </Grid>
 </Window>
