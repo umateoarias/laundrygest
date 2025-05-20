@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Laundrygest_desktop.Views" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-        xmlns:ViewModel="clr-namespace:Laundrygest_desktop.ViewModel" Background="#F4F4F4" d:DataContext="{d:DesignInstance Type=ViewModel:CollectionDialogViewModel}" x:Class="Laundrygest_desktop.Views.CollectionDialog"
+        xmlns:ViewModel="clr-namespace:Laundrygest_desktop.ViewModel" Background="LightGray" d:DataContext="{d:DesignInstance Type=ViewModel:CollectionDialogViewModel}" x:Class="Laundrygest_desktop.Views.CollectionDialog"
         mc:Ignorable="d"
         Title="Recollida" Height="770" Width="1500" ResizeMode="NoResize">
     <Grid Margin="10">
@@ -32,7 +32,7 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" x:Name="clerkText" FontSize="20" FontWeight="Bold" Text="Dependent" VerticalAlignment="Center" Margin="10,0,0,0"/>
-                    <Button Grid.Column="1" x:Name="btnClerk" FontSize="13" Margin="15,0,0,0" Height="30" Width="120" Content="Seleccionar" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding SelectClerkCommand}"/>
+                    <Button Grid.Column="1" x:Name="btnClerk" Background="PaleTurquoise" FontSize="13" Margin="15,0,0,0" Height="30" Width="120" Content="Seleccionar" HorizontalAlignment="Left" VerticalAlignment="Center" Command="{Binding SelectClerkCommand}"/>
                     <TextBox Grid.Column="2" x:Name="textBoxClerk" Width="300" Height="35" Text="{Binding ClerkTextBox}" IsReadOnly="True" FontSize="24" VerticalContentAlignment="Center"/>
                 </Grid>
             </Border>
@@ -47,7 +47,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="0" x:Name="clientText" FontWeight="Bold" FontSize="20" Text="Client" VerticalAlignment="Center" Margin="10,5,0,0"/>
-                    <Button Grid.Column="1" x:Name="btnSearchClient" Visibility="{Binding BtnVisibility}" Content="Buscar" Margin="15,7,0,0" FontSize="13" Command="{Binding SearchClientCommand}" Height="30" Width="90" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    <Button Grid.Column="1" x:Name="btnSearchClient" Background="PaleTurquoise" Visibility="{Binding BtnVisibility}" Content="Buscar" Margin="15,7,0,0" FontSize="13" Command="{Binding SearchClientCommand}" Height="30" Width="90" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                     <Grid Grid.Column="1" Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -58,13 +58,13 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="Nom" VerticalAlignment="Center" FontSize="16" FontWeight="SemiBold"/>
-                        <TextBox Grid.Row="0" Grid.Column="0" x:Name="textBoxFirstName" Width="240" Height="45" Text="{Binding ClientFirstNameTextBox}" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <TextBox Grid.Row="0" Grid.Column="0" x:Name="textBoxFirstName" Width="240" Height="45" VerticalContentAlignment="Center" FontSize="14" Text="{Binding ClientFirstNameTextBox}" HorizontalAlignment="Right" Margin="0,0,20,0"/>
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="Cognom"  VerticalAlignment="Center" FontSize="16" FontWeight="SemiBold"/>
-                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBoxLastName"  Width="240" Height="45" Text="{Binding ClientLastNameTextBox}" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBoxLastName"  Width="240" Height="45" VerticalContentAlignment="Center" FontSize="14" Text="{Binding ClientLastNameTextBox}" HorizontalAlignment="Right" Margin="0,0,20,0"/>
                         <TextBlock Grid.Row="1" Grid.Column="0" Text="Telefon" VerticalAlignment="Center" FontSize="16" FontWeight="SemiBold"/>
-                        <TextBox Grid.Row="1" Grid.Column="0" x:Name="textBoxTelephone"  Width="240" Height="45" Text="{Binding ClientTelephoneTextBox}" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <TextBox Grid.Row="1" Grid.Column="0" x:Name="textBoxTelephone"  Width="240" Height="45" VerticalContentAlignment="Center" FontSize="14" Text="{Binding ClientTelephoneTextBox}" HorizontalAlignment="Right" Margin="0,0,20,0"/>
                         <TextBlock Grid.Row="1" Grid.Column="1" Text="NIF"  VerticalAlignment="Center" FontSize="16" FontWeight="SemiBold"/>
-                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="textBoxNIF"  Width="240" Height="45" Text="{Binding ClientNifTextBox}" HorizontalAlignment="Right" Margin="0,0,20,0"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="textBoxNIF"  Width="240" Height="45" VerticalContentAlignment="Center" FontSize="14" Text="{Binding ClientNifTextBox}" HorizontalAlignment="Right" Margin="0,0,20,0"/>
                     </Grid>
                 </Grid>
             </Border>
@@ -73,8 +73,8 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btnAddClothe" Grid.Column="0" Content="{Binding BtnContent1}" FontSize="16" Command="{Binding OpenAddPieceCommand}" Margin="10"/>
-                <Button x:Name="btnRemoveClothe" Grid.Column="1" Content="{Binding BtnContent2}" FontSize="16" Command="{Binding DeleteSelectedCommand}" Margin="10"/>
+                <Button x:Name="btnAddClothe" Grid.Column="0" Background="PaleTurquoise" Content="{Binding BtnContent1}" FontSize="16" Command="{Binding OpenAddPieceCommand}" Margin="10"/>
+                <Button x:Name="btnRemoveClothe" Grid.Column="1" Background="PaleTurquoise" Content="{Binding BtnContent2}" FontSize="16" Command="{Binding DeleteSelectedCommand}" Margin="10"/>
             </Grid>
             <Border Grid.Row="3" BorderBrush="#DDD" BorderThickness="1" CornerRadius="8" Margin="5" Background="White">
                 <Grid>
@@ -93,16 +93,16 @@
                             <RowDefinition/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Base" FontSize="16" VerticalAlignment="Center" FontWeight="SemiBold"/>
-                        <TextBox Grid.Row="0" Grid.Column="0" x:Name="textBoxBase"  Width="240" Height="45" Text="{Binding BasePriceTextBox,UpdateSourceTrigger=PropertyChanged,StringFormat=F2}" IsReadOnly="True"/>
+                        <TextBox Grid.Row="0" Grid.Column="0" x:Name="textBoxBase" Width="240" Height="45" VerticalContentAlignment="Center" FontSize="14" Text="{Binding BasePriceTextBox,UpdateSourceTrigger=PropertyChanged,StringFormat=F2}" IsReadOnly="True"/>
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="IVA" FontSize="16" VerticalAlignment="Center" FontWeight="SemiBold"/>
-                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBoxTax"  Width="240" Height="45" Text="{Binding TaxAmountTextBox,UpdateSourceTrigger=PropertyChanged, StringFormat=F2}" IsReadOnly="True"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" x:Name="textBoxTax"  Width="240" Height="45" VerticalContentAlignment="Center" FontSize="14" Text="{Binding TaxAmountTextBox,UpdateSourceTrigger=PropertyChanged, StringFormat=F2}" IsReadOnly="True"/>
                         <TextBlock Grid.Row="1" Grid.Column="1" Text="Total" FontSize="16" VerticalAlignment="Center" FontWeight="SemiBold"/>
-                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="textBoxTotal"  Width="240" Height="45" Text="{Binding TotalPriceTextBox,UpdateSourceTrigger=PropertyChanged,StringFormat=F2}" IsReadOnly="True"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" x:Name="textBoxTotal"  Width="240" Height="45" VerticalContentAlignment="Center" FontSize="14" Text="{Binding TotalPriceTextBox,UpdateSourceTrigger=PropertyChanged,StringFormat=F2}" IsReadOnly="True"/>
                     </Grid>
                 </Grid>
             </Border>
-            <Button x:Name="btnPayment" Grid.Row="4" Content="Pagament" Margin="10" FontSize="20" Command="{Binding PaymentDialogCommand}"/>
-            <Button x:Name="btnAccept" Grid.Row="5" Content="Finalitzar" Margin="10" FontSize="20" Command="{Binding FinishCommand}"/>
+            <Button x:Name="btnPayment" Grid.Row="4" Background="PaleTurquoise" Content="Pagament" Margin="10" FontSize="20" Command="{Binding PaymentDialogCommand}"/>
+            <Button x:Name="btnAccept" Grid.Row="5" Background="PaleTurquoise" Content="Finalitzar" Margin="10" FontSize="20" Command="{Binding FinishCommand}"/>
         </Grid>
 
         <Grid Grid.Column="1">
@@ -110,27 +110,28 @@
                 <RowDefinition/>
                 <RowDefinition Height="120"/>
             </Grid.RowDefinitions>
-            <ui:DataGrid Margin="12" ItemsSource="{Binding CollectionItems}" SelectedItem="{Binding SelectedCollectionItem}" RowHeight="50" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserReorderColumns="False">
-                <ui:DataGrid.RowStyle>
+            <DataGrid Margin="12" ItemsSource="{Binding CollectionItems}" SelectedItem="{Binding SelectedCollectionItem}" RowHeight="50" CanUserAddRows="False" SelectionMode="Single" AutoGenerateColumns="False" CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="False" CanUserReorderColumns="False">
+                <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding HasDeliveryNumber}"
                              Value="True">
-                                <Setter Property="Foreground" Value="#2D3648"/>
+                                <Setter Property="Background" Value="#2D3648"/>
+                                <Setter Property="Foreground" Value="White"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding IsMarked}" Value="True">
-                                <Setter Property="Foreground" Value="Green"/>
+                                <Setter Property="Background" Value="Green"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </ui:DataGrid.RowStyle>
+                </DataGrid.RowStyle>
 
-                <ui:DataGrid.Columns>
+                <DataGrid.Columns>
                     <DataGridTextColumn Header="Nom" Binding="{Binding Model.PricelistCodeNavigation.Name}" Width="2*" IsReadOnly="True" FontSize="20"/>
                     <DataGridTextColumn Header="Peçes" Binding="{Binding Model.NumPieces, UpdateSourceTrigger=PropertyChanged}" Width="1*" FontSize="24" EditingElementStyle="{StaticResource EditCellStyle}"/>
                     <DataGridTextColumn Header="Preu unitari" Binding="{Binding Model.PricelistCodeNavigation.UnitPrice,UpdateSourceTrigger=PropertyChanged}" Width="1*" FontSize="24" EditingElementStyle="{StaticResource EditCellStyle}"/>
-                </ui:DataGrid.Columns>
-            </ui:DataGrid>
+                </DataGrid.Columns>
+            </DataGrid>
             <Border Grid.Row="1" BorderBrush="#DDD" BorderThickness="1" CornerRadius="8" Margin="5" Background="White">
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>

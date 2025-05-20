@@ -14,12 +14,15 @@ namespace Laundrygest_desktop.Data
     {
         private static string ConfigFileName = "appsettings.json";
         private static JsonSerializerOptions JsonOptions = new JsonSerializerOptions { WriteIndented = true };
+        
+
+        private static readonly string ConfigFilePath =
+            Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"..","..","..", ConfigFileName));
 
         public static Settings GetSettings()
         {
             var builder = new ConfigurationBuilder()
-                .SetBasePath(AppContext.BaseDirectory)
-                .AddJsonFile(ConfigFileName, optional: false, reloadOnChange: true);
+                .AddJsonFile(ConfigFilePath, optional: false, reloadOnChange: true);
 
             IConfigurationRoot configuration = builder.Build();
 
@@ -34,7 +37,7 @@ namespace Laundrygest_desktop.Data
         {
             var configObj = new { Settings = s };
             string json = JsonSerializer.Serialize(configObj, JsonOptions);
-            File.WriteAllText(ConfigFileName, json);
+            File.WriteAllText(ConfigFilePath, json);
         }
 
     }

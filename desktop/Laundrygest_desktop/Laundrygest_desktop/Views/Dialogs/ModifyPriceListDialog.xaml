@@ -28,9 +28,9 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="2" Margin="10" FontSize="14" Content="Afegir" Command="{Binding AddPieceCommand}"/>
-            <Button Grid.Column="1" Margin="10" FontSize="14"  Content="Modificar seleccionat" Command="{Binding UpdatePieceCommand}"/>
-            <Button Grid.Column="0" Margin="10" FontSize="14" Content="Eliminar seleccionat" Command="{Binding DeletePieceCommand}"/>
+            <Button Grid.Column="2" Margin="10" FontSize="14" Background="PaleTurquoise" Content="Afegir" Command="{Binding AddPieceCommand}"/>
+            <Button Grid.Column="1" Margin="10" FontSize="14" Background="PaleTurquoise" Content="Modificar seleccionat" Command="{Binding UpdatePieceCommand}"/>
+            <Button Grid.Column="0" Margin="10" FontSize="14" Background="PaleTurquoise" Content="Eliminar seleccionat" Command="{Binding DeletePieceCommand}"/>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="2" Margin="10" Visibility="{Binding visibility}">
             <Grid.ColumnDefinitions>
@@ -44,21 +44,21 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Column="1" Text="Nom" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex"/>
-            <TextBox Grid.Column="1" Grid.Row="0" Style="{StaticResource TextBoxForm}" Width="180" IsReadOnly="False" Text="{Binding nameTextBox}"/>
-            <TextBlock Grid.Column="2" Text="Preu unitari" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex"/>
-            <TextBox Grid.Column="2" Grid.Row="0" Style="{StaticResource TextBoxForm}" Width="180" IsReadOnly="False" Text="{Binding priceTextBox}"/>
-            <TextBlock Grid.Column="3" Text="Numero peçes" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex"/>
-            <TextBox Grid.Column="3" Grid.Row="0" Style="{StaticResource TextBoxForm}" Width="180" IsReadOnly="False" Text="{Binding numPiecesTextBox}"/>
-            <Button Grid.Column="3" Grid.Row="1" Style="{StaticResource WindowButtons}" Command="{Binding ConfirmPieceCommand}" Background="DarkGreen" Content="Confirmar" Margin="15" Width="120"/>
-            <Button Grid.Column="2" Grid.Row="1" Style="{StaticResource WindowButtons}" Command="{Binding CancelPieceCommand}" Background="DarkRed" Content="Cancel·lar" Margin="15" Width="120"/>
+            <TextBlock Grid.Column="1" Text="Nom"/>
+            <TextBox Grid.Column="1" Grid.Row="0" Height="45" Width="180" IsReadOnly="False" Text="{Binding nameTextBox}"/>
+            <TextBlock Grid.Column="2" Text="Preu unitari"/>
+            <TextBox Grid.Column="2" Grid.Row="0" Height="45" Width="180" IsReadOnly="False" Text="{Binding priceTextBox}"/>
+            <TextBlock Grid.Column="3" Text="Numero peçes"/>
+            <TextBox Grid.Column="3" Grid.Row="0" Height="45" Width="180" IsReadOnly="False" Text="{Binding numPiecesTextBox}"/>
+            <Button Grid.Column="3" Grid.Row="1" Foreground="White" FontSize="14" Command="{Binding ConfirmPieceCommand}" Background="DarkGreen" Content="Confirmar" Margin="15" Width="120"/>
+            <Button Grid.Column="2" Grid.Row="1" Foreground="White" FontSize="14" Command="{Binding CancelPieceCommand}" Background="DarkRed" Content="Cancel·lar" Margin="15" Width="120"/>
         </Grid>
-        <TextBox Grid.Row="3" Grid.Column="1" Style="{StaticResource TextBoxForm}" Text="{Binding filterTextBox,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Margin="15" IsReadOnly="False">
+        <TextBox Grid.Row="3" Grid.Column="1" Width="300" Height="45" VerticalContentAlignment="Center" Text="{Binding filterTextBox,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Right" Margin="15" IsReadOnly="False">
             <TextBox.InputBindings>
                 <KeyBinding Command="{Binding EnterPressedCommand}" Key="Return"/>
             </TextBox.InputBindings>
         </TextBox>
-        <DataGrid Grid.Column="1" Grid.Row="4" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding PriceList}" SelectionMode="Single" HorizontalAlignment="Stretch" SelectedItem="{Binding selectedPricelist}" ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}" CellStyle="{StaticResource CellStyle}" IsReadOnly="True">
+        <DataGrid Grid.Column="1" Grid.Row="4" AutoGenerateColumns="False" CanUserAddRows="False" ItemsSource="{Binding PriceList}" SelectionMode="Single" HorizontalAlignment="Stretch" SelectedItem="{Binding selectedPricelist}" IsReadOnly="True" GridLinesVisibility="Horizontal">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nom" Binding="{Binding Name}" Width="2*"/>
                 <DataGridTextColumn Header="Preu unitari" Binding="{Binding UnitPrice}" Width="1*"/>

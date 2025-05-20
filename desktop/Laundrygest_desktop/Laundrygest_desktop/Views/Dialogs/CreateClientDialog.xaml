@@ -75,8 +75,8 @@
 
             <DockPanel Grid.Row="3" Margin="0,30,0,0" LastChildFill="False">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right">
-                    <Button Content="{Binding ConfirmButtonContent}" Background="MidnightBlue" Width="100" Margin="5,0" Command="{Binding CreateClientCommand}" CommandParameter="{Binding ElementName=CreateClientWindow}"/>
-                    <Button Content="Cancel·lar"  Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=CreateClientWindow}" Width="100" Margin="5,0"/>
+                    <Button Content="{Binding ConfirmButtonContent}" Background="PaleTurquoise" Width="100" Margin="5,0" Command="{Binding CreateClientCommand}" CommandParameter="{Binding ElementName=CreateClientWindow}"/>
+                    <Button Content="Cancel·lar"  Command="{Binding CloseWindowCommand}" Background="LightGray" CommandParameter="{Binding ElementName=CreateClientWindow}" Width="100" Margin="5,0"/>
                 </StackPanel>
             </DockPanel>
         </Grid>
