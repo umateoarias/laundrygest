@@ -12,8 +12,8 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Button Content="{Binding}" 
-                            Style="{StaticResource WindowButtons}"
                             FontSize="24"
+                            Background="PaleTurquoise"
                             Margin="10"
                             Height="50"
                             Command="{Binding DataContext.SelectOptionCommand, RelativeSource={RelativeSource AncestorType=Window}}"

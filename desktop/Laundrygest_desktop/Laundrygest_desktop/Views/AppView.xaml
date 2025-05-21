@@ -24,7 +24,10 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Grid.Column="1" Grid.Row="1" x:Name="btnAppRegister" Style="{StaticResource WindowButtons}" Height="90" Width="160" Content="Alta usuaris"/>
-        <Button Grid.Column="3" Grid.Row="1" x:Name="btnAppNotifications" Style="{StaticResource WindowButtons}" Height="90" Width="160" Content="Configurar notificacions"/>
+        <Button Grid.Column="1" Grid.Row="1" x:Name="btnAppRegister" FontSize="16" Background="PaleTurquoise" Height="90" Width="160" Content="Alta usuaris"/>
+        <Button Grid.Column="3" Grid.Row="1" x:Name="btnAppNotifications" FontSize="16" Background="PaleTurquoise" Height="90" Width="160">
+            <TextBlock Text="CONFIGURAR NOTIFICACIONS" TextWrapping="Wrap"/>
+            
+        </Button>
     </Grid>
 </UserControl>

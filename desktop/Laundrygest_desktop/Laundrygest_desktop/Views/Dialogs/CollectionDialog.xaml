@@ -121,6 +121,7 @@
                             </DataTrigger>
                             <DataTrigger Binding="{Binding IsMarked}" Value="True">
                                 <Setter Property="Background" Value="Green"/>
+                                <Setter Property="Foreground" Value="White"/>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>

@@ -32,8 +32,8 @@
                     <KeyBinding Command="{Binding EnterPressedCommand}" Key="Return"/>
                 </TextBox.InputBindings>
             </TextBox>
-            <Button Grid.Column="2" Command="{Binding SearchClientCommand}" FontSize="20" Height="120" Width="180" Content="Buscar" Margin="12"/>
-            <Button Grid.Column="3" Command="{Binding CreateClientCommand}" FontSize="20" Height="120" Width="180" Content="Crear"/>
+            <Button Grid.Column="2" Command="{Binding SearchClientCommand}" FontSize="20" Height="120" Width="180" Content="Buscar" Background="PaleTurquoise" Margin="12"/>
+            <Button Grid.Column="3" Command="{Binding CreateClientCommand}" FontSize="20" Height="120" Width="180" Content="Crear" Background="PaleTurquoise"/>
         </Grid>
         <DataGrid Grid.Row="1" Margin="25,25,25,25" ItemsSource="{Binding ClientList}" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="18" IsReadOnly="True" SelectionMode="Single" MinRowHeight="50" GridLinesVisibility="Horizontal" BorderThickness="2">
             <DataGrid.BorderBrush>

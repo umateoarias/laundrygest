@@ -7,16 +7,16 @@
         mc:Ignorable="d"
         Title="SelectCollectionDialog" Height="563" Width="1000">
     <Grid>
-        <DataGrid Margin="25" ItemsSource="{Binding Collections}" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="18" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" IsReadOnly="True" SelectionMode="Single" MinRowHeight="50" ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}" CellStyle="{StaticResource CellStyle}">
+        <DataGrid Margin="25" ItemsSource="{Binding Collections}" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="18" IsReadOnly="True" SelectionMode="Single" MinRowHeight="50" GridLinesVisibility="Horizontal">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Numero recollida" Binding="{Binding Number}" Width="2*"/>
+                <DataGridTextColumn Header="Numero recollida" Binding="{Binding Number}" Width="3*"/>
                 <DataGridTextColumn Header="Data entrega" Binding="{Binding DueDate}" Width="3*"/>                
                 <DataGridTextColumn Header="Pendent" Binding="{Binding DueTotal}" Width="2*"/>
                 <DataGridTextColumn Header="Total" Binding="{Binding Total}" Width="2*"/>
                 <DataGridTemplateColumn Width="2*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Seleccionar" Height="45" Style="{StaticResource WindowButtons}"
+                            <Button Content="Seleccionar" Height="45"
                 Command="{Binding DataContext.SelectCollectionButtonCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                 CommandParameter="{Binding}">
                             </Button>
