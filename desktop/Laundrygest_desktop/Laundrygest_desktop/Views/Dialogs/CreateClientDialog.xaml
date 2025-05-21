@@ -39,38 +39,38 @@
 
                 <StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
                     <TextBlock Text="Nom" />
-                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding FirstNameTextBox}"/>
+                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding FirstNameTextBox}" VerticalContentAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Row="1" Grid.Column="0" Margin="5">
                     <TextBlock Text="Telèfon" />
-                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding TelephoneTextBox}"/>
+                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding TelephoneTextBox}" VerticalContentAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Row="2" Grid.Column="0" Margin="5">
                     <TextBlock Text="Codi postal" />
-                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding PostalCodeTextBox}"/>
+                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding PostalCodeTextBox}" VerticalContentAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Row="3" Grid.Column="0" Margin="5">
                     <TextBlock Text="Localitat" />
-                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding LocalityTextBox}"/>
+                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding LocalityTextBox}" VerticalContentAlignment="Center"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="1" Margin="5">
                     <TextBlock Text="Cognom" />
-                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding LastNameTextBox}"/>
+                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding LastNameTextBox}" VerticalContentAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Row="1" Grid.Column="1" Margin="5">
                     <TextBlock Text="Adreça" />
-                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding AddressTextBox}"/>
+                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding AddressTextBox}" VerticalContentAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Row="2" Grid.Column="1" Margin="5">
                     <TextBlock Text="Email" />
-                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding EmailTextBox}"/>
+                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding EmailTextBox}" VerticalContentAlignment="Center"/>
                 </StackPanel>
             </Grid>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,20,0,0">
                 <CheckBox x:Name="checkBoxEmpresa" Content="És empresa?" VerticalAlignment="Center" Margin="0,0,10,0" IsChecked="{Binding CheckBoxState}"/>
-                <TextBox Width="200"  IsEnabled="{Binding IsChecked, ElementName=checkBoxEmpresa}" Height="35" Text="{Binding NifTextBox}"/>
+                <TextBox Width="200"  IsEnabled="{Binding IsChecked, ElementName=checkBoxEmpresa}" Height="35" Text="{Binding NifTextBox}" VerticalContentAlignment="Center"/>
             </StackPanel>
 
             <DockPanel Grid.Row="3" Margin="0,30,0,0" LastChildFill="False">

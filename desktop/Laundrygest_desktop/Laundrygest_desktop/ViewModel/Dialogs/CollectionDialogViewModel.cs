@@ -58,7 +58,7 @@ namespace Laundrygest_desktop.ViewModel
             {
                 _isDelivery = false;
                 CollectionItems = new ObservableCollection<CollectionItemViewModel>();
-                DueDatePicker = CreatedAtDatePicker.AddDays(7);
+                DueDatePicker = CreatedAtDatePicker.AddDays(ConfigController.GetSettings().DaysDelay);
                 var newCollectionItems = CollectionItems.Select(x => x.Model).ToList();
                 Collection c = new Collection() { CreatedAt = CreatedAtDatePicker, CollectionTypeCode = _collectionType, CollectionItems = newCollectionItems };
                 _collection = _collectionRepository.PostCollection(c).Result;
@@ -420,7 +420,7 @@ namespace Laundrygest_desktop.ViewModel
 
         private void OpenClerkWindow()
         {
-            var dialog = new SelectOptionButtonsDialog(new List<string>() { "Joan", "Maria" });
+            var dialog = new SelectOptionButtonsDialog(ConfigController.GetSettings().Clerks);
             var result = dialog.ShowDialog();
 
             if (result == true)

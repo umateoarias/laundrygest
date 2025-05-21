@@ -51,7 +51,7 @@
                 <DataGridTemplateColumn Width="1*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Seleccionar" Height="45" 
+                            <Button Content="Seleccionar" Height="45" Background="LightGray"
                         Command="{Binding DataContext.SelectClientButtonCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                         CommandParameter="{Binding}">
                             </Button>

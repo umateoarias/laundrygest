@@ -2,6 +2,7 @@
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Laundrygest_desktop.Model;
+using Laundrygest_desktop.ViewModel.Dialogs;
 
 namespace Laundrygest_desktop
 {
@@ -25,6 +27,7 @@ namespace Laundrygest_desktop
         private string _addressTextBox;
         private string _nifTextBox;
         private string _postalCodeTextBox;
+        private List<string> _clerkList;
         public ConfigViewModel()
         {
             //ConfigController.BuildFile();
@@ -33,6 +36,7 @@ namespace Laundrygest_desktop
 
             ConnectCommand = new DelegateCommand(TryConnect);
             SaveSettings = new DelegateCommand(SaveConfig);
+            ClerkSettings = new DelegateCommand(OpenClerkSettings);
         }
 
         private void LoadSettings()
@@ -46,6 +50,17 @@ namespace Laundrygest_desktop
             AddressTextBox = _settings.Company.Address ?? "";
             PostalCodeTextBox = _settings.Company.PostalCode ?? "";
             NifTextBox = _settings.Company.Nif ?? "";
+            ClerkList = _settings.Clerks ?? new List<string>();
+        }
+
+        public List<string> ClerkList
+        {
+            get => _clerkList;
+            set
+            {
+                _clerkList = value;
+                OnPropertyChanged();
+            }
         }
 
         public string PostalCodeTextBox
@@ -133,6 +148,20 @@ namespace Laundrygest_desktop
 
         public ICommand ConnectCommand { get; }
         public ICommand SaveSettings { get; }
+        public ICommand ClerkSettings { get; }
+
+        public void OpenClerkSettings()
+        {
+            var vm = new ClerkCrudViewModel();
+            vm.Items = new ObservableCollection<string>(ClerkList);
+            var dialog = new ClerkCRUD_Dialog(vm);
+            var result = dialog.ShowDialog();
+
+            if (result==true)
+            {
+                ClerkList = vm.Items.ToList();
+            }
+        }
 
         public void SaveConfig()
         {
@@ -145,6 +174,7 @@ namespace Laundrygest_desktop
             _settings.Company.Nif = NifTextBox;
             _settings.Company.Address = AddressTextBox;
             _settings.Company.PostalCode = PostalCodeTextBox;
+            _settings.Clerks = ClerkList;
             ConfigController.SaveSettings(_settings);
         }
 
@@ -153,6 +183,7 @@ namespace Laundrygest_desktop
             var result = await BaseRepository.ConnectAsync(UrlApiTextBox);
             if (result)
             {
+                BaseRepository.urlApi = UrlApiTextBox;
                 MessageBox.Show("S'ha connectat a l'API correctament", "", MessageBoxButton.OK);
             }
             else

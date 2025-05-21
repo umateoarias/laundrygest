@@ -76,7 +76,7 @@
               "RelativeDocumentMoniker": "Webservice_Laundrygest\\Controllers\\DeliveriesController.cs",
               "ToolTip": "C:\\Users\\cv\\source\\repos\\umateoarias\\laundrygest\\webservice\\Webservice_Laundrygest\\Webservice_Laundrygest\\Controllers\\DeliveriesController.cs",
               "RelativeToolTip": "Webservice_Laundrygest\\Controllers\\DeliveriesController.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAywEQAAABIAAAAAAAAAA==",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAywDkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-19T15:01:05.776Z",
               "EditorCaption": ""
@@ -103,8 +103,7 @@
               "RelativeToolTip": "Webservice_Laundrygest\\Controllers\\CollectionsController.cs",
               "ViewState": "AgIAACIAAAAAAAAAAAAQwEEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-15T14:51:06.01Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-15T14:51:06.01Z"
             },
             {
               "$type": "Document",
@@ -164,8 +163,7 @@
               "RelativeToolTip": "Webservice_Laundrygest\\Controllers\\StatsController.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAAQwCsAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-13T15:39:25.559Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-13T15:39:25.559Z"
             }
           ]
         }

@@ -209,6 +209,10 @@
     <Compile Include="ViewModel\AppViewModel.cs" />
     <Compile Include="ViewModel\ClothesViewModel.cs" />
     <Compile Include="ViewModel\Data\InvoiceCollectionViewModel.cs" />
+    <Compile Include="ViewModel\Dialogs\ClerkCrudViewModel.cs" />
+    <Compile Include="Views\Dialogs\ClerkCRUD_Dialog.xaml.cs">
+      <DependentUpon>ClerkCRUD_Dialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\Dialogs\CollectionDialogViewModel.cs" />
     <Compile Include="ViewModel\ConfigViewModel.cs" />
     <Compile Include="ViewModel\Data\CollectionItemViewModel.cs" />
@@ -289,6 +293,10 @@
     <Page Include="Themes\Metro\Theme.Colors.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Dialogs\ClerkCRUD_Dialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AppView.xaml">
       <SubType>Designer</SubType>
@@ -402,6 +410,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Fonts\RobotoFlex.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fonts\Manrope-VariableFont_wght.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />

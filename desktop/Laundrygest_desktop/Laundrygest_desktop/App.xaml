@@ -10,8 +10,12 @@
                 <ResourceDictionary Source="Themes/Metro/Metro.MSControls.Toolkit.Implicit.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Teal.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="Window">
+                <Setter Property="FontFamily" Value="Manrope ExtraLight" />
+            </Style>
 
             <Style x:Key="MenuButtonStyle" TargetType="RadioButton">
                 <Setter Property="Background" Value="Transparent"/>
@@ -37,11 +41,11 @@
                 </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsChecked" Value="True">
-                        <Setter Property="Background" Value="#717D96"/>
+                        <Setter Property="Background" Value="PaleTurquoise"/>
                         <Setter Property="Foreground" Value="Black"/>
                     </Trigger>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#717D96"/>
+                        <Setter Property="Background" Value="LightCyan"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
