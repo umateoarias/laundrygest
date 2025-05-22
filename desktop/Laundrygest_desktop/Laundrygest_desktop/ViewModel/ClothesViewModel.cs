@@ -24,7 +24,6 @@ namespace Laundrygest_desktop
 
         public ICommand CreateCollectionCommand { get; }
         public ICommand FinishCollectionCommand { get; }
-        public ICommand ModifyCollectionCommand { get; }
         public ICommand ModifyPriceListCommand { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;

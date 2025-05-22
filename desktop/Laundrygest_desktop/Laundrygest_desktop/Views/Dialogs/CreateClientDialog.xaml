@@ -7,7 +7,7 @@
         xmlns:ViewModel="clr-namespace:Laundrygest_desktop.ViewModel" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" x:Class="Laundrygest_desktop.Views.CreateClientDialog"
         mc:Ignorable="d"
         x:Name="CreateClientWindow"
-        Title="CreateClientDialog" Height="550" Width="650" Background="#F4F4F4"
+        Title="CreateClientDialog" Height="550" Width="650" Background="LightGray"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <!--<Window.DataContext>
         <ViewModel:CreateClientDialogViewModel/>

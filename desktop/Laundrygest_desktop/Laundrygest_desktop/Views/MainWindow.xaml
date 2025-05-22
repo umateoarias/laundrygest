@@ -39,11 +39,11 @@
                              CommandParameter="stats"
                            Content="Estadistiques"/>
 
-                <RadioButton x:Name="btnApp" GroupName="Menu" 
+                <!--<RadioButton x:Name="btnApp" GroupName="Menu" 
                              Command="{Binding NavigateCommand}"
                              Style="{StaticResource MenuButtonStyle}"
                              CommandParameter="app"
-                           Content="App"/>
+                           Content="App"/>-->
 
                 <RadioButton x:Name="btnConfig" GroupName="Menu" 
                              Command="{Binding NavigateCommand}"

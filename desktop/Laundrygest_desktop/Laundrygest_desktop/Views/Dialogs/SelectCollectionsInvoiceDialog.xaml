@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Laundrygest_desktop.Views.Dialogs"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Background="LightGray"
         Title="SelectCollectionsInvoiceDialog" Height="770" Width="1500" WindowState="Maximized" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>

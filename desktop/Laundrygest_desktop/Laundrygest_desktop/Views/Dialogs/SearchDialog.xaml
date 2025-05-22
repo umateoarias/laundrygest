@@ -7,7 +7,7 @@
       xmlns:ViewModel="clr-namespace:Laundrygest_desktop.ViewModel" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" xmlns:i="http://schemas.microsoft.com/xaml/behaviors" x:Class="Laundrygest_desktop.Views.SearchClientDialog"
       mc:Ignorable="d" 
       d:DesignHeight="770" d:DesignWidth="1500"
-      Title="Buscar client"
+      Title="Buscar client" Background="LightGray"
     ResizeMode="NoResize" WindowState="Maximized">
 
     <Window.DataContext>
@@ -19,23 +19,27 @@
             <RowDefinition Height="200"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="1" Width="900" Height="120" VerticalContentAlignment="Center" FontSize="28" Text="{Binding FilterText,UpdateSourceTrigger=PropertyChanged}" >
-                <TextBox.InputBindings>
-                    <KeyBinding Command="{Binding EnterPressedCommand}" Key="Return"/>
-                </TextBox.InputBindings>
-            </TextBox>
-            <Button Grid.Column="2" Command="{Binding SearchClientCommand}" FontSize="20" Height="120" Width="180" Content="Buscar" Background="PaleTurquoise" Margin="12"/>
-            <Button Grid.Column="3" Command="{Binding CreateClientCommand}" FontSize="20" Height="120" Width="180" Content="Crear" Background="PaleTurquoise"/>
-        </Grid>
-        <DataGrid Grid.Row="1" Margin="25,25,25,25" ItemsSource="{Binding ClientList}" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="18" IsReadOnly="True" SelectionMode="Single" MinRowHeight="50" GridLinesVisibility="Horizontal" BorderThickness="2">
+        <Border Grid.Row="0" BorderBrush="#DDD" Margin="25" BorderThickness="1" CornerRadius="8"  Background="White">
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Column="1" Width="900" Height="100" VerticalContentAlignment="Center" FontSize="28" Text="{Binding FilterText,UpdateSourceTrigger=PropertyChanged}" >
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="{Binding EnterPressedCommand}" Key="Return"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button Grid.Column="2" Command="{Binding SearchClientCommand}" FontSize="20" Height="100" Width="180" Content="Buscar" Background="PaleTurquoise" Margin="12"/>
+                <Button Grid.Column="3" Command="{Binding CreateClientCommand}" FontSize="20" Height="100" Width="180" Content="Crear" Background="PaleTurquoise"/>
+            </Grid>
+        </Border>
+        <DataGrid Grid.Row="1" Margin="25" ItemsSource="{Binding ClientList}" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="18" IsReadOnly="True" SelectionMode="Single" MinRowHeight="50" GridLinesVisibility="Horizontal" BorderThickness="2">
             <DataGrid.BorderBrush>
                 <SolidColorBrush Color="{DynamicResource Color_000}"/>
             </DataGrid.BorderBrush>

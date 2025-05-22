@@ -30,7 +30,6 @@ namespace Laundrygest_desktop
         private List<string> _clerkList;
         public ConfigViewModel()
         {
-            //ConfigController.BuildFile();
             _settings = ConfigController.GetSettings();
             LoadSettings();
 
@@ -142,7 +141,7 @@ namespace Laundrygest_desktop
         }
         public string UrlApiTextBox
         {
-            get { return _urlApiTextBox; }
+            get => _urlApiTextBox;
             set { _urlApiTextBox = value; OnPropertyChanged(); }
         }
 
