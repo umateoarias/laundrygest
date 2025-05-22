@@ -4,4 +4,6 @@
     <string name="title_home">Prices</string>
     <string name="title_dashboard">Tickets</string>
     <string name="title_timetable">Timetable</string>
+    <string name="timetable_info">Monday to Friday:\n 09:30–13:30 / 16:30–19:30\n Saturdays:\n 09:00–13:00</string>
+    <string name="opening_hours">Opening hours</string>
 </resources>
