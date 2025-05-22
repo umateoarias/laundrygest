@@ -25,12 +25,12 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button Grid.Column="1" Grid.Row="1" x:Name="btnStatsGeneral" Style="{StaticResource WindowButtons}" Command="{Binding GeneralStatsCommand}" Height="240" Width="480" Content="Estadistica general" FontSize="40" Margin="5,5,5,5"/>
-        <Button Grid.Column="1" Grid.Row="2" x:Name="btnMonthlySummary" Style="{StaticResource WindowButtons}" Command="{Binding MonthlyStatsCommand}" Height="240" Width="480" Content="Resum mensual" FontSize="40" Margin="5,5,5,5"/>
+        <Button Grid.Column="1" Grid.Row="1" x:Name="btnStatsGeneral" Command="{Binding GeneralStatsCommand}" Height="240" Width="480" Content="Estadistica general" FontSize="40" Margin="15" Background="PaleTurquoise"/>
+        <Button Grid.Column="1" Grid.Row="2" x:Name="btnMonthlySummary" Command="{Binding MonthlyStatsCommand}" Height="240" Width="480" Content="Resum mensual" FontSize="40" Margin="15" Background="PaleTurquoise"/>
         <!--<Button Grid.Column="3" Grid.Row="1" x:Name="btnDailyCollections" Style="{StaticResource WindowButtons}" Height="120" Width="240" Content="Recollides dies"/>-->
         <!--<Button Grid.Column="1" Grid.Row="2" x:Name="btnBestCustomers" Style="{StaticResource WindowButtons}" Height="120" Width="240" Content="Millors clients"/>-->
-        <Button Grid.Column="1" Grid.Row="3" x:Name="btnInvoices" Style="{StaticResource WindowButtons}" Command="{Binding CreateInvoiceCommand}" Height="240" Width="480" Content="Facturar client" FontSize="40" Margin="5,5,5,5"/>
+        <Button Grid.Column="1" Grid.Row="3" x:Name="btnInvoices" Command="{Binding CreateInvoiceCommand}" Height="240" Width="480" Content="Facturar client" FontSize="40" Margin="15" Background="PaleTurquoise"/>
         <!--<Button Grid.Column="2" Grid.Row="2" x:Name="btnInvoiceList" Style="{StaticResource WindowButtons}" Height="120" Width="240" Content="Llistat factures"/>-->
-        <Button Grid.Column="4" Grid.Row="3" x:Name="btnModClients" Style="{StaticResource WindowButtons}" Command="{Binding ModifyClientsCommand}" Height="90" Width="160" Content="Modifica clients" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,100,0"/>
+        <Button Grid.Column="4" Grid.Row="3" x:Name="btnModClients" FontSize="14" Command="{Binding ModifyClientsCommand}" Height="90" Width="160" Content="Modifica clients" VerticalAlignment="Bottom" Background="PaleTurquoise" HorizontalAlignment="Right" Margin="0,0,100,0"/>
     </Grid>
 </UserControl>

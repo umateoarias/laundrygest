@@ -18,7 +18,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Background="#E2E7F0">
+        <Border Grid.Column="0" Background="LightGray">
             <StackPanel>
                 <RadioButton x:Name="btnClothes" GroupName="Menu"                            
                            Content="Roba"
@@ -39,11 +39,11 @@
                              CommandParameter="stats"
                            Content="Estadistiques"/>
 
-                <RadioButton x:Name="btnApp" GroupName="Menu" 
+                <!--<RadioButton x:Name="btnApp" GroupName="Menu" 
                              Command="{Binding NavigateCommand}"
                              Style="{StaticResource MenuButtonStyle}"
                              CommandParameter="app"
-                           Content="App"/>
+                           Content="App"/>-->
 
                 <RadioButton x:Name="btnConfig" GroupName="Menu" 
                              Command="{Binding NavigateCommand}"
@@ -53,7 +53,7 @@
             </StackPanel>
         </Border>
 
-        <Border Grid.Column="1" Background="#ECF0F1">
+        <Border Grid.Column="1" Background="White">
             <ContentControl Content="{Binding SelectedView}">
                 <ContentControl.Resources>
                     <DataTemplate DataType="{x:Type local:ClothesViewModel}">

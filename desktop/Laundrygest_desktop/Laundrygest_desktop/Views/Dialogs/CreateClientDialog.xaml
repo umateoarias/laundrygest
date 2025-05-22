@@ -7,7 +7,7 @@
         xmlns:ViewModel="clr-namespace:Laundrygest_desktop.ViewModel" xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" x:Class="Laundrygest_desktop.Views.CreateClientDialog"
         mc:Ignorable="d"
         x:Name="CreateClientWindow"
-        Title="CreateClientDialog" Height="550" Width="650" Background="#F4F4F4"
+        Title="CreateClientDialog" Height="550" Width="650" Background="LightGray"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <!--<Window.DataContext>
         <ViewModel:CreateClientDialogViewModel/>
@@ -20,7 +20,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <ui:TextBlock Text="Crear client" FontSize="26" FontWeight="Bold" Margin="0,0,0,20" />
+            <TextBlock Text="Crear client" FontSize="26" FontWeight="Bold" Margin="0,0,0,20" />
 
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
@@ -39,44 +39,44 @@
 
                 <StackPanel Grid.Row="0" Grid.Column="0" Margin="5">
                     <TextBlock Text="Nom" />
-                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding FirstNameTextBox}"/>
+                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding FirstNameTextBox}" VerticalContentAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Row="1" Grid.Column="0" Margin="5">
                     <TextBlock Text="Telèfon" />
-                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding TelephoneTextBox}"/>
+                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding TelephoneTextBox}" VerticalContentAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Row="2" Grid.Column="0" Margin="5">
                     <TextBlock Text="Codi postal" />
-                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding PostalCodeTextBox}"/>
+                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding PostalCodeTextBox}" VerticalContentAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Row="3" Grid.Column="0" Margin="5">
                     <TextBlock Text="Localitat" />
-                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding LocalityTextBox}"/>
+                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding LocalityTextBox}" VerticalContentAlignment="Center"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="0" Grid.Column="1" Margin="5">
                     <TextBlock Text="Cognom" />
-                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding LastNameTextBox}"/>
+                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding LastNameTextBox}" VerticalContentAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Row="1" Grid.Column="1" Margin="5">
                     <TextBlock Text="Adreça" />
-                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding AddressTextBox}"/>
+                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding AddressTextBox}" VerticalContentAlignment="Center"/>
                 </StackPanel>
                 <StackPanel Grid.Row="2" Grid.Column="1" Margin="5">
                     <TextBlock Text="Email" />
-                    <TextBox Style="{StaticResource ModernTextBox}" Text="{Binding EmailTextBox}"/>
+                    <TextBox Margin="0,5,0,0" Height="35" Text="{Binding EmailTextBox}" VerticalContentAlignment="Center"/>
                 </StackPanel>
             </Grid>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,20,0,0">
                 <CheckBox x:Name="checkBoxEmpresa" Content="És empresa?" VerticalAlignment="Center" Margin="0,0,10,0" IsChecked="{Binding CheckBoxState}"/>
-                <TextBox Width="200"  IsEnabled="{Binding IsChecked, ElementName=checkBoxEmpresa}" Style="{StaticResource ModernTextBox}" Text="{Binding NifTextBox}"/>
+                <TextBox Width="200"  IsEnabled="{Binding IsChecked, ElementName=checkBoxEmpresa}" Height="35" Text="{Binding NifTextBox}" VerticalContentAlignment="Center"/>
             </StackPanel>
 
             <DockPanel Grid.Row="3" Margin="0,30,0,0" LastChildFill="False">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right">
-                    <Button Content="{Binding ConfirmButtonContent}" Style="{StaticResource PrimaryButton}" Width="100" Margin="5,0" Command="{Binding CreateClientCommand}" CommandParameter="{Binding ElementName=CreateClientWindow}"/>
-                    <Button Content="Cancel·lar" Style="{StaticResource SecondaryButton}" Command="{Binding CloseWindowCommand}" CommandParameter="{Binding ElementName=CreateClientWindow}" Width="100" Margin="5,0"/>
+                    <Button Content="{Binding ConfirmButtonContent}" Background="PaleTurquoise" Width="100" Margin="5,0" Command="{Binding CreateClientCommand}" CommandParameter="{Binding ElementName=CreateClientWindow}"/>
+                    <Button Content="Cancel·lar"  Command="{Binding CloseWindowCommand}" Background="LightGray" CommandParameter="{Binding ElementName=CreateClientWindow}" Width="100" Margin="5,0"/>
                 </StackPanel>
             </DockPanel>
         </Grid>

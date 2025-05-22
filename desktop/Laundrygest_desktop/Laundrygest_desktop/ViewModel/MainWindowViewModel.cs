@@ -35,24 +35,15 @@ namespace Laundrygest_desktop
 
         private void Navigate(string destination)
         {
-            switch (destination)
+            SelectedView = destination switch
             {
-                case "clothes":
-                    SelectedView = new ClothesViewModel();
-                    break;
-                case "quilts":
-                    SelectedView = new QuiltsViewModel();
-                    break;
-                case "stats":
-                    SelectedView = new StatsViewModel();
-                    break;
-                case "app":
-                    SelectedView = new AppViewModel();
-                    break;
-                case "config":
-                    SelectedView = new ConfigViewModel();
-                    break;
-            }
+                "clothes" => new ClothesViewModel(),
+                "quilts" => new QuiltsViewModel(),
+                "stats" => new StatsViewModel(),
+                "app" => new AppViewModel(),
+                "config" => new ConfigViewModel(),
+                _ => SelectedView
+            };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

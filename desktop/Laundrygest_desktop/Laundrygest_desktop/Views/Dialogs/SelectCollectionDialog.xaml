@@ -3,20 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Laundrygest_desktop.Views.Dialogs"
+        xmlns:local="clr-namespace:Laundrygest_desktop.Views.Dialogs" Background="LightGray"
         mc:Ignorable="d"
         Title="SelectCollectionDialog" Height="563" Width="1000">
     <Grid>
-        <DataGrid Margin="25" ItemsSource="{Binding Collections}" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="18" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" IsReadOnly="True" SelectionMode="Single" MinRowHeight="50" ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}" CellStyle="{StaticResource CellStyle}">
+        <DataGrid Margin="25" ItemsSource="{Binding Collections}" BorderThickness="1" BorderBrush="Black" HorizontalContentAlignment="Center" AutoGenerateColumns="False" CanUserAddRows="False" FontSize="18" IsReadOnly="True" SelectionMode="Single" MinRowHeight="50" GridLinesVisibility="Horizontal">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Numero recollida" Binding="{Binding Number}" Width="2*"/>
-                <DataGridTextColumn Header="Data entrega" Binding="{Binding DueDate}" Width="3*"/>                
-                <DataGridTextColumn Header="Pendent" Binding="{Binding DueTotal}" Width="2*"/>
-                <DataGridTextColumn Header="Total" Binding="{Binding Total}" Width="2*"/>
+                <DataGridTextColumn Header="Numero recollida" Binding="{Binding Number}" Width="3*"/>
+                <DataGridTextColumn Header="Data entrega" Binding="{Binding DueDate, StringFormat={}{0:dd/MM/yyyy}}" Width="3*"/>
+                <DataGridTextColumn Header="Pendent" Binding="{Binding DueTotal, StringFormat={}{0:F2}}" Width="2*"/>
+                <DataGridTextColumn Header="Total" Binding="{Binding Total, StringFormat={}{0:F2}}" Width="2*"/>
                 <DataGridTemplateColumn Width="2*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Seleccionar" Height="45" Style="{StaticResource WindowButtons}"
+                            <Button Content="Seleccionar" Height="45" Background="LightGray"
                 Command="{Binding DataContext.SelectCollectionButtonCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
                 CommandParameter="{Binding}">
                             </Button>

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Laundrygest_desktop.Views.Dialogs"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Background="LightGray"
         Title="SelectCollectionsInvoiceDialog" Height="770" Width="1500" WindowState="Maximized" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
@@ -12,7 +12,7 @@
             <RowDefinition Height="120"/>
         </Grid.RowDefinitions>
         <DataGrid Margin="20"  Grid.Row="0" ItemsSource="{Binding Collections}" SelectionMode="Single" AutoGenerateColumns="False"
-                  MinRowHeight="50" ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}" CellStyle="{StaticResource CellStyle}" ColumnWidth="*">
+                  MinRowHeight="50" ColumnWidth="*" GridLinesVisibility="Horizontal" FontSize="16" BorderBrush="Black" BorderThickness="1">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Header="" Binding="{Binding IsSelected}"/>
                 <DataGridTextColumn Header="Nº Recollida" Binding="{Binding Model.Number}" IsReadOnly="True"/>
@@ -26,8 +26,8 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Style="{StaticResource WindowButtons}" Command="{Binding ConfirmCommand}"  Content="Acceptar" Background="LimeGreen" Height="60" Width="180" HorizontalAlignment="Right" Margin="30"/>
-            <Button Grid.Column="0" Style="{StaticResource WindowButtons}" Command="{Binding CancelCommand}" Content="Cancel·lar" Background="DarkRed" Height="60" Width="180" HorizontalAlignment="Right"/>
+            <Button Grid.Column="1" Command="{Binding ConfirmCommand}" FontSize="16" Content="Acceptar" Background="LimeGreen" Height="60" Width="180" HorizontalAlignment="Right" Margin="30"/>
+            <Button Grid.Column="0" Command="{Binding CancelCommand}" FontSize="16" Content="Cancel·lar" Background="DarkRed" Height="60" Width="180" HorizontalAlignment="Right"/>
         </Grid>
     </Grid>
 </Window>

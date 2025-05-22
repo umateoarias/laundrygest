@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Laundrygest_desktop.Views.Dialogs"
-        mc:Ignorable="d"
+        mc:Ignorable="d" Background="LightGray"
         Title="SelectPieceDialog" Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
@@ -20,25 +20,27 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="0.1*"/>
         </Grid.RowDefinitions>
-        <DataGrid Grid.Row="1" Grid.Column="1" Margin="15" ColumnHeaderStyle="{StaticResource ColumnHeaderStyle}" CellStyle="{StaticResource CellStyle}" RowHeight="45" ItemsSource="{Binding pricelists}" SelectedItem="{Binding SelectedPricelist}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" CanUserAddRows="False">
+        <DataGrid Grid.Row="1" Grid.Column="1" Margin="15" BorderBrush="Black" BorderThickness="1" GridLinesVisibility="Horizontal" RowHeight="45" ItemsSource="{Binding pricelists}" SelectedItem="{Binding SelectedPricelist}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nom" Binding="{Binding Name}" Width="2*"/>
                 <DataGridTextColumn Header="Preu unitari" Binding="{Binding UnitPrice}" Width="1*"/>
                 <DataGridTextColumn Header="Numero peçes" Binding="{Binding NumPieces}" Width="1*"/>
             </DataGrid.Columns>
         </DataGrid>
-        <Grid Grid.Column="1" Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Text="Buscar" FontFamily="/Fonts/RobotoFlex.ttf#Roboto Flex" FontSize="16" VerticalAlignment="Center" Margin="30,0,0,0"/>
-            <TextBox Text="{Binding filterTextBox,UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxForm}" HorizontalAlignment="Right" IsReadOnly="False">
-                <TextBox.InputBindings>
-                    <KeyBinding Command="{Binding EnterPressedCommand}" Key="Return"/>
-                </TextBox.InputBindings>
-            </TextBox>
-            <Button Grid.Column="1" Style="{StaticResource WindowButtons}" Content="Selecciona" Height="40" Width="180" Margin="15" Command="{Binding SelectPieceCommand}"/>
-        </Grid>
+        <Border Grid.Column="1" Grid.Row="2" BorderBrush="#DDD" Margin="15" BorderThickness="1" CornerRadius="8"  Background="White">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Buscar" FontSize="16" VerticalAlignment="Center" Margin="30,0,0,0"/>
+                <TextBox Text="{Binding filterTextBox,UpdateSourceTrigger=PropertyChanged}" Width="240" Height="30" HorizontalAlignment="Right" IsReadOnly="False">
+                    <TextBox.InputBindings>
+                        <KeyBinding Command="{Binding EnterPressedCommand}" Key="Return"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button Grid.Column="1" Background="PaleTurquoise" FontSize="14" Content="Selecciona" Height="40" Width="180" Margin="15" Command="{Binding SelectPieceCommand}"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>
