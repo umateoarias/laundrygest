@@ -32,8 +32,7 @@ class PrincipalActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_principal)
                 ?.let { it as NavHostFragment }
                 ?.navController ?: throw IllegalStateException("NavHostFragment not found")
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_timetable
@@ -42,7 +41,6 @@ class PrincipalActivity : AppCompatActivity() {
         var client_code = intent.getIntExtra("client_code", 0)
         val dashboardViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
         dashboardViewModel.setClientCode(client_code)
-//        setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
 }
