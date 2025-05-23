@@ -25,17 +25,12 @@ namespace Laundrygest_desktop.Data
                 AddExtension = true,
                 OverwritePrompt = true
             };
-
             bool? resultado = dialogo.ShowDialog();
-
             if (resultado != true || string.IsNullOrWhiteSpace(dialogo.FileName))
             {
                 return;
             }
-
             var path = dialogo.FileName;
-
-
             var document = Document.Create(container =>
             {
                 container.Page(page =>
@@ -53,26 +48,21 @@ namespace Laundrygest_desktop.Data
                                     column.Item()
                                         .Text($"Factura Nº {invoice.Number}")
                                         .FontSize(20).SemiBold().FontColor(Colors.Cyan.Darken2);
-
                                     column.Item().Text(text =>
                                     {
                                         text.Span("Data factura: ").SemiBold();
                                         text.Span($"{invoice.InvoiceDate:d}");
                                     });
                                 });
-
                                 row.ConstantItem(100).Height(50).Placeholder();
                             });
                             column.Spacing(10);
-
                             column.Item().Row(row =>
                             {
                                 row.RelativeItem().Column(column =>
                                 {
                                     column.Spacing(2);
-
                                     column.Item().BorderBottom(1).PaddingBottom(5).Text(company.CompanyName).SemiBold();
-
                                     column.Item().Text(company.OwnerName);
                                     column.Item().Text(company.OwnerLastName);
                                     column.Item().Text(company.Telephone);
@@ -84,21 +74,18 @@ namespace Laundrygest_desktop.Data
                                 row.RelativeItem().Column(column =>
                                 {
                                     column.Spacing(2);
-
                                     column.Item().BorderBottom(1).PaddingBottom(5).Text("Client").SemiBold();
-
                                     column.Item().Text(invoice.ClientCodeNavigation.FirstName);
                                     column.Item().Text(invoice.ClientCodeNavigation.LastName);
                                     column.Item().Text(invoice.ClientCodeNavigation.Telephone);
                                     column.Item().Text(invoice.ClientCodeNavigation.Nif);
-                                    column.Item().Text($"{invoice.ClientCodeNavigation.Address}, {invoice.ClientCodeNavigation.Locality}");
+                                    column.Item()
+                                        .Text(
+                                            $"{invoice.ClientCodeNavigation.Address}, {invoice.ClientCodeNavigation.Locality}");
                                     column.Item().Text(invoice.ClientCodeNavigation.PostalCode);
                                 });
-                                
                             });
-
                             column.Item().LineHorizontal(1);
-
                             column.Item().Table(table =>
                             {
                                 table.ColumnsDefinition(columns =>
@@ -116,7 +103,6 @@ namespace Laundrygest_desktop.Data
                                     header.Cell().Element(CellStyle).AlignRight().Text("Quantitat");
                                     header.Cell().Element(CellStyle).AlignRight().Text("P. Unitari");
                                     header.Cell().Element(CellStyle).AlignRight().Text("Total");
-
                                     static IContainer CellStyle(IContainer container)
                                     {
                                         return container.DefaultTextStyle(x => x.SemiBold())
@@ -133,14 +119,16 @@ namespace Laundrygest_desktop.Data
                                     foreach (var collectionItem in collection.CollectionItems)
                                     {
                                         table.Cell().Text("");
-                                        table.Cell().Element(RowStyle).Text(collectionItem.PricelistCodeNavigation.Name);
+                                        table.Cell().Element(RowStyle)
+                                            .Text(collectionItem.PricelistCodeNavigation.Name);
                                         table.Cell().Element(RowStyle).Text(collectionItem.NumPieces.ToString());
-                                        table.Cell().Element(RowStyle).Text(collectionItem.PricelistCodeNavigation.UnitPrice.ToString("C", currenctyCulture));
+                                        table.Cell().Element(RowStyle)
+                                            .Text(collectionItem.PricelistCodeNavigation.UnitPrice.ToString("C",
+                                                currenctyCulture));
                                         table.Cell().Element(RowStyle)
                                             .Text((collectionItem.NumPieces *
                                                    collectionItem.PricelistCodeNavigation.UnitPrice)
                                                 .ToString("C", currenctyCulture));
-
                                         static IContainer RowStyle(IContainer container)
                                         {
                                             return container.PaddingVertical(2).AlignRight();
@@ -153,16 +141,17 @@ namespace Laundrygest_desktop.Data
                                     }
                                 }
                             });
-
                             column.Spacing(10);
-
-                            column.Item().Text($"Base imposable: {invoice.TaxBase.Value.ToString("C", currenctyCulture)}").AlignRight();
-                            column.Item().Text($"IVA: {invoice.TaxAmount.Value.ToString("C",currenctyCulture)}").AlignRight();
-                            column.Item().Text($"Total: {invoice.TotalBase.Value.ToString("C",currenctyCulture)}").AlignRight();
+                            column.Item()
+                                .Text($"Base imposable: {invoice.TaxBase.Value.ToString("C", currenctyCulture)}")
+                                .AlignRight();
+                            column.Item().Text($"IVA: {invoice.TaxAmount.Value.ToString("C", currenctyCulture)}")
+                                .AlignRight();
+                            column.Item().Text($"Total: {invoice.TotalBase.Value.ToString("C", currenctyCulture)}")
+                                .AlignRight();
                         });
                 });
             });
-
             document.GeneratePdf(path);
         }
     }

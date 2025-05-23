@@ -20,7 +20,7 @@ namespace Laundrygest_desktop.Data.Repositories
             return invoice;
         }
 
-        public async Task<bool> PutClient(int invoice_id, Invoice invoice)
+        public async Task<bool> PutInvoice(int invoice_id, Invoice invoice)
         {
             try
             {

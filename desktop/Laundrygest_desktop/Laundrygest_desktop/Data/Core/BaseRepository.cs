@@ -32,16 +32,8 @@ namespace Laundrygest_desktop.Data
             }
         }
 
-        public async Task<T> MakeRequest<T>(string url, string method, object JSONcontent)
-        ////  url: Url a partir de la base 
-        ////  method: "GET"/"POST"/"PUT"/"DELETE"
-        ////  JSONcontent: objecte que se li passa en el body 
-        ////  responseType:  tipus d'objecte que torna el Web Service (=typeof(tipus))
-
-        ////  contentType: "application/json" en els casos que el Web Service torni objectes
-        {
+        public async Task<T> MakeRequest<T>(string url, string method, object JSONcontent) {
             HttpResponseMessage response;
-
             if (method == "DELETE")
             {
                 response = httpClient.DeleteAsync(url).Result;
@@ -62,8 +54,6 @@ namespace Laundrygest_desktop.Data
             {
                 var objectJson = JsonConvert.SerializeObject(JSONcontent);
                 var content = new StringContent(objectJson, Encoding.UTF8, contentType);
-
-
                 if (method == "POST")
                 {
                     response = httpClient.PostAsync(url, content).Result;
@@ -77,7 +67,6 @@ namespace Laundrygest_desktop.Data
             {
                 return default;
             }
-
             if (response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();

@@ -119,7 +119,7 @@ namespace Laundrygest_desktop
                 newInvoice.TotalBase = cTotal;
                 newInvoice.TaxAmount = cTaxAmount;
                 newInvoice.TaxBase = cTaxBase;
-                var resultPut = invoiceRepo.PutClient(newInvoice.Id, newInvoice).Result;
+                var resultPut = invoiceRepo.PutInvoice(newInvoice.Id, newInvoice).Result;
                 if (resultPut)
                 {
                     var printInvoice = invoiceRepo.GetInvoice(newInvoice.Id).Result;
