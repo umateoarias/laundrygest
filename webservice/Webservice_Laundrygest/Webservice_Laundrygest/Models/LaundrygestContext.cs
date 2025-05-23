@@ -32,7 +32,7 @@ public partial class LaundrygestContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=.\\sqlexpress; Trusted_Connection=True; Encrypt=false; Database=Laundrygest");
-    //=> optionsBuilder.UseSqlServer("Server=127.0.0.1,1433;Database=Laundrygest;User ID=sa;Password=Unikb6847;Authentication=SqlPassword;Encrypt=True;TrustServerCertificate=True;);
+    // => optionsBuilder.UseSqlServer("Server=127.0.0.1,1433;Database=Laundrygest;User ID=sa;Password=Unikb6847;Authentication=SqlPassword;Encrypt=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

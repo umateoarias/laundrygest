@@ -21,7 +21,9 @@ namespace Laundrygest_desktop.Data
         {
             try
             {   
-                httpClient = new HttpClient { BaseAddress = new Uri(url)};
+                HttpClientHandler handler = new HttpClientHandler();
+                handler.ServerCertificateCustomValidationCallback = (sender, certificate, chain, errors) => true;
+                httpClient = new HttpClient(handler) { BaseAddress = new Uri(url) };
                 HttpResponseMessage response = httpClient.GetAsync(url + "clients/").Result;
 
                 return response.IsSuccessStatusCode;                
