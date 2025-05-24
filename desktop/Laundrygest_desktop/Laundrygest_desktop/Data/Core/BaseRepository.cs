@@ -11,8 +11,8 @@ namespace Laundrygest_desktop.Data
 {
     public class BaseRepository
     {
-        public static string urlApi = "https://localhost:7194/api/";
-        private static HttpClient httpClient = new HttpClient { BaseAddress = new Uri(urlApi) };
+        public static string urlApi = ConfigController.GetSettings().ApiUrl;
+        private static HttpClient httpClient = new HttpClient { BaseAddress = new Uri(ConfigController.GetSettings().ApiUrl) };
 
         readonly string ErrorMessage = "Error en l'API.";
         readonly string contentType = "application/json";

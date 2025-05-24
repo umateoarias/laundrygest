@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Laundrygest_desktop.Views.Dialogs"
         mc:Ignorable="d" Background="LightGray"
-        Title="SelectPieceDialog" Height="450" Width="800"
+        Title="Selecciona peça" Height="450" Width="800"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
     <Grid>

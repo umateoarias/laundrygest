@@ -53,8 +53,13 @@ namespace Webservice_Laundrygest.Controllers
             {
                 return BadRequest();
             }
+            _context.Entry(delivery).State = EntityState.Modified;
 
-            _context.Update(delivery);
+            foreach (var item in delivery.CollectionItems)
+            {
+                var existingCollectionItem = await _context.CollectionItems.FirstOrDefaultAsync(c => c.Id==item.Id);
+                if (existingCollectionItem != null) existingCollectionItem.DeliveryNumber = delivery.Number;
+            }
 
             try
             {

@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Laundrygest_desktop.Data;
 
 namespace Laundrygest_desktop
 {
@@ -29,6 +30,7 @@ namespace Laundrygest_desktop
         public MainWindowViewModel()
         {
             QuestPDF.Settings.License = LicenseType.Community;
+            BaseRepository.ConnectAsync(ConfigController.GetSettings().ApiUrl);
             NavigateCommand = new DelegateCommand<string>(Navigate);
             SelectedView = new ClothesViewModel();
         }

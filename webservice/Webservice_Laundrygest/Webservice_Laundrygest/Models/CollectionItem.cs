@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace Webservice_Laundrygest.Models;
@@ -26,5 +27,6 @@ public partial class CollectionItem
     public virtual Collection CollectionNumberNavigation { get; set; } = null!;
 
     public virtual Delivery? DeliveryNumberNavigation { get; set; }
+    [ForeignKey("PricelistCode")]
     public virtual Pricelist PricelistCodeNavigation { get; set; } = null!;
 }
